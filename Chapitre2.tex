@@ -1,0 +1,291 @@
+\chapter{Sp\'ecifications des besoins et Planification du projet}
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce chapitre formalise les besoins du projet \textit{HireCue} et rassemble les principaux elements ayant structure son evolution pendant le stage. L'accent est d'abord mis sur les acteurs du systeme, puis sur les besoins fonctionnels et non fonctionnels ainsi que sur le backlog produit. La lecture se prolonge ensuite par l'architecture globale de l'application, les diagrammes UML utiles a la comprehension du systeme et l'etude des logiciels et des technologies mobilises.
+
+\section{Sp\'ecifications des besoins}
+
+La specification des besoins permet de definir les fonctionnalites attendues de la plateforme \textit{HireCue} ainsi que les contraintes de qualite qui encadrent leur mise en oeuvre. Dans un projet de recrutement intelligent, cette etape est importante, car elle relie les attentes des utilisateurs, les choix techniques et les objectifs metier.
+
+\subsection{Identification des acteurs}
+
+Dans un systeme d'information, un acteur designe toute entite humaine ou technique qui interagit avec l'application ou participe a l'execution de certaines fonctions. Dans \textit{HireCue}, cette notion ne se limite pas aux utilisateurs finaux, puisque plusieurs services d'IA, workflows d'automatisation et systemes externes interviennent aussi dans le traitement des donnees et dans l'execution du processus de recrutement.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Acteur} & \textbf{Role principal} \\
+\hline
+Candidat & Consulte les offres, suit ses candidatures, accede au rapport de score, visualise la roadmap de competences et interagit avec le chatbot associe a sa progression. \\
+\hline
+Recruteur & Gere les offres, consulte les profils, analyse les scores, exploite les recommandations IA, prepare les entretiens et utilise les outils de reengagement et de sourcing. \\
+\hline
+Administrateur & Supervise le fonctionnement global de la plateforme, controle certains traitements transverses et intervient sur la gestion generale des integrations et des utilisateurs. \\
+\hline
+Service IA / LLM & Produit certaines sorties d'analyse ou de generation, comme les explications de score, les recommandations, les roadmaps, les questions personnalisees et les reponses contextuelles du chatbot. \\
+\hline
+Workflows n8n & Orchestrent plusieurs automatisations, notamment l'import d'offres externes, certains flux de sourcing et des traitements relies aux integrations externes. \\
+\hline
+Systeme externe LinkedIn / PhantomBuster & Fournit un support aux operations de sourcing et a certains flux externes relies a la recherche de profils ou a la circulation d'informations entre plateformes. \\
+\hline
+\end{tabular}
+\caption{Identification des acteurs du systeme}
+\end{table}
+
+\subsection{Besoins fonctionnels}
+
+Les besoins fonctionnels correspondent aux services que la plateforme doit rendre aux differents acteurs du recrutement. Dans le cas de \textit{HireCue}, ils depassent la gestion classique des offres et des candidatures. Ils couvrent aussi l'explicabilite des scores, l'accompagnement du candidat, l'assistance au recruteur et l'automatisation de plusieurs operations transverses. Cette extension fonctionnelle n'a pas ete definie de maniere theorique. Elle repond a des besoins identifies pendant le stage, en particulier la clarte des evaluations, la lisibilite des parcours et l'exploitation plus efficace des donnees deja presentes dans la plateforme. C'est pourquoi \textit{HireCue} doit assurer l'authentification et la gestion des roles, la gestion des offres et des candidatures, la consultation d'un rapport de score explicable, la generation de recommandations IA cote recruteur, la production de questions personnalisees pour l'entretien, la construction d'une roadmap de competences, la mise a disposition d'un chatbot RAG, la gestion des notifications et du reengagement, l'import d'offres via \textit{n8n}, le sourcing LinkedIn, le suivi des quotas IA ainsi que la visualisation de tableaux de bord adaptes aux profils utilisateur.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{besoinsfonctionnels}
+\caption{Besoins fonctionnels de la plateforme HireCue}
+\end{figure}
+
+\subsection{Besoins non fonctionnels}
+
+Au-dela des fonctionnalites attendues, \textit{HireCue} doit respecter plusieurs exigences de qualite liees a son usage reel et a la nature heterogene de son architecture. La \textbf{performance} est importante pour garantir des temps de reponse convenables lors de la consultation des dashboards, des rapports ou des parcours candidats. La \textbf{securite} reste essentielle en raison de la sensibilite des donnees traitees et de la multiplicite des roles. La \textbf{fiabilite} et la \textbf{maintenabilite} permettent d'assurer un comportement coherent de la plateforme malgre les interactions entre frontend, backend, services IA et integrations externes. La \textbf{scalabilite} doit permettre d'absorber une hausse du volume de candidatures et de traitements asynchrones. L'\textbf{ergonomie} contribue a rendre les resultats lisibles pour les utilisateurs, tandis que la \textbf{disponibilite}, la \textbf{tracabilite}, la \textbf{gestion des erreurs} et le \textbf{controle des quotas IA} conditionnent la robustesse globale du systeme et la maitrise des traitements couteux.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Besoinsnonfonctionnels}
+\caption{Besoins non fonctionnels de la plateforme HireCue}
+\end{figure}
+
+\subsection{Backlog produit}
+
+Le backlog produit regroupe les principales fonctionnalites a developper, a integrer ou a ameliorer dans le cadre du projet. Il permet d'organiser les priorites en fonction de la valeur metier attendue, de la complexite technique et des dependances existantes entre les differentes briques de la plateforme. Dans le cas de \textit{HireCue}, cette priorisation etait necessaire, car les evolutions ne pouvaient pas etre traitees independamment les unes des autres : l'explicabilite du score, l'accompagnement candidat, les recommandations et les integrations externes devaient progresser de maniere coherente.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{1.2cm}|p{4.5cm}|p{2.5cm}|p{2cm}|p{2cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{ID} & \textbf{Fonctionnalite} & \textbf{ID User Story} & \textbf{Complexite} & \textbf{Priorite} \\
+\hline
+F01 & Authentification et gestion des roles & US01 & Moyenne & Haute \\
+\hline
+F02 & Rapport de score explicable & US02 & Elevee & Haute \\
+\hline
+F03 & Skill Gap Roadmap & US03 & Elevee & Haute \\
+\hline
+F04 & Chatbot RAG & US04 & Elevee & Haute \\
+\hline
+F05 & Recommandations IA & US05 & Elevee & Haute \\
+\hline
+F06 & Questions personnalisees & US06 & Moyenne & Moyenne \\
+\hline
+F07 & Reengagement candidat & US07 & Moyenne & Moyenne \\
+\hline
+F08 & Notifications & US08 & Moyenne & Moyenne \\
+\hline
+F09 & Import d'offres externes via n8n & US09 & Elevee & Haute \\
+\hline
+F10 & Sourcing LinkedIn via PhantomBuster & US10 & Elevee & Moyenne \\
+\hline
+F11 & Dashboard candidat & US11 & Moyenne & Haute \\
+\hline
+F12 & Dashboard recruteur & US12 & Moyenne & Haute \\
+\hline
+F13 & Suivi des quotas IA & US13 & Moyenne & Haute \\
+\hline
+F14 & Journalisation et cache & US14 & Moyenne & Haute \\
+\hline
+\end{tabular}
+\caption{Backlog produit du projet HireCue}
+\end{table}
+\normalsize
+
+\section{Architecture logique et physique globale de l'application}
+
+L'architecture globale permet de comprendre la maniere dont les composants techniques de \textit{HireCue} sont organises et coordonnes. Elle met en evidence les relations entre l'interface utilisateur, la logique metier, les services IA, la base de donnees et les outils d'automatisation mobilises dans le projet. Cette lecture est importante, car une partie essentielle du stage a consiste a faire evoluer des briques deja existantes sans rompre l'equilibre d'ensemble de la plateforme.
+
+\subsection{Architecture physique de l'application}
+
+L'architecture physique de \textit{HireCue} repose sur une organisation distribuee dans laquelle plusieurs briques cooperent par des echanges API. L'utilisateur accede a la plateforme depuis un poste client a travers un navigateur web. Les interfaces sont portees par un frontend React, qui communique avec un backend principal developpe en Node.js et Express. Ce backend centralise la logique metier, l'acces aux donnees et l'orchestration des traitements. Il interagit avec une base de donnees MySQL pour la persistence, avec des services IA Python / LLM pour certaines generations et analyses, ainsi qu'avec des workflows \textit{n8n} pour plusieurs automatisations. Des services externes, tels que LinkedIn et PhantomBuster, interviennent egalement dans certains flux de sourcing ou d'integration. L'ensemble des communications se fait principalement via des APIs REST, ce qui facilite l'interconnexion entre les briques tout en conservant une separation nette des responsabilites.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Architecture_physique}
+\caption{Architecture physique de l'application HireCue}
+\end{figure}
+
+\subsection{Architecture logique de l'application}
+
+Sur le plan logique, \textit{HireCue} peut etre decomposee en plusieurs couches complementaires. La \textbf{couche presentation} regroupe les interfaces React destinees au candidat, au recruteur et a l'administrateur. La \textbf{couche metier} est portee par le backend Node.js / Express et prend en charge les regles de gestion, les routes applicatives, l'orchestration des parcours et la coordination avec les autres services. La \textbf{couche services IA} rassemble les traitements utilises pour expliquer les scores, generer les roadmaps, produire des recommandations ou assister l'entretien. La \textbf{couche donnees} repose sur MySQL et assure la persistence des utilisateurs, des candidatures, des scores, des roadmaps, des notifications et des historiques associes. La \textbf{couche orchestration et automatisation} est principalement assuree par \textit{n8n} et par certains traitements asynchrones relies a la plateforme. Enfin, la \textbf{couche integration externe} couvre les interactions avec LinkedIn, PhantomBuster et d'autres sources externes mobilisees pour le sourcing ou l'import d'offres.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Architecture_logique}
+\caption{Architecture logique de l'application HireCue}
+\end{figure}
+
+\section{Diagrammes UML}
+
+Les diagrammes UML facilitent la comprehension du systeme en offrant une representation synthetique des interactions, des responsabilites et des principales entites manipulees par la plateforme.
+
+\subsection{Diagramme de cas d'utilisation global}
+
+Le diagramme de cas d'utilisation global montre les principales interactions entre les acteurs et les fonctionnalites majeures de \textit{HireCue}. Il fait apparaitre les roles du candidat, du recruteur, de l'administrateur, des services IA et des workflows externes. Cette representation permet de visualiser les cas d'utilisation centraux du projet, notamment la consultation des scores, la generation d'une roadmap, l'exploitation des recommandations, la gestion des offres, l'import d'offres externes et les operations de sourcing.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Casdutilisation_globale}
+\caption{Diagramme de cas d'utilisation global de la plateforme HireCue}
+\end{figure}
+
+\subsection{Diagramme des classes d'analyse global}
+
+Le diagramme des classes d'analyse represente les principales entites metier manipulees par la plateforme et les relations qu'elles entretiennent entre elles. Dans le cas de \textit{HireCue}, il permet de structurer des entites telles que l'utilisateur, le candidat, le recruteur, l'offre, la candidature, le score, la roadmap, la notification, le workflow et la recommandation. Ce diagramme contribue a clarifier l'organisation des donnees et a mieux comprendre la maniere dont les composants fonctionnels s'articulent au sein du systeme.
+
+\IfFileExists{diagramme_classe.png}{
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{diagramme_classe}
+\caption{Diagramme des classes d'analyse global}
+\end{figure}
+}{
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{"diagramme de classe"}
+\caption{Diagramme des classes d'analyse global}
+\end{figure}
+}
+
+\section{\'Etude des outils}
+
+Cette partie presente les logiciels et les technologies mobilises dans le projet, ainsi que les principaux criteres ayant oriente leur choix. L'objectif est de montrer que les outils retenus repondent a des besoins concrets de developpement, d'integration, d'automatisation et d'exploitation des services intelligents.
+
+\subsection{Logiciels utilises}
+
+Le developpement et l'integration de \textit{HireCue} ont mobilise plusieurs logiciels intervenant a differentes etapes du travail, depuis l'edition du code jusqu'aux tests, au versionnement, a l'automatisation et a la redaction du rapport. Leur usage n'est pas uniquement lie au confort de developpement ; il repond aussi a la necessite de verifier les integrations, de suivre les traitements et de maintenir une base de travail suffisamment stable tout au long du stage.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|m{2.5cm}|p{3.5cm}|p{8cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Logo} & \textbf{Nom} & \textbf{Information} \\
+\hline
+-- & Visual Studio Code & Environnement de developpement utilise pour editer le code frontend, backend et certains services associes au projet. \\
+\hline
+-- & Git / GitHub & Outils utilises pour le versionnement du code, le suivi des modifications et la coordination du travail sur les repositories. \\
+\hline
+-- & Postman & Logiciel de test d'API employe pour verifier les routes backend et certaines integrations externes. \\
+\hline
+-- & Docker & Outil utilise pour encapsuler ou executer certaines briques techniques du projet dans un environnement controle. \\
+\hline
+-- & n8n & Plateforme d'automatisation mobilisee pour l'orchestration de workflows, l'import d'offres et certains flux externes. \\
+\hline
+-- & MySQL Workbench / phpMyAdmin & Outils de consultation et d'administration de la base de donnees utilises pour verifier les structures et le contenu des tables. \\
+\hline
+-- & Overleaf & Environnement de redaction LaTeX adapte a la preparation, a la structuration et a la mise en forme du rapport PFE. \\
+\hline
+-- & PhantomBuster & Outil utilise dans certains workflows de sourcing LinkedIn et d'exploitation de profils externes. \\
+\hline
+-- & Power BI & Outil cite dans le contexte projet comme piste ou environnement de visualisation a verifier selon les usages effectifs. \\
+\hline
+\end{tabular}
+\caption{Logiciels utilises dans le projet}
+\end{table}
+\normalsize
+
+\subsection{Technologies utilisees}
+
+Le projet \textit{HireCue} s'appuie sur un ensemble de technologies complementaires, choisies pour couvrir les besoins d'interface, de logique metier, de persistence, de services intelligents et d'integration entre composants. Cette combinaison technologique reflete directement la nature du travail realise, qui demandait a la fois une interface exploitable, un backend robuste, des integrations externes et des briques d'IA encadrees.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|m{2.5cm}|p{3.5cm}|p{8cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Logo} & \textbf{Nom} & \textbf{Information} \\
+\hline
+-- & React.js & Bibliotheque frontend utilisee pour construire les interfaces de la plateforme et structurer les parcours utilisateur. \\
+\hline
+-- & Node.js & Environnement d'execution JavaScript retenu pour le backend principal de l'application. \\
+\hline
+-- & Express.js & Framework backend employe pour structurer les routes, les services metier et les APIs du projet. \\
+\hline
+-- & MySQL & Systeme de gestion de base de donnees utilise pour la persistence des informations metier. \\
+\hline
+-- & Sequelize & ORM utilise pour simplifier l'acces aux donnees et la manipulation des tables MySQL depuis le backend. \\
+\hline
+-- & Python & Langage mobilise pour plusieurs services IA et certaines briques de generation ou d'analyse. \\
+\hline
+-- & Ollama / LLM & Outils utilises pour certaines generations textuelles et pour l'integration de traitements fondes sur des modeles de langage. \\
+\hline
+-- & RAG & Approche utilisee pour structurer le chatbot lie a la roadmap et contextualiser certaines reponses. \\
+\hline
+-- & REST API & Mode de communication principal entre frontend, backend, services IA et integrations externes. \\
+\hline
+-- & Socket.IO & Technologie citee dans le contexte projet comme composant eventuel de communication temps reel, a mobiliser selon les besoins de l'application. \\
+\hline
+-- & Firebase Authentication & Solution citee dans le contexte projet parmi les briques techniques a considerer selon l'architecture et les usages de l'authentification. \\
+\hline
+\end{tabular}
+\caption{Technologies utilisees dans le projet}
+\end{table}
+\normalsize
+
+\subsection{Explication du choix des technologies}
+
+Les choix technologiques retenus dans \textit{HireCue} repondent a plusieurs exigences : performance, maintenabilite, modularite, integration des services IA et capacite d'automatisation. Le frontend devait rester suffisamment souple pour supporter plusieurs parcours utilisateur, tandis que le backend principal devait centraliser la logique metier et communiquer facilement avec une base de donnees, des workflows externes et des services d'IA. Dans cette logique, React s'adapte bien aux interfaces riches et evolutives, Node.js / Express convient au backend principal de la plateforme, et Python / Flask reste plus approprie pour certaines briques IA specialisees. Le choix global repose donc sur une complementarite entre technologies plutot que sur une solution unique appliquee a toutes les couches.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Critere} & \textbf{React.js} & \textbf{Angular} & \textbf{Vue.js} \\
+\hline
+Flexibilite & Tres bonne modularite pour construire des interfaces evolutives et differenciees. & Structure forte et complete, mais plus contraignante pour des evolutions progressives. & Bonne souplesse, mais moins exploitee dans le contexte observe du projet. \\
+\hline
+Courbe d'apprentissage & Progressive et largement documentee. & Plus elevee en raison d'un cadre plus complet et plus directif. & Accessible, avec une prise en main generalement rapide. \\
+\hline
+Ecosysteme & Tres riche, avec une forte adoption et de nombreux composants reutilisables. & Ecosysteme solide, surtout pour des projets fortement structures. & Ecosysteme pertinent, mais moins present dans le projet considere. \\
+\hline
+Adaptation au projet HireCue & Bien adaptee aux dashboards, aux parcours candidats et recruteurs, ainsi qu'aux integrations front multiples. & Possible, mais moins coherente avec l'existant deja construit en React. & Option valable, mais non retenue face a l'existant et aux choix deja stabilises. \\
+\hline
+\end{tabular}
+\caption{Comparaison des technologies frontend}
+\end{table}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3.5cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Critere} & \textbf{Node.js / Express} & \textbf{Python Flask} & \textbf{Choix retenu} \\
+\hline
+Gestion des API & Tres adapte a la centralisation des routes metier et des APIs REST de la plateforme. & Efficace pour exposer des endpoints specialises, mais moins central dans l'architecture globale observee. & Node.js / Express pour le backend principal ; Python Flask pour certains services IA. \\
+\hline
+Integration IA & Possible, mais moins naturel pour certains traitements data ou LLM specialises. & Tres adapte aux services IA, a la generation et a l'orchestration de certains traitements intelligents. & Python Flask pour les briques IA specialisees. \\
+\hline
+Performance & Bonne reactivite pour un backend applicatif oriente APIs et orchestration. & Bonne adequation pour des services cibles, mais souvent employe sur des perimetres plus specialises. & Node.js / Express pour l'orchestration globale ; Python Flask en support IA. \\
+\hline
+Maintenabilite & Favorise une organisation claire des services, routes et repositories dans le backend principal. & Pertinent pour isoler des modules IA, mais moins adapte comme noyau unique de la plateforme dans le contexte observe. & Complementarite entre les deux technologies. \\
+\hline
+Role dans HireCue & Porte la logique metier principale, l'acces aux donnees, les integrations et la coordination des parcours. & Porte certains services IA, certaines generations et des traitements specialises. & Architecture mixte retenue afin de separer coeur applicatif et services IA. \\
+\hline
+\end{tabular}
+\caption{Comparaison des technologies backend et IA}
+\end{table}
+
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+Ce chapitre a permis de formaliser les besoins de la plateforme \textit{HireCue}, de presenter son backlog produit, de decrire son architecture globale, d'introduire les diagrammes UML utiles a sa comprehension et de justifier les principaux outils techniques mobilises dans le projet. Cette base prepare les chapitres suivants, consacres a la conception detaillee et a la realisation des fonctionnalites developpees pendant le stage.

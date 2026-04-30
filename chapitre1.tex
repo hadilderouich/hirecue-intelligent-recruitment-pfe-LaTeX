@@ -1,0 +1,249 @@
+\chapter{Cadre du projet}
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Le projet de fin d'etudes prend place dans un contexte ou les pratiques de recrutement changent rapidement sous l'effet de la numerisation et de l'usage croissant de l'intelligence artificielle. Dans les environnements a fort volume de candidatures, il ne suffit plus de publier des offres et de collecter des CV. Les entreprises doivent aussi traiter des informations heterogenes, reduire le temps consacre au tri manuel et disposer d'une lecture plus fiable des profils avant la prise de decision.
+
+Dans ce cadre, une plateforme de recrutement ne peut plus etre reduite a une simple vitrine d'offres ou a un espace de depot de CV. Elle doit structurer les donnees, fluidifier le parcours candidat, assister le recruteur dans l'analyse et produire des retours suffisamment clairs pour que chaque etape du processus gagne en utilite.
+
+Le travail mene sur \textit{HireCue} s'inscrit directement dans cette evolution. Le stage a porte sur une plateforme deja en service, qu'il fallait enrichir sans fragiliser son fonctionnement global. L'enjeu etait de renforcer l'explicabilite, l'automatisation et la personnalisation des parcours tout en restant coherent avec le socle applicatif existant. Dans cette logique, le present chapitre situe d'abord l'organisme d'accueil, puis replace le projet dans son contexte metier, revient sur l'existant, met en evidence ses limites et precise la demarche retenue.
+
+\section{Presentation de l'organisme d'accueil}
+
+
+
+Le stage s'est deroule au sein de Teligencia Labs, structure evoluant dans un environnement technologique exigeant et oriente vers la conception de solutions numeriques a forte valeur ajoutee. D'apres les informations disponibles dans le contexte du projet, l'entreprise intervient sur des problematiques ou la rigueur technique, la fiabilite des systemes et la capacite d'integration occupent une place centrale. Ce positionnement donne un cadre particulierement pertinent au projet \textit{HireCue}, dont l'evolution mobilise a la fois des choix d'architecture, des traitements applicatifs et des services d'IA.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{logo_teligencia}
+\caption{Logo de Teligencia Labs}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{5cm}|p{9cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Information} & \textbf{Detail} \\
+\hline
+Nom de l'entreprise & Teligencia Labs \\
+\hline
+Date de creation & 2021 \\
+\hline
+Secteurs d'activite & Cybersecurite, solutions numeriques avancees et projets applicatifs intelligents \\
+\hline
+Siege & Tunis \\
+\hline
+Telephone & \textit{A completer} \\
+\hline
+Adresse e-mail & \textit{A completer} \\
+\hline
+\end{tabular}
+\caption{Fiche d'information de l'entreprise d'accueil}
+\end{table}
+
+\subsection{Secteurs d'activite}
+
+Les activites associees a l'entreprise d'accueil montrent une orientation nette vers des projets techniques dans lesquels la qualite de conception et la maitrise des integrations jouent un role important. Dans le cas de \textit{HireCue}, cette orientation se traduit par une plateforme SaaS qui couvre plusieurs dimensions du recrutement : gestion des offres, suivi des candidatures, evaluation, aide a la decision et automatisation de certains flux metier.
+
+L'intelligence artificielle occupe une place reelle dans cette dynamique, mais elle n'est pas mobilisee comme un simple argument technologique. Dans \textit{HireCue}, elle sert avant tout a mieux exploiter les donnees deja presentes dans la plateforme afin de produire des sorties utiles, par exemple pour expliquer un score, proposer une roadmap de competences, suggerer des recommandations ou assister le recruteur dans la preparation de l'entretien.
+
+Cette logique est completee par une dimension d'automatisation, visible notamment dans les imports d'offres, le sourcing, certaines relances et le suivi de traitements transverses. L'enjeu n'est donc pas seulement de digitaliser le recrutement, mais de rendre le processus plus lisible, plus structurant et plus proche des besoins reels des utilisateurs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{Secteur}
+\caption{Secteurs d'activite de l'entreprise d'accueil}
+\end{figure}
+
+\subsection{Organigramme de l'entreprise d'accueil}
+
+L'organisation de l'entreprise peut etre lue a travers plusieurs poles complementaires. La direction generale assure l'orientation strategique des projets. Le pole developpement prend en charge la mise en oeuvre applicative et les integrations techniques. Le pole IA \& Data intervient sur les traitements intelligents, l'exploitation des donnees et la conception des sorties analytiques. Le pole produit veille a l'alignement entre la solution construite et le besoin metier. Enfin, le pole recrutement et relation client maintient le lien avec les usages du terrain et les attentes des utilisateurs finaux.
+
+Une telle structuration favorise la coordination entre des dimensions qui, dans un projet comme \textit{HireCue}, ne peuvent pas etre traitees separement. Les evolutions techniques n'ont de valeur que si elles restent comprehensibles pour les utilisateurs et coherentes avec la realite du recrutement. Ce cadre a donc facilite le travail d'integration et d'amelioration realise pendant le stage.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{Organigramme}
+\caption{Organigramme fonctionnel de l'entreprise d'accueil}
+\end{figure}
+
+\section{Presentation du projet}
+
+\textit{HireCue} est une plateforme SaaS de recrutement intelligente concue pour centraliser plusieurs etapes du processus de recrutement dans un meme environnement. Elle couvre deja la gestion des offres, le suivi des candidatures et differents mecanismes d'evaluation. Le travail realise pendant le stage ne consistait donc pas a construire un systeme a partir de zero, mais a faire evoluer un existant afin d'ameliorer la lisibilite des resultats et l'efficacite de certains parcours.
+
+L'etude des repositories du projet montre une architecture articulee autour d'un frontend React, d'un backend Node.js et Express, d'une base MySQL pilotee via Sequelize, ainsi que de plusieurs services IA developpes en Python. Des mecanismes de cache, des traitements asynchrones et des workflows n8n viennent completer cet ensemble. Cette organisation n'a pas ete retenue de maniere abstraite : elle repond a la necessite d'introduire des fonctionnalites intelligentes sans fragiliser la plateforme principale ni alourdir excessivement les parcours existants.
+
+Dans ce contexte, l'objectif du stage a porte sur des briques precises de \textit{HireCue}, notamment le rapport de score explicable, la roadmap de competences, le chatbot associe, les recommandations recruteur, la generation de questions personnalisees, le reengagement candidat et certaines integrations externes. Ces evolutions ont ete traitees parce qu'elles repondaient a des besoins reels de lisibilite, d'accompagnement et d'automatisation, tout en devant rester compatibles avec le fonctionnement deja en place.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.42\textwidth]{hirecuelogo}
+\caption{Logo de la plateforme HireCue}
+\end{figure}
+
+\section{Etude de l'existant}
+
+L'etude de l'existant a d'abord consiste a situer \textit{HireCue} par rapport a des plateformes de recrutement numerique deja bien installees sur le marche, telles que TanitJobs et Keejob. Ces solutions occupent une place importante dans l'ecosysteme local du recrutement en ligne, en particulier pour la publication des offres, la visibilite des opportunites et la mise en relation entre entreprises et candidats.
+
+Leur apport reste significatif, car elles repondent efficacement aux besoins de base : consulter des annonces, deposer un CV, postuler et permettre au recruteur de recevoir les candidatures. Cette logique reste cependant centree sur la diffusion et sur la centralisation des echanges initiaux, avec peu d'accent mis sur l'analyse approfondie du profil.
+
+L'analyse menee dans le cadre du stage a montre que \textit{HireCue} se positionne sur un perimetre plus large. La plateforme ne cherche pas seulement a publier des offres, mais aussi a exploiter les donnees de candidature pour produire des scores, des explications, des recommandations, des roadmaps de progression et des tableaux de bord plus directement utiles a la decision. C'est dans ce passage d'un job board vers un outil d'orchestration et d'aide a la decision que se situe l'interet principal du projet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{tanitjob}
+\caption{Logo de la plateforme TanitJobs}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{logo_keejob_light}
+\caption{Logo de la plateforme Keejob}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Critere} & \textbf{TanitJobs} & \textbf{Keejob} & \textbf{HireCue} \\
+\hline
+Type de plateforme & Job board et mise en relation & Job board et diffusion d'offres & Plateforme SaaS de recrutement intelligent \\
+\hline
+Fonctionnalites principales & Publication d'offres, consultation d'annonces, depot de CV & Offres d'emploi, recherche de profils, suivi basique des candidatures & Gestion des jobs, suivi des candidatures, rapports, recommandations et tableaux de bord \\
+\hline
+Utilisation de l'IA & Tres limitee ou non mise en avant & Tres limitee ou non mise en avant & Integree pour l'explication, la recommandation et l'assistance \\
+\hline
+Automatisation du recrutement & Faible & Faible a moderee & Presente via workflows, relances et integrations externes \\
+\hline
+Scoring des candidats & Non central & Limite & Oui, avec logique de score et rapports explicables \\
+\hline
+Personnalisation & Standardisee & Standardisee & Plus avancee selon le profil candidat et les besoins recruteur \\
+\hline
+Limites & Approche surtout orientee diffusion d'offres & Automatisation et aide a la decision encore limitees & Complexite technique plus elevee et besoin de maitrise des services IA \\
+\hline
+\end{tabular}
+\caption{Comparaison entre TanitJobs, Keejob et HireCue}
+\end{table}
+
+Cette comparaison met en evidence un point important : les plateformes classiques couvrent correctement la phase d'entree dans le recrutement, mais elles accompagnent moins l'analyse approfondie du profil et la structuration de la decision. C'est precisement cet espace que \textit{HireCue} cherche a occuper.
+
+\section{Critique de l'existant}
+
+Les solutions classiques de recrutement rendent service lorsqu'il s'agit de diffuser des offres et de gerer un premier niveau d'interaction entre candidats et recruteurs. Leur limite apparait des que le volume de candidatures augmente ou que l'entreprise souhaite disposer d'une lecture plus fine des profils. Dans ce cas, le recruteur reste souvent contraint de reconstruire lui-meme une grande partie de l'analyse a partir de CV, de resultats disperses et d'informations peu homogenes.
+
+L'une des limites observees concerne l'interpretation des scores et des evaluations. Dans de nombreux environnements, les resultats existent, mais ils ne sont pas toujours relies a une explication suffisamment claire pour etre utiles dans la decision. Cette difficulte a directement motive plusieurs evolutions apportees a \textit{HireCue}, notamment autour du score report et des sous-scores techniques, psychotechniques ou lies a la personnalite.
+
+Une autre limite touche l'accompagnement du candidat. Les plateformes traditionnelles indiquent generalement l'etat d'une candidature, mais elles expliquent rarement les ecarts de competences ou les axes de progression. Dans le projet traite, cette dimension a ete jugee essentielle, ce qui justifie l'integration d'une roadmap de competences et d'un chatbot contextuel associe.
+
+Enfin, le niveau d'automatisation reste souvent partiel. Les relances, le reengagement de candidats deja identifies, la personnalisation des entretiens ou l'exploitation d'integrations externes demandent encore beaucoup d'interventions manuelles. Ce constat ne remet pas en cause l'utilite des plateformes existantes, mais il montre qu'elles laissent une marge d'amelioration reelle pour une solution comme \textit{HireCue}, dont l'ambition est d'assister plus directement le pilotage du recrutement.
+
+\section{Problematique}
+
+Le recrutement moderne produit une quantite importante de donnees provenant de sources diverses : CV, offres, resultats de tests, historiques de candidature, interactions utilisateurs et sorties generees par des services intelligents. L'enjeu ne se limite donc plus a collecter ces informations. Il consiste plutot a les organiser, les interpreter et les restituer sous une forme exploitable par les differents acteurs.
+
+Dans ce cadre, les recruteurs ont besoin d'outils capables de reduire le tri manuel, de faire ressortir les candidatures les plus pertinentes et d'expliquer les resultats proposes. Les candidats, quant a eux, attendent un suivi plus lisible, des retours plus concrets et une meilleure comprehension de leur positionnement par rapport a une offre.
+
+L'introduction de l'intelligence artificielle peut repondre a une partie de ces attentes, a condition qu'elle soit integree de facon maitrisee. Un systeme trop opaque ou trop deconnecte du besoin metier risquerait d'ajouter de la complexite au lieu d'ameliorer le processus. C'est pourquoi la question n'etait pas simplement d'ajouter de l'IA a une plateforme existante, mais de l'inserer de maniere utile, explicable et techniquement soutenable.
+
+La problematique centrale du projet peut ainsi etre formulee comme suit : comment faire evoluer une plateforme de recrutement existante vers une solution plus intelligente, plus automatisee et plus explicable, capable d'assister les recruteurs dans l'evaluation des candidatures tout en offrant aux candidats des retours personnalises et exploitables ?
+
+\section{Solution proposee}
+
+La solution retenue pendant le stage a consiste a enrichir \textit{HireCue} par des fonctionnalites d'analyse, d'assistance et d'automatisation construites autour du socle deja present. Le choix n'a pas ete de remplacer les mecanismes metier existants, mais de les completer par des services apportant plus de clarte dans les resultats et plus de fluidite dans les parcours.
+
+Concretement, le travail a porte sur plusieurs axes complementaires. Le premier concerne l'explicabilite, avec l'amelioration du rapport de score afin de rendre les resultats plus lisibles pour le candidat comme pour le recruteur. Le deuxieme porte sur l'accompagnement candidat, a travers la generation d'une roadmap de competences et l'ajout d'un chatbot RAG permettant d'obtenir des reponses contextualisees sur cette progression. Le troisieme vise l'aide a la decision cote recruteur, avec des recommandations de candidats, des questions personnalisees pour l'entretien et des elements d'analyse plus directement exploitables dans les dashboards.
+
+Le stage a egalement porte sur des besoins plus operationnels, comme le reengagement de candidats, la gestion de certaines notifications, le suivi de quotas IA, l'usage du cache pour limiter les recalculs couteux et l'integration de workflows n8n pour l'import d'offres externes, le sourcing LinkedIn et d'autres traitements transverses. Ce volet etait important, car une fonctionnalite utile en demonstration ne l'est pas necessairement en production si elle reste couteuse, peu tra\c cable ou difficile a integrer. L'ensemble des choix retenus poursuit donc une meme logique : rendre la plateforme plus utile dans un contexte reel, sans perdre la maitrise technique des traitements engages.
+
+\section{Methodologie}
+
+La demarche adoptee repose sur une progression iterative, adaptee a l'evolution d'une plateforme deja en service. Ce choix etait necessaire, car le projet ne consistait pas a produire un prototype isole, mais a intervenir sur un systeme comportant deja des interfaces, des services metier, une base de donnees, des integrations externes et plusieurs dependances techniques.
+
+Une approche progressive etait plus adaptee a la realite du projet. Elle permettait de comprendre l'existant avant d'y ajouter de nouvelles briques, de limiter les regressions et de verifier la coherence des integrations au fur et a mesure. Elle repondait aussi a la nature hybride du travail mene, situe a l'intersection du developpement logiciel classique, des services IA et des workflows d'automatisation.
+
+\subsection{Phase d'analyse}
+
+La premiere phase du travail a consiste a etudier l'existant de facon detaillee. Cette etape a porte sur l'organisation des repositories, la structure du frontend, les services backend, les routes exposees, les modeles de donnees et les interactions avec les services externes. Elle a permis d'identifier les briques deja disponibles dans \textit{HireCue}, mais aussi les zones dans lesquelles les evolutions etaient les plus pertinentes.
+
+Cette analyse a notamment mis en evidence plusieurs besoins concrets : mieux expliquer les scores, proposer une roadmap plus exploitable pour le candidat, structurer les recommandations recruteur, encadrer l'usage des services IA par des quotas et fiabiliser certaines integrations externes. Elle a aussi permis de mieux comprendre les contraintes de l'architecture, en particulier la coexistence entre traitements synchrones, workflows asynchrones, cache applicatif et appels a des services IA distincts.
+
+\subsection{Phase de conception et d'integration}
+
+La seconde phase a consiste a traduire ces constats en evolutions concretes au sein de la plateforme. Les interfaces ont ete adaptees pour exposer les nouvelles informations de maniere plus claire. Cote backend, les services ont ete organises pour orchestrer les appels, persister les resultats, reutiliser les donnees deja calculees lorsque cela etait possible et maintenir des echanges coherents avec les composants externes.
+
+Une attention particuliere a ete accordee a des aspects souvent determinants en contexte reel : la journalisation, la gestion des erreurs, les quotas IA, le cache, les traitements asynchrones et la persistance des sorties generees. Ces choix n'ont pas seulement une justification technique. Ils conditionnent aussi la stabilite de la plateforme et la possibilite de faire evoluer les modules intelligents sans degrader l'experience utilisateur.
+
+\subsubsection{Principe directeur}
+
+Le principe directeur de cette phase a ete de rechercher un equilibre entre richesse fonctionnelle et maitrise de la complexite. Les services intelligents devaient apporter une aide tangible, mais sans produire des sorties opaques ou difficilement integrables. De la meme maniere, les automatisations devaient reduire certaines charges manuelles sans masquer les etapes importantes du processus de recrutement. Cette orientation a guide les choix realises sur \textit{HireCue} pendant tout le stage.
+
+\subsection{Choix des methodologies adoptees}
+
+Le projet combine deux dimensions qui ne relevent pas exactement des memes pratiques. La premiere correspond au developpement logiciel de la plateforme, avec ses besoins de planification, d'integration et de validation progressive. La seconde concerne les modules IA et LLM, qui necessitent davantage de vigilance sur les donnees d'entree, la qualite des sorties, les formats retournes et la pertinence metier des resultats.
+
+Pour cette raison, deux references methodologiques ont ete retenues. La dimension applicative s'appuie sur Agile Scrum, plus adaptee au developpement iteratif des interfaces et des services. Les modules IA, quant a eux, sont mieux encadres par une logique proche de CRISP-DM, qui permet de relier plus explicitement le besoin metier, les donnees mobilisees, la generation des sorties et leur evaluation.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|p{4cm}|p{6cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Domaine} & \textbf{Methodologie adoptee} & \textbf{Justification} \\
+\hline
+Developpement Frontend / Backend & Agile Scrum & Permet un developpement iteratif, flexible et adapte a l'evolution progressive des fonctionnalites du systeme. \\
+\hline
+Developpement IA / LLM incluant le chatbot RAG & CRISP-DM & Methodologie adaptee aux projets de data science et d'intelligence artificielle, structuree autour de la comprehension metier, des donnees, de la modelisation, de l'evaluation et du deploiement. \\
+\hline
+\end{tabular}
+\caption{Methodologies adoptees selon les domaines du projet}
+\end{table}
+
+\subsection{Methodologie Agile Scrum pour le developpement logiciel}
+
+La reference a Scrum se justifie par le caractere progressif des evolutions apportees a \textit{HireCue}. Les fonctionnalites n'ont pas ete traitees comme un bloc unique, mais comme un ensemble d'ameliorations successives : score report, dashboards, roadmap, chatbot, recommandations, notifications et automatisations. Une telle organisation facilite les ajustements, permet de prioriser les taches a plus forte valeur et rend plus simple la prise en compte des retours au fur et a mesure.
+
+Dans le cadre du stage, cette logique a surtout ete utile pour articuler des travaux de nature differente. Certaines taches relevaient du frontend, d'autres du backend, d'autres encore de l'integration de services IA ou de workflows n8n. Une progression iterative etait donc plus realiste qu'une planification strictement lineaire.
+
+\subsubsection{Les roles Scrum}
+
+Dans Scrum, le \textit{Product Owner} porte le besoin metier et priorise les fonctionnalites selon la valeur attendue. Ce role est important dans un projet comme \textit{HireCue}, car toutes les evolutions possibles n'ont pas le meme impact sur le recrutement.
+
+Le \textit{Scrum Master} veille au bon deroulement du cadre de travail, aide a lever les blocages et facilite la coordination entre les participants. Son role est moins de diriger que de maintenir des conditions favorables a une progression reguliere.
+
+L'equipe de developpement rassemble enfin les profils qui transforment ces besoins en fonctionnalites concretes. Dans le cas present, cette logique de collaboration est particulierement pertinente, car les evolutions touchent simultanement aux interfaces, aux services metier, aux integrations externes et aux modules intelligents.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{scrum}
+\caption{Cycle de vie de la methodologie Scrum}
+\end{figure}
+
+\subsection{Methodologie CRISP-DM pour les modules IA}
+
+Pour les modules d'intelligence artificielle, la reference a CRISP-DM apparait plus appropriee. Les traitements mis en place dans \textit{HireCue} ne peuvent pas etre juges uniquement sur leur faisabilite technique. Ils doivent aussi etre evalues selon la qualite des donnees exploitees, la pertinence des sorties produites et leur adequation avec les usages vises.
+
+Dans ce projet, cette exigence est visible a plusieurs niveaux. Un score explicable n'a d'interet que s'il repose sur des donnees coherentes et s'il fournit une justification comprehensible. Une roadmap n'est utile que si elle reste realiste par rapport au profil du candidat et au poste cible. De meme, un chatbot contextuel ne peut etre integre que si ses reponses restent suffisamment alignees avec le contenu de la roadmap et avec les contraintes de la plateforme.
+
+Les etapes de CRISP-DM permettent d'encadrer cette logique. La phase de \textit{Business Understanding} consiste a clarifier le besoin reel, par exemple expliquer un score ou assister un candidat dans sa progression. La phase de \textit{Data Understanding} porte sur les informations disponibles : CV, scores, resultats d'evaluation, donnees de poste ou historiques de candidature. La phase de \textit{Data Preparation} vise ensuite a structurer ces donnees pour qu'elles puissent alimenter correctement les services intelligents.
+
+La phase de \textit{Modeling} correspond a l'utilisation ou a l'orchestration des modeles mobilises pour generer les sorties attendues. La phase d'\textit{Evaluation} est essentielle pour verifier la coherence des contenus produits, leur format et leur utilite metier. Enfin, la phase de \textit{Deployment} concerne l'integration de ces services dans \textit{HireCue}, avec les contraintes de cache, de quotas, de persistance et de robustesse propres a un environnement applicatif.
+
+Cette demarche a ete particulierement utile pour les modules lies au score report, a la roadmap de competences, au chatbot associe, aux recommandations recruteur et aux questions personnalisees. Elle permet de mieux justifier les choix retenus et d'encadrer l'usage de l'IA dans une logique de service plutot que de demonstration technologique.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{mthode-crisp}
+\caption{Cycle de vie de la methodologie CRISP-DM}
+\end{figure}
+
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+Ce chapitre a permis de situer le projet dans son cadre organisationnel et technique, puis de montrer en quoi l'evolution de \textit{HireCue} repond a un besoin reel du recrutement numerique. L'analyse de l'existant a fait ressortir des limites en matiere d'explicabilite, de personnalisation et d'automatisation, ce qui justifie les orientations retenues pendant le stage.
+
+La problematique et la demarche methodologique apparaissent ainsi de facon plus coherente. Cette base permet d'aborder, dans le chapitre suivant, les besoins de la plateforme et la planification du projet avec une lecture plus precise des objectifs poursuivis.
