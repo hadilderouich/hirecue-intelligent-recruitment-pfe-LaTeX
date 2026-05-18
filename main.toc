@@ -1,0 +1,131 @@
+\contentsline {chapter}{\numberline {1}Cadre du projet}{1}{chapter.1}%
+\contentsline {section}{Introduction}{1}{section*.9}%
+\contentsline {section}{\numberline {1.1}Presentation de l'organisme d'accueil}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Secteurs d'activite}{2}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Organigramme de l'entreprise d'accueil}{3}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Presentation du projet}{4}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Objectifs du projet}{5}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Etude de l'existant}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Critique de l'existant}{8}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Problematique}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Solution proposee}{9}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Methodologie}{10}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Phase d'analyse}{10}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}Phase de conception et d'integration}{10}{subsection.1.7.2}%
+\contentsline {subsubsection}{\numberline {1.7.2.1}Principe directeur}{11}{subsubsection.1.7.2.1}%
+\contentsline {subsection}{\numberline {1.7.3}Comparaison des methodologies}{11}{subsection.1.7.3}%
+\contentsline {subsubsection}{\numberline {1.7.3.1}Comparaison des methodologies de developpement logiciel}{11}{subsubsection.1.7.3.1}%
+\contentsline {subsubsection}{\numberline {1.7.3.2}Comparaison des methodologies IA / Data Science}{12}{subsubsection.1.7.3.2}%
+\contentsline {subsection}{\numberline {1.7.4}Choix des methodologies adoptees}{13}{subsection.1.7.4}%
+\contentsline {subsection}{\numberline {1.7.5}Methodologie Agile Scrum pour le developpement logiciel}{14}{subsection.1.7.5}%
+\contentsline {subsubsection}{\numberline {1.7.5.1}Les roles Scrum}{15}{subsubsection.1.7.5.1}%
+\contentsline {subsection}{\numberline {1.7.6}Methodologie CRISP-DM pour les modules IA}{15}{subsection.1.7.6}%
+\contentsline {section}{\numberline {1.8}Langage de modelisation UML}{17}{section.1.8}%
+\contentsline {section}{Conclusion}{17}{section*.10}%
+\contentsline {chapter}{\numberline {2}Sp\'ecifications des besoins et Planification du projet}{18}{chapter.2}%
+\contentsline {section}{Introduction}{18}{section*.11}%
+\contentsline {section}{\numberline {2.1}Sp\'ecifications des besoins}{18}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Identification des acteurs}{18}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Besoins fonctionnels}{19}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Besoins non fonctionnels}{21}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Backlog produit}{22}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Architecture logique et physique globale de l'application}{27}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Architecture physique de l'application}{27}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Architecture logique de l'application}{29}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Diagrammes UML}{30}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Diagramme de cas d'utilisation global}{30}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Diagramme des classes d'analyse global}{31}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Diagramme de cas d'utilisation global des workflows n8n}{32}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}\'Etude des outils}{34}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Logiciels utilises}{34}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Technologies utilisees}{35}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Explication du choix des technologies}{36}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Environnement materiel}{37}{subsection.2.4.4}%
+\contentsline {section}{Conclusion}{38}{section*.12}%
+\contentsline {chapter}{\numberline {3}Conception et r\'ealisation}{39}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{39}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Architecture globale du systeme}{39}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Conception UML}{40}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Diagramme de classes}{41}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Diagrammes de cas d'utilisation}{41}{subsection.3.3.2}%
+\contentsline {paragraph}{Cas d'utilisation global.}{41}{section*.13}%
+\contentsline {paragraph}{Cas d'utilisation raffine.}{42}{section*.14}%
+\contentsline {subsection}{\numberline {3.3.3}Diagrammes de cas d'utilisation n8n}{43}{subsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3.1}Publication et suivi automatique de l'engagement des posts HireCue}{43}{subsubsection.3.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.3.2}Publication des offres d'emploi sur LinkedIn}{44}{subsubsection.3.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3.3}Automatisation des messages LinkedIn pour la prise de contact avec des PDG et fondateurs}{45}{subsubsection.3.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Diagramme de sequence}{46}{subsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.4.1}Diagramme de sequence - Generation de roadmap}{46}{subsubsection.3.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.3.4.2}Diagramme de sequence - Recommandations IA}{47}{subsubsection.3.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.3.4.3}Diagramme de sequence - Score explicable}{48}{subsubsection.3.3.4.3}%
+\contentsline {subsection}{\numberline {3.3.5}Diagramme d'activite}{49}{subsection.3.3.5}%
+\contentsline {section}{\numberline {3.4}Conception fonctionnelle}{50}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Gestion des candidats}{50}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Rapport de score explicable}{51}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Recommandations IA cote recruteur}{51}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Skill Gap Roadmap}{52}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Chatbot RAG}{52}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Questions personnalisees}{52}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}Candidate Engagement \& Motivation Insights}{53}{subsection.3.4.7}%
+\contentsline {subsection}{\numberline {3.4.8}Reengagement des candidats}{53}{subsection.3.4.8}%
+\contentsline {subsection}{\numberline {3.4.9}Relance admin des candidats inactifs}{53}{subsection.3.4.9}%
+\contentsline {subsection}{\numberline {3.4.10}Smart Candidate Risk Alerts}{53}{subsection.3.4.10}%
+\contentsline {subsection}{\numberline {3.4.11}Scraping des données externes}{54}{subsection.3.4.11}%
+\contentsline {section}{\numberline {3.5}Conception technique}{55}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Architecture backend}{55}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Base de données}{56}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Integration n8n}{58}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Integration PhantomBuster}{58}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Integration UniPile}{59}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}Gestion du cache et des traitements asynchrones}{60}{subsection.3.5.6}%
+\contentsline {section}{\numberline {3.6}Implementation des fonctionnalites}{60}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Score explicable}{60}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}AI Recommendations}{61}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Skill Gap Roadmap}{61}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Roadmap Chatbot RAG}{62}{subsection.3.6.4}%
+\contentsline {subsection}{\numberline {3.6.5}Questions personnalisees}{62}{subsection.3.6.5}%
+\contentsline {subsection}{\numberline {3.6.6}Candidate Engagement \& Motivation Insights}{62}{subsection.3.6.6}%
+\contentsline {subsection}{\numberline {3.6.7}Re-Engagement Pool}{63}{subsection.3.6.7}%
+\contentsline {subsection}{\numberline {3.6.8}Scraping des profils LinkedIn}{63}{subsection.3.6.8}%
+\contentsline {subsection}{\numberline {3.6.9}Workflow CEO / Founder / Owner scraping + email sender}{63}{subsection.3.6.9}%
+\contentsline {subsection}{\numberline {3.6.10}Pipeline d'import des offres LinkedIn}{64}{subsection.3.6.10}%
+\contentsline {subsection}{\numberline {3.6.11}Reverse flow de publication vers LinkedIn}{64}{subsection.3.6.11}%
+\contentsline {subsection}{\numberline {3.6.12}Workflow d'automatisation des messages LinkedIn}{65}{subsection.3.6.12}%
+\contentsline {section}{\numberline {3.7}Automatisation des workflows}{65}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Workflows pour le sourcing candidat}{65}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Scraping LinkedIn des profils}{66}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Pipeline d'import des offres d'emploi LinkedIn}{66}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}Workflow d'envoi d'emails}{66}{subsection.3.7.4}%
+\contentsline {section}{\numberline {3.8}Difficultés rencontrées}{67}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Conclusion}{68}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Validation, Exp\'erimentation et \'Evaluation de la solution}{70}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{70}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Strategie de validation}{70}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Validation selon Scrum}{71}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Evaluation selon CRISP-DM}{71}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Scenarios de test}{72}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Scenario candidat}{72}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Scenario recruteur}{73}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Scenario administrateur}{74}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Scenarios des workflows automatises}{75}{subsection.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.1}Workflow de scraping des profils LinkedIn}{76}{subsubsection.4.3.4.1}%
+\contentsline {subsubsection}{\numberline {4.3.4.2}Workflow d'import des offres d'emploi externes}{76}{subsubsection.4.3.4.2}%
+\contentsline {subsubsection}{\numberline {4.3.4.3}Workflow reverse flow de publication LinkedIn}{77}{subsubsection.4.3.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.4.4}Workflow d'automatisation des messages LinkedIn}{77}{subsubsection.4.3.4.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.5}Workflow d'extraction des emails CEO, enrichissement et tracking}{77}{subsubsection.4.3.4.5}%
+\contentsline {section}{\numberline {4.4}Resultats experimentaux}{79}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Resultats du score explicable}{80}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Resultats des recommandations IA}{80}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Resultats de la Skill Gap Roadmap}{80}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Resultats du chatbot RAG}{81}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Resultats des workflows n8n}{81}{subsection.4.4.5}%
+\contentsline {section}{\numberline {4.5}Evaluation des performances}{83}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Performance des modules IA}{83}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Performance des workflows n8n}{83}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Evaluation des modules IA selon CRISP-DM}{86}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Evaluation du score explicable}{86}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Evaluation des recommandations IA}{87}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Evaluation de la roadmap IA}{87}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}Evaluation du chatbot RAG}{87}{subsection.4.6.4}%
+\contentsline {section}{\numberline {4.7}Analyse critique et limites}{88}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Conclusion}{90}{section.4.8}%

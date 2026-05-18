@@ -1,0 +1,1034 @@
+ID     Fonctionnalite       Description                         Priorite   Statut       Phase
+F12-   CEO Email Out-       Mettre en place un suivi back-      Haute      En consol-   Phase 3
+bis    reach    Tracking    end et frontend des campagnes                  idation
+       dans le dashboard    d’emailing destinees aux CEO,
+       admin                founders et owners. Le work-
+                            flow n8n envoie les emails
+                            via Gmail, transmet les even-
+                            ements au backend, puis un
+                            second workflow detecte les re-
+                            ponses via Gmail Trigger. Les
+                            evenements sont stockes dans
+                            MySQL et affiches dans un
+                            dashboard administrateur sous
+                            forme de KPIs, taux de re-
+                            ponse, statuts d’envoi et ac-
+                            tivite recente.
+F13    Reengagement des     Identifier les candidats inactifs   Haute      Realise      Phase 2
+       candidats inactifs   depuis une longue periode, en
+                            particulier autour du seuil de
+                            60 jours, et preparer leur re-
+                            lance via notification ou email.
+F13-   Relance admin des    Ajouter ou documenter un            Moyenne    En consol-   Phase 2
+bis    candidats inactifs   declencheur admin permet-                      idation
+                            tant d’envoyer un email aux
+                            candidats inactifs depuis une
+                            duree voisine de 60 jours afin
+                            d’ameliorer l’engagement.
+F13-   Relance synchrone    Declencher depuis le backend        Moyenne    En consol-   Phase 2
+ter    backend des candi-   une tache synchrone permet-                    idation
+       dats inactifs        tant l’envoi d’emails aux can-
+                            didats inactifs, en complement
+                            du mecanisme de relance ad-
+                            min.
+F14    Smart Candidate      Afficher dans le dashboard re-      Moyenne    Realise      Phase 2
+       Risk Alerts          cruteur des alertes utiles a
+                            partir des signaux disponibles,
+                            comme un faible engagement,
+                            des donnees incompletes ou des
+                            incoherences.
+
+
+
+
+                                                                                          25
+ID     Fonctionnalite        Description                         Priorite   Statut       Phase
+F15    Re-Engagement         Decoupler le calcul des candi-      Haute      Realise      Phase 3
+       Pool queue            dats reengageables du flux syn-
+                             chrone afin d’eviter de bloquer
+                             le backend sur des traitements
+                             lourds.
+F16    AI Recommenda-        Rendre la generation des            Haute      Realise      Phase 3
+       tions queue           recommandations non blo-
+                             quante via RabbitMQ et un
+                             worker dedie, avec suivi d’etat
+                             cote interface.
+F17    Workflow n8n +        Orchestrer    proprement     le     Haute      Realise      Phase 3
+       PhantomBuster         lancement, le suivi et la re-
+                             cuperation des resultats de
+                             sourcing externe entre le back-
+                             end, n8n et PhantomBuster.
+F18    Gestion des dou-      Detecter et filtrer les doublons    Haute      Realise      Phase 3
+       blons                 lors des imports de candidats et
+                             d’offres avant insertion dans la
+                             base.
+F19    Suivi des statuts     Conserver un etat lisible des       Haute      Realise      Phase 3
+       des workflows         runs et des traitements afin
+                             de permettre au frontend de
+                             suivre l’avancement des work-
+                             flows.
+F20    Pipeline d’import     Extraire des offres externes, les   Haute      Realise      Phase 2
+       des offres LinkedIn   mapper vers joblist, verifier les
+                             doublons via ExternalId ou Ex-
+                             ternalLink, puis les inserer en
+                             base.
+F20-   Reverse        flow   Preparer depuis HireCue les         Moyenne    En consol-   Phase 3
+bis    de      publication   donnees d’une offre, puis                      idation
+       LinkedIn              utiliser l’API UniPile pour
+                             orchestrer, via n8n ou le
+                             backend, la publication de
+                             l’offre vers LinkedIn. Ce choix
+                             est retenu pour disposer d’un
+                             flux de posting plus propre
+                             et plus adapte qu’un scraping
+                             navigateur.
+
+
+
+
+                                                                                           26
+ ID      Fonctionnalite        Description                       Priorite    Statut       Phase
+ F20-    Workflow d’envoi      Automatiser, via UniPile ou un    Moyenne     En consol-   Phase 3
+ ter     de        messages    workflow orchestre avec n8n,                  idation
+         LinkedIn aux CEO      l’envoi et le suivi de mes-
+         et founders           sages LinkedIn destines aux
+                               CEO, founders ou proprietaires
+                               identifies dans les scenarios
+                               d’outreach.
+ F21     Suivi des quotas IA   Encadrer les appels IA par des    Haute       Realise      Phase 3
+         et cache              quotas, de la persistence et
+                               des mecanismes de cache afin
+                               de maintenir des traitements
+                               maitrisables en production.
+
+
+
+2.2      Architecture logique et physique globale de l’application
+L’architecture globale permet de comprendre la maniere dont les composants techniques de
+HireCue sont organises et coordonnes. Elle met en evidence les relations entre l’interface
+utilisateur, la logique metier, les services IA, la base de donnees et les outils d’automatisation
+mobilises dans le projet. Cette lecture est importante, car une partie essentielle du stage
+a consiste a faire evoluer des briques deja existantes sans rompre l’equilibre d’ensemble
+de la plateforme.
+
+
+2.2.1     Architecture physique de l’application
+L’architecture physique de HireCue repose sur une organisation distribuee dans laquelle
+plusieurs briques cooperent par des echanges API. L’utilisateur accede d’abord a la plate-
+forme depuis un poste client, au moyen d’un navigateur web. L’interface visible est prise
+en charge par un frontend React, qui assure les parcours du candidat, du recruteur et de
+l’administrateur.
+    Ce frontend communique avec un backend principal developpe en Node.js et Express.
+Ce backend centralise la logique metier, l’acces aux donnees, la coordination des appels
+et le pilotage de plusieurs traitements applicatifs. La persistence repose sur MySQL,
+tandis que Sequelize joue le role d’ORM pour structurer les acces a la base et faciliter la
+manipulation des donnees metier.
+    Lorsque certains traitements depassent le perimetre applicatif classique, le backend
+s’appuie sur des services IA developpes en Python, notamment sur une logique de services
+de type Flask lorsque cela est necessaire pour isoler les traitements intelligents. Cette
+separation est importante dans HireCue, car des modules comme le score explicable, la
+roadmap, les recommandations ou le chatbot demandent des appels specifiques et un
+
+
+                                                                                              27
+encadrement technique distinct.
+    Par ailleurs, plusieurs automatisations sont prises en charge par n8n, en particulier
+pour l’import d’offres externes, certains flux de sourcing et d’autres traitements trans-
+verses. Les traitements plus lourds ou non immediats peuvent etre decouples du flux
+principal a l’aide de RabbitMQ, qui permet de gerer des files de messages et des exe-
+cutions asynchrones. Docker intervient egalement comme support de conteneurisation
+afin de stabiliser l’environnement d’execution de certaines briques et de faciliter leur de-
+ploiement.
+    Enfin, l’architecture physique integre aussi des services externes, notamment LinkedIn
+et PhantomBuster, mobilises dans certains scenarios de sourcing ou d’integration. L’ensemble
+de ces composants echange principalement via des APIs REST, ce qui permet de conserver
+une separation nette des responsabilites tout en maintenant une communication coherente
+entre les briques de la plateforme.
+
+
+
+
+              Figure 2.3: Architecture physique de l’application HireCue
+
+
+
+
+                                                                                       28
+2.2.2     Architecture logique de l’application
+Sur le plan logique, HireCue peut etre decomposee en plusieurs couches complementaires.
+La couche presentation regroupe les interfaces React destinees au candidat, au recru-
+teur et a l’administrateur. Elle porte les tableaux de bord, les parcours de consultation,
+les formulaires et l’affichage des resultats issus des traitements applicatifs.
+    La couche metier est prise en charge par le backend Node.js / Express. Elle con-
+centre les regles de gestion, les routes applicatives, la coordination des parcours et la
+communication avec les autres briques du systeme. C’est a ce niveau que s’articulent,
+par exemple, la consultation du score report, la gestion des recommandations, l’acces aux
+roadmaps ou le suivi des notifications et du reengagement.
+    La couche services IA rassemble les traitements utilises pour expliquer les scores,
+generer les roadmaps, produire des recommandations ou assister l’entretien. Dans Hire-
+Cue, cette couche n’est pas isolee du besoin metier ; elle vient en appui de parcours deja
+existants et doit rester coherente avec les contraintes fonctionnelles de la plateforme.
+    La couche donnees repose sur MySQL et assure la persistence des utilisateurs, des
+candidatures, des scores, des roadmaps, des notifications, des historiques de chat et des
+journaux utiles au suivi. Elle constitue le support central de la tracabilite et de la reutil-
+isation des informations deja calculees.
+    La couche orchestration et automatisation est principalement assuree par n8n et
+par certains mecanismes asynchrones comme RabbitMQ. Elle intervient lorsqu’un traite-
+ment doit etre declenche en dehors du flux immediat de l’utilisateur, par exemple pour
+certaines recommandations, integrations ou executions de workflows.
+    La couche integration externe couvre les interactions avec LinkedIn, Phantom-
+Buster et d’autres sources externes mobilisees pour le sourcing ou l’import d’offres. En-
+fin, une couche securite et authentification traverse l’ensemble de l’application afin
+d’encadrer l’acces aux ressources, de gerer les roles et de maintenir un usage coherent des
+differents services selon le profil utilisateur.
+
+
+
+
+                                                                                           29
+                Figure 2.4: Architecture logique de l’application HireCue
+
+
+2.3     Diagrammes UML
+Les diagrammes UML facilitent la comprehension du systeme en offrant une representation
+synthetique des interactions, des responsabilites et des principales entites manipulees par
+la plateforme.
+
+
+2.3.1    Diagramme de cas d’utilisation global
+Le diagramme de cas d’utilisation global montre les principales interactions entre les ac-
+teurs et les fonctionnalites majeures de HireCue. Il fait apparaitre les roles du candidat,
+
+                                                                                        30
+du recruteur, de l’administrateur, des services IA et des workflows externes. Cette rep-
+resentation permet de visualiser les cas d’utilisation centraux du projet, notamment la
+consultation des scores, la generation d’une roadmap, l’exploitation des recommandations,
+la gestion des offres, l’import d’offres externes et les operations de sourcing.
+
+
+
+
+        Figure 2.5: Diagramme de cas d’utilisation global de la plateforme HireCue
+
+
+2.3.2      Diagramme des classes d’analyse global
+Le diagramme des classes d’analyse donne une lecture plus precise de la structure metier
+de HireCue. Il montre d’abord que la classe User constitue le point de depart de plusieurs
+
+                                                                                        31
+parcours, avec les informations de profil, de role, de rattachement a l’entreprise et de
+quotas IA. La classe Company encadre le contexte organisationnel, tandis que Job repre-
+sente les offres publiees ou suivies dans la plateforme. Au centre du diagramme, la classe
+CandidateJob joue un role pivot : elle relie le candidat au poste, porte plusieurs scores
+comme Ptscore, Tscore, Pscore, Cscore et supporte des usages comme le score explicable,
+la roadmap, les recommandations, les alertes et le reengagement.
+    Autour de ce noyau, le diagramme fait apparaitre des classes specialisees qui prolongent
+le suivi du recrutement. CvInfo et FinalScoring participent a la construction du score.
+ScoreReport, CandidateSkillRoadmap et CandidateRoadmapChatMessage structurent la
+persistence du rapport explicable, de la roadmap et de l’historique de chat. AIRecom-
+mendationsCache, CandidateEngagementInsight, Notification, CandidateSettings, Reen-
+gagementLog et LLMConsumption montrent que la plateforme ne stocke pas seulement
+des profils et des offres, mais aussi des sorties derivees, des traces de consommation IA,
+des preferences et des journaux utiles au pilotage.
+    Le diagramme aide ainsi a comprendre pourquoi les modules de HireCue restent
+etroitement relies entre eux. Les recommandations ne sont pas detachables des candi-
+datures et des jobs, la roadmap ne peut pas etre lue sans les competences du candidat et
+du poste, et les alertes ou le reengagement reutilisent des informations deja presentes dans
+la plateforme. Cette representation apporte donc une vision plus solide de la conception
+metier en montrant comment les classes structurent les parcours candidat, recruteur et
+administrateur a partir d’une meme base de donnees et de plusieurs caches ou sorties
+analytiques.
+
+
+
+
+                   Figure 2.6: Diagramme des classes d’analyse global
+
+
+2.3.3     Diagramme de cas d’utilisation global des workflows n8n
+Le diagramme de cas d’utilisation global des workflows n8n presente la maniere dont
+HireCue s’ouvre vers LinkedIn tout en conservant le backend comme point de controle
+metier. Il met en relation plusieurs acteurs et services : le recruteur, l’administrateur,
+le candidat, le lead LinkedIn, le backend HireCue, n8n, UniPile, MySQL et les services
+d’IA. Cette representation montre que l’automatisation n’est pas limitee a un simple
+
+                                                                                         32
+declenchement externe. Elle couvre l’orchestration des traitements, la preparation des
+donnees, l’appel aux services LinkedIn, le suivi des statuts et la restitution des indicateurs
+dans les tableaux de bord.
+    Le premier ensemble de cas d’utilisation concerne la publication de contenus de l’entreprise
+sur LinkedIn. Le diagramme fait apparaitre la creation ou la preparation du post, la
+publication via UniPile, puis le suivi des commentaires, des reactions et des statistiques
+d’engagement. Le second ensemble porte sur la publication des offres d’emploi : le recru-
+teur selectionne une offre interne, le backend valide son eligibilite, n8n prepare le payload
+LinkedIn et l’action de publication est deleguee a UniPile. Les reactions des candidats, les
+commentaires et les performances du post peuvent ensuite etre suivis afin d’alimenter le
+reporting. Le troisieme ensemble illustre l’automatisation de la prise de contact avec des
+CEO, founders ou owners. Les leads sont recherches, normalises, stockes, puis traites par
+un enchainement comprenant la note de connexion, la demande LinkedIn, la detection de
+l’acceptation et l’envoi d’un message de suivi.
+    Cette vue globale met donc en evidence le role central de n8n comme couche d’orchestration
+entre les actions du recruteur ou de l’administrateur, les regles du backend, les ser-
+vices UniPile et LinkedIn, les traitements IA et la base MySQL. Elle montre egalement
+l’importance de la tracabilite : les publications, les interactions, les KPI d’outreach et
+les statistiques d’engagement sont conserves afin d’etre exploites ulterieurement dans un
+dashboard recruteur ou administrateur.
+
+
+
+
+    Figure 2.7: Diagramme de cas d’utilisation global des workflows n8n de HireCue
+
+
+
+
+                                                                                         33
+2.4      Étude des outils
+Cette partie presente les logiciels et les technologies mobilises dans le projet, ainsi que les
+principaux criteres ayant oriente leur choix. L’objectif est de montrer que les outils retenus
+repondent a des besoins concrets de developpement, d’integration, d’automatisation et
+d’exploitation des services intelligents.
+
+
+2.4.1     Logiciels utilises
+Le developpement et l’integration de HireCue ont mobilise plusieurs logiciels intervenant
+a differentes etapes du travail, depuis l’edition du code jusqu’aux tests, au versionnement,
+a l’automatisation et a la redaction du rapport. Leur usage n’est pas uniquement lie au
+confort de developpement ; il repond aussi a la necessite de verifier les integrations, de
+suivre les traitements et de maintenir une base de travail suffisamment stable tout au long
+du stage.
+                           Table 2.3: Logiciels utilises dans le projet
+
+
+        Logo         Nom                    Information
+                                            Environnement de developpement utilise pour
+                     Visual Studio Code     editer le code frontend, backend et certains ser-
+                                            vices associes au projet.
+                                            Outils utilises pour le versionnement du code,
+                     Git / GitHub           le suivi des modifications et la coordination du
+                                            travail sur les repositories.
+                                            Logiciel de test d’API employe pour verifier
+                     Postman                les routes backend et certaines integrations ex-
+                                            ternes.
+                                            Outil utilise pour encapsuler ou executer cer-
+                     Docker Desktop         taines briques techniques du projet dans un en-
+                                            vironnement controle.
+                                            Plateforme d’automatisation mobilisee pour
+                     n8n                    l’orchestration de workflows, l’import d’offres et
+                                            certains flux externes.
+                                            Outil utilise pour la creation ou la representa-
+                     PlantUML               tion de diagrammes UML dans le cadre de la
+                                            modelisation du systeme.
+                                            Outil de consultation et d’administration de la
+                     phpMyAdmin             base de donnees utilise pour verifier les struc-
+                                            tures et le contenu des tables.
+
+
+
+
+                                                                                                 34
+        Logo         Nom                   Information
+                                           Environnement de redaction LaTeX adapte a la
+                     Overleaf              preparation, a la structuration et a la mise en
+                                           forme du rapport PFE.
+                                           Outil utilise dans certains workflows de sourcing
+                     PhantomBuster
+                                           LinkedIn et d’exploitation de profils externes.
+                                           Plateforme d’integration API utilisee pour les
+                                           scenarios de messagerie LinkedIn, de suivi des
+                     UniPile
+                                           conversations et de publication de contenus ou
+                                           d’offres vers LinkedIn.
+                                           Plateforme externe utilisee dans les scenarios de
+                     LinkedIn              sourcing et d’import de profils ou d’offres selon
+                                           les workflows du projet.
+
+
+
+2.4.2     Technologies utilisees
+Le projet HireCue s’appuie sur un ensemble de technologies complementaires, choisies
+pour couvrir les besoins d’interface, de logique metier, de persistence, de services intelli-
+gents et d’integration entre composants. Cette combinaison technologique reflete directe-
+ment la nature du travail realise, qui demandait a la fois une interface exploitable, un
+backend robuste, des integrations externes et des briques d’IA encadrees.
+                       Table 2.4: Technologies utilisees dans le projet
+
+
+        Logo        Nom                   Information
+                    React.js              Bibliotheque frontend utilisee pour construire
+                                          les interfaces de la plateforme et structurer les
+                                          parcours utilisateur.
+
+                    Node.js               Environnement d’execution JavaScript retenu
+                                          pour le backend principal de l’application.
+
+                    Express.js            Framework backend employe pour structurer les
+                                          routes, les services metier et les APIs du projet.
+
+
+                    MySQL                 Systeme de gestion de base de donnees utilise
+                                          pour la persistence des informations metier.
+
+
+                    Sequelize             ORM utilise pour simplifier l’acces aux donnees
+                                          et la manipulation des tables MySQL depuis le
+                                          backend.
+
+
+
+
+                                                                                               35
+        Logo        Nom                   Information
+                    Python                Langage mobilise pour plusieurs services IA et
+                                          certaines briques de generation ou d’analyse.
+                    Flask                 Framework Python utilise pour creer certains
+                                          services backend et IA relies a la plateforme.
+                    Ollama / LLM          Outils utilises pour certaines generations
+                                          textuelles et pour l’integration de traitements
+                                          fondes sur des modeles de langage.
+
+                    RAG                   Approche utilisee pour structurer le chatbot lie a
+                                          la roadmap et contextualiser certaines reponses.
+
+                    REST API              Mode de communication principal entre fron-
+                                          tend, backend, services IA et integrations ex-
+                                          ternes.
+                    RabbitMQ              Solution utilisee pour la gestion des files de mes-
+                                          sages et de certains traitements asynchrones.
+                    n8n                   Outil utilise pour l’orchestration des workflows
+                                          d’automatisation et des integrations externes.
+                    Docker                Solution de conteneurisation employee pour sta-
+                                          biliser l’environnement d’execution de certaines
+                                          briques du projet.
+
+                    Socket.IO             Technologie citee dans le contexte projet
+                                          comme composant eventuel de communication
+                                          temps reel, a mobiliser selon les besoins de
+                                          l’application.
+
+                    Firebase Authenti-    Solution citee dans le contexte projet parmi
+                    cation                les briques techniques a considerer selon
+                                          l’architecture et les usages de l’authentification.
+
+
+
+2.4.3     Explication du choix des technologies
+Les technologies principales de HireCue n’ont pas ete selectionnees depuis zero dans le
+cadre de ce PFE. La plateforme existait deja, etait deja hebergee et reposait sur un socle
+technique stabilise. Le frontend etait construit avec React.js, le backend principal avec
+Node.js et Express, et la persistence des donnees etait assuree par MySQL avec Sequelize
+comme couche ORM. Certains traitements IA/ML etaient, quant a eux, isoles dans des
+projets ou microservices Python, avec Flask pour exposer certains services intelligents
+sous forme d’API.
+   Dans ce contexte, le travail realise a surtout consiste a exploiter et a faire evoluer cette
+
+
+                                                                                                36
+architecture existante. Les efforts ont porte sur l’integration et l’amelioration de modules
+IA, d’agents LLM, de workflows n8n, d’automatisations LinkedIn et de services IA/ML
+repartis sur plusieurs briques techniques. Cette orientation est coherente avec la nature
+du stage : il ne s’agissait pas de reconstruire HireCue, mais d’ajouter des fonctionnalites
+avancees, de renforcer les parcours existants et de connecter la plateforme a des services
+externes comme PhantomBuster, UniPile, Gmail et LinkedIn.
+    L’architecture existante presente plusieurs avantages. La separation entre frontend,
+backend, services IA et workflows automatises rend le systeme plus maintenable et limite
+le couplage entre les responsabilites. Le backend Node.js / Express conserve la logique
+metier principale et l’acces aux donnees, tandis que les microservices Python et Flask
+permettent d’isoler des traitements IA plus lourds ou plus specialises. De leur cote, les
+workflows n8n peuvent etre ajoutes ou modifies sans fragiliser directement le backend
+principal, ce qui facilite l’evolutivite et l’integration d’outils externes.
+    Pour cette raison, une comparaison classique entre plusieurs frameworks frontend ou
+entre plusieurs technologies backend ne serait pas vraiment pertinente dans ce rapport.
+Le socle technique etait deja fixe par la plateforme HireCue existante. L’analyse doit
+donc porter davantage sur la maniere dont cette architecture a ete exploitee, etendue et
+amelioree pour supporter les modules IA, les automatisations de sourcing, les integrations
+LinkedIn, les workflows d’emailing et les tableaux de bord de suivi.
+
+
+2.4.4     Environnement materiel
+Le developpement, les integrations et les tests du projet ont ete realises sur un poste per-
+sonnel configure pour supporter a la fois le developpement web, les traitements backend et
+l’integration de services externes et intelligents. Cet environnement a permis de travailler
+sur les differents volets de HireCue dans des conditions adaptees aux besoins du stage.
+
+    Composant                      Configuration
+    Marque                         Asus
+    Processeur                     Intel 11th Gen Intel(R) Core(TM) i5-1135G7 @
+                                   2.40GHz (2.42 GHz)
+    Memoire RAM                    16 Go
+    Stockage                       512 Go SSD
+    Systeme d’exploitation         Windows 11 Professionnel 64 bits
+
+                        Table 2.5: Environnement materiel utilise
+
+
+
+
+                                                                                         37
+Conclusion
+Ce chapitre a permis de formaliser les besoins de la plateforme HireCue, de presenter son
+backlog produit, de decrire son architecture globale, d’introduire les diagrammes UML
+utiles a sa comprehension et de justifier les principaux outils techniques mobilises dans le
+projet. Cette base prepare les chapitres suivants, consacres a la conception detaillee et a
+la realisation des fonctionnalites developpees pendant le stage.
+
+
+
+
+                                                                                         38
+Chapter 3
+
+Conception et réalisation
+
+3.1      Introduction
+Ce chapitre decrit le passage entre les besoins formalises dans les parties precedentes
+et leur traduction concrete dans la plateforme HireCue. L’enjeu n’etait pas d’ajouter
+des modules isoles, mais de faire evoluer un systeme deja en service en conservant une
+architecture lisible, des parcours exploitables et une logique metier defendable.
+    Dans le cadre du stage chez Teligencia Labs, l’accent a surtout porte sur des briques
+qui devaient apporter une valeur immediate au recrutement : score explicable, recomman-
+dations cote recruteur, roadmap de competences, chatbot contextuel, questions person-
+nalisees et workflows d’automatisation. La lecture qui suit revient d’abord sur l’architecture
+generale et sur la modelisation UML, puis sur la conception fonctionnelle, la conception
+technique et l’implementation des fonctionnalites effectivement rattachees au projet.
+
+
+3.2      Architecture globale du systeme
+HireCue repose sur une architecture distribuee dans laquelle le frontend React, le backend
+Node.js / Express, la base MySQL, les services IA et les workflows externes cooperent
+sans se confondre. Le frontend porte les parcours visibles du candidat, du recruteur et de
+l’administrateur. Il transmet les actions utilisateur au backend via des APIs REST, puis
+restitue les resultats sous forme de dashboards, de rapports, de roadmaps ou de listes de
+candidatures exploitables.
+    Le backend centralise ensuite la logique metier. Il orchestre les appels aux services
+applicatifs, interroge la base, gere les quotas et coordonne plusieurs traitements qui ne
+doivent pas etre bloques par une unique requete synchrone. Lorsqu’un flux externe est
+necessaire, le backend peut transmettre la demande a n8n. Ce dernier joue alors le role
+d’orchestrateur pour les imports, les enchainements de nettoyage, les interactions avec
+PhantomBuster et certains flux de communication. Les donnees consolidees reviennent
+ensuite vers MySQL, puis peuvent etre exploitees par les modules metier ou par les services
+
+
+                                                                                          39
+IA.
+    Les services IA sont integres de maniere ciblee. Ils interviennent pour produire une
+explication, une roadmap, une reformulation ou un contenu structure, mais ils ne rempla-
+cent pas les calculs metier deterministes. Dans la pratique, le flux peut donc se lire ainsi
+: le frontend React sollicite le backend API, le backend active si besoin un workflow n8n,
+ce workflow dialogue avec PhantomBuster ou avec d’autres services externes, les donnees
+sont validees et stockees dans MySQL, puis les modules IA viennent enrichir certains
+resultats deja construits.
+    Le diagramme suivant resume cette organisation en quatre couches. Il met surtout
+en evidence les acteurs, les parcours frontend, les services backend et l’infrastructure de
+donnees et d’IA. Les workflows n8n et les integrations externes n’y sont pas tous detailles,
+mais ils prolongent cette architecture en dehors du coeur applicatif lorsque le projet doit
+sourcer, importer ou automatiser des traitements transverses.
+
+
+
+
+                  Figure 3.1: Architecture globale du systeme HireCue
+
+
+3.3     Conception UML
+La modelisation UML a servi de support pour clarifier l’organisation du systeme avant
+de decrire les details d’implementation. Dans un projet comme HireCue, cette etape est
+utile parce qu’elle permet de visualiser les liens entre les entites, les interactions entre
+composants et le deroulement de plusieurs traitements metier sans basculer trop tot dans
+le niveau du code.
+
+
+
+
+                                                                                         40
+3.3.1     Diagramme de classes
+Le diagramme de classes montre que le noyau de HireCue reste structure autour de
+quelques entites pivot. La table User porte les informations de profil, de role, de rat-
+tachement a l’entreprise et de quotas IA. La table Job decrit les offres, tandis que Can-
+didateJob joue un role central en reliant candidat, poste, resultats de tests et etat de la
+candidature. C’est d’ailleurs autour de cette entite que se greffent le score explicable, la
+roadmap, certaines alertes de risque, les recommandations et le reengagement.
+    Le diagramme fait aussi apparaitre des structures plus specialisees, comme CvInfo,
+FinalScoring, ScoreReport, CandidateSkillRoadmap, CandidateRoadmapChatMessage,
+AIRecommendationsCache, LLMConsumption, CandidateEngagementInsight, Notifica-
+tion ou encore ReengagementLog. Cette organisation confirme que les modules realises
+pendant le stage ne sont pas des briques ajoutees a cote du systeme. Ils reutilisent les don-
+nees metier existantes, puis les prolongent par de la persistence, du cache ou des journaux
+de traitement.
+    Le diagramme montre egalement une distinction importante pour la suite du rapport :
+certaines entites relevent du metier pur, d’autres correspondent deja a des sorties derivees
+ou a des caches. Cette separation aide a comprendre pourquoi les choix d’implementation
+ont privilegie des calculs deterministes pour la detection des ecarts ou le classement, puis
+une couche IA plus controlee pour l’explication ou la generation pedagogique.
+
+
+
+
+               Figure 3.2: Diagramme de classes de la plateforme HireCue
+
+
+3.3.2     Diagrammes de cas d’utilisation
+Les diagrammes de cas d’utilisation aident a replacer les fonctionnalites dans le point de
+vue des acteurs. Dans HireCue, ils permettent surtout de montrer que les modules intel-
+ligents ne sont pas presentes comme des traitements abstraits, mais comme des services
+rattaches a des actions concretes du candidat ou du recruteur.
+
+Cas d’utilisation global. Le diagramme global met principalement en scene deux
+acteurs : le candidat et le recruteur. Le candidat y apparait comme l’utilisateur qui
+consulte ses notifications, televerse son CV, passe des tests, suit ses candidatures, consulte
+
+                                                                                           41
+les details de son score, visualise sa feuille de route et parcourt la liste des emplois. Deux
+extensions attirent l’attention : l’acces au rapport detaille et l’usage du chatbot de la
+roadmap. Le recruteur intervient de son cote sur la consultation des alertes de risque et
+sur la moderation des emplois. Ce schema reste volontairement synthetique. Il n’explicite
+pas toutes les briques internes d’IA, mais il montre bien les parcours qui justifient ensuite
+le score explicable, la roadmap et les alertes.
+
+
+
+
+              Figure 3.3: Diagramme de cas d’utilisation global de HireCue
+
+
+Cas d’utilisation raffine. Le diagramme raffine se concentre sur une vue recruteur
+plus detaillee autour de la moderation des emplois. Il montre que cette action ne se
+limite pas a afficher une liste. Le recruteur doit d’abord s’authentifier, consulter la liste
+
+                                                                                           42
+des candidats, la filtrer, puis ouvrir le detail d’un profil. A partir de ce point, plusieurs
+extensions deviennent possibles : voir le rapport, voir les recommandations IA ou gerer le
+reengagement. Le reengagement lui-meme inclut la consultation du profil et l’envoi d’un
+message. Cette vue est utile, car elle relie dans un meme scenario la lecture du score,
+l’aide a la decision et l’action de relance.
+
+
+
+
+              Figure 3.4: Diagramme de cas d’utilisation raffine de HireCue
+
+
+3.3.3     Diagrammes de cas d’utilisation n8n
+Les diagrammes suivants completent la modelisation UML en decrivant les principaux
+workflows n8n relies a LinkedIn. Ils montrent comment les actions initiees par un admin-
+istrateur ou un recruteur sont relayees par le backend, orchestrees par n8n, puis executees
+a travers UniPile ou les services LinkedIn. Ces representations permettent aussi de dis-
+tinguer les flux de publication, les flux de suivi d’engagement et les flux de prospection
+automatisee.
+
+3.3.3.1   Publication et suivi automatique de l’engagement des posts HireCue
+
+Le premier diagramme represente un workflow de publication de posts HireCue sur LinkedIn,
+complete par un mecanisme de suivi automatique des interactions. L’administrateur ou le
+recruteur intervient comme acteur metier a l’origine du besoin de publication, tandis que
+le backend HireCue prepare les donnees necessaires et transmet l’execution au workflow
+n8n. Le schema montre ensuite la preparation du payload LinkedIn, la publication du
+post via UniPile, l’enregistrement de l’identifiant du post LinkedIn et la mise a jour du
+statut de publication, qui peut etre marque comme publie ou en echec.
+
+
+                                                                                          43
+    La seconde partie du diagramme decrit l’interaction tracking. Apres la publication,
+n8n recupere les posts publies, obtient leurs details et leur identifiant social, puis suit
+les commentaires et les reactions des utilisateurs LinkedIn. Ces interactions sont sauveg-
+ardees dans la base MySQL afin de conserver une trace exploitable. Le workflow calcule
+ensuite des statistiques d’engagement qui peuvent etre affichees dans un tableau de bord
+administrateur. Cette lecture montre que la publication n’est pas une action isolee : elle
+s’inscrit dans une boucle de suivi qui permet d’analyser les commentaires, les reactions,
+les mentions J’aime et les performances globales du contenu.
+
+
+
+
+Figure 3.5: Diagramme de cas d’utilisation n8n de publication et suivi des posts HireCue
+
+
+3.3.3.2   Publication des offres d’emploi sur LinkedIn
+
+Le deuxieme diagramme se concentre sur le workflow de publication d’une offre d’emploi
+HireCue vers LinkedIn. Le recruteur ou l’administrateur commence par selectionner une
+offre interne. Le contenu de l’offre est ensuite transforme en post LinkedIn, puis enrichi
+par un lien de candidature HireCue. Cette etape garantit que la visibilite LinkedIn reste
+reliee au parcours de candidature gere par la plateforme.
+    Le diagramme met aussi en evidence le role de n8n et d’UniPile dans l’execution
+
+                                                                                        44
+de la publication. n8n orchestre l’appel de publication, tandis qu’UniPile joue le role
+d’interface API avec LinkedIn. Une fois l’offre publiee, le workflow peut suivre les reactions
+et les commentaires des candidats, afficher les statistiques du post et, lorsque cela est
+necessaire, s’appuyer sur un service IA ou LLM pour generer une reponse contenant le
+lien de candidature. Dans la logique applicative de HireCue, le backend conserve le statut
+de publication, l’identifiant du post et les informations utiles au suivi, afin que le recruteur
+puisse retrouver l’etat du flux sans dependre uniquement de LinkedIn.
+
+
+
+
+Figure 3.6: Diagramme de cas d’utilisation n8n de publication des offres d’emploi sur
+LinkedIn
+
+3.3.3.3   Automatisation des messages LinkedIn pour la prise de contact avec
+          des PDG et fondateurs
+
+Le troisieme diagramme presente un workflow d’outreach LinkedIn destine aux CEO,
+founders et owners. Il est organise en trois parties complementaires. La premiere, con-
+sacree a la detection des profils cibles, commence par la planification d’une recherche
+LinkedIn par le recruteur ou l’administrateur. Les profils de CEO ou de fondateurs sont
+ensuite recherches via UniPile, normalises, filtres selon leur role de decisionnaire, puis
+stockes dans le backend.
+    La deuxieme partie porte sur l’envoi des demandes de connexion. Les leads a contacter
+sont recuperes, une note de connexion personnalisee est generee, puis la demande LinkedIn
+est envoyee via UniPile. Le workflow marque ensuite l’invitation comme envoyee, ce qui
+permet de maintenir une trace claire de chaque lead. La troisieme partie intervient apres
+acceptation : le workflow detecte la connexion acceptee, prepare un message de suivi,
+l’envoie automatiquement et met a jour le statut d’outreach. Le diagramme associe enfin
+ces statuts a une zone d’analyse et de suivi, comprenant le calcul des KPI, le nombre
+d’invitations envoyees, le taux d’acceptation et le suivi des messages de relance. Cette
+organisation montre que n8n et UniPile ne servent pas uniquement a envoyer des messages,
+mais aussi a maintenir une tracabilite exploitable dans le backend et dans la base MySQL.
+
+
+
+
+                                                                                             45
+Figure 3.7: Diagramme de cas d’utilisation n8n d’automatisation des messages LinkedIn
+
+
+3.3.4     Diagramme de sequence
+Les diagrammes de sequence rendent plus lisible la cooperation entre interface, backend,
+base de donnees, cache et services IA. Dans HireCue, ils montrent bien que la generation
+d’un resultat ne repose pas sur un seul appel a un modele, mais sur une chaine d’etapes qui
+comprend collecte des donnees, verification de cache, calcul metier, validation de format
+et persistence.
+
+3.3.4.1   Diagramme de sequence - Generation de roadmap
+
+Le premier scenario decrit la generation d’une roadmap depuis l’ouverture de la page
+candidate. Le frontend transmet une requete au backend, qui charge le profil du candidat,
+le poste cible et les competences utiles. Le RoadmapService calcule ensuite les skill gaps,
+puis verifie si une roadmap equivalente est deja disponible en cache. Lorsque le resultat
+existe deja, il peut etre retourne sans regeneration, ce qui limite les couts et ameliore le
+temps de reponse.
+    En l’absence de cache, le service envoie un contexte structure au service IA avec les
+competences manquantes. La reponse n’est pas acceptee aveuglement. Le diagramme
+montre une etape de validation JSON, puis un mecanisme de reprise si le format reste
+invalide. Si la seconde tentative echoue encore, le systeme bascule vers un fallback deter-
+ministe. Cette logique est importante dans le projet, car elle montre que la generation
+n’est pas laissee sans controle et qu’une sortie exploitable reste attendue meme en cas
+d’echec du modele.
+
+
+
+
+                                                                                         46
+             Figure 3.8: Diagramme de sequence de generation de roadmap
+
+
+3.3.4.2   Diagramme de sequence - Recommandations IA
+
+Le second diagramme commence cote recruteur, au moment de l’ouverture de la page des
+recommandations. Le backend interroge d’abord le RecommendationService, qui verifie
+l’existence d’un resultat en cache. Si un jeu de recommandations compatible est deja
+present, le systeme retourne directement la reponse au frontend. Dans le cas contraire,
+le service charge le job et les candidats compatibles depuis la base, compare les profils et
+calcule un classement ainsi qu’un fit band.
+    Le point essentiel de ce diagramme est l’ordre des etapes. La comparaison candi-
+dat/job, le classement et la detection des signaux de risque apparaissent avant l’appel
+au service IA. Le LLM intervient ensuite pour enrichir l’explication retournee au recru-
+
+
+                                                                                         47
+teur, mais il ne decide pas lui-meme de l’ordre final. Cette lecture est coherente avec le
+positionnement rules-first retenu dans le projet : le resultat principal reste deterministe,
+tandis que la couche IA sert a rendre l’explication plus lisible.
+
+
+
+
+              Figure 3.9: Diagramme de sequence des recommandations IA
+
+
+3.3.4.3   Diagramme de sequence - Score explicable
+
+Le troisieme scenario concerne la consultation d’un rapport de score par un candidat ou
+un recruteur. Le frontend appelle l’API de score, puis le backend recupere dans la base les
+donnees reliees a la candidature : candidate_job, job, CV, tests et scores. Le ScoreService
+calcule alors le score explicable en verifiant d’abord la disponibilite du final_tests_score.
+Lorsque ce score existe, il est utilise directement. Sinon, le service regarde si des poids
+de calcul sont configures et applique soit une moyenne ponderee, soit une moyenne plus
+simple.
+    Une fois le score consolide, une explication structuree est generee, puis sauvegardee
+dans score_reports. Ce diagramme confirme que l’explication intervient apres le calcul
+du score et non a sa place. Il rappelle aussi qu’un meme endpoint doit produire un resul-
+tat suffisamment stable pour etre relu ensuite, exporte ou consulte depuis des parcours
+differents.
+
+
+
+
+                                                                                          48
+                Figure 3.10: Diagramme de sequence du score explicable
+
+
+3.3.5    Diagramme d’activite
+Le diagramme d’activite porte ici sur le processus de generation de la roadmap. Le
+demarrage se fait par le chargement des donnees du candidat, suivi du calcul des skill
+gaps. Une premiere decision verifie ensuite la disponibilite du quota. Si le quota est
+depasse, le systeme n’essaie pas de produire un resultat partiel et retourne explicitement
+un message d’arret.
+    Si le quota reste disponible, le processus verifie l’existence d’une roadmap en cache.
+Une reponse deja calculee peut alors etre renvoyee directement. Dans le cas contraire, le
+service IA est appele. Le diagramme montre ensuite une seconde decision sur la validite du
+JSON retourne. Une sortie valide est sauvegardee, tandis qu’une sortie invalide entraine
+l’utilisation d’un fallback deterministe. L’interet de cette representation est de rendre
+visible la logique metier du module : controle de quota, reutilisation du cache, generation
+encadree et issue de secours en cas d’echec.
+
+
+
+
+                                                                                        49
+                Figure 3.11: Diagramme d’activite du processus HireCue
+
+
+3.4      Conception fonctionnelle
+La conception fonctionnelle de HireCue s’appuie sur des usages reels du recrutement
+numerique. Chaque module a ete rattache a un besoin concret, soit pour mieux expliquer
+un resultat, soit pour assister le recruteur sans lui retirer la decision, soit pour rendre
+certaines operations repetitives plus fluides.
+
+
+3.4.1     Gestion des candidats
+La gestion des candidats constitue le socle sur lequel reposent la plupart des autres mod-
+ules. Elle couvre le profil utilisateur, le CV, les informations personnelles, les competences,
+les resultats de tests, les candidatures rattachees a un poste et les etats de suivi. Dans le
+projet, cette couche ne sert pas uniquement a conserver des informations administratives.
+Elle alimente directement les traitements de score, la comparaison avec un poste cible, la
+roadmap et le chatbot.
+    Cette centralisation est importante pour les deux principaux profils utilisateur. Le
+candidat doit retrouver un suivi lisible de sa candidature et des retours associes. Le
+recruteur, de son cote, a besoin d’un acces coherent aux informations du profil pour
+analyser un dossier, lancer des recommandations ou preparer un entretien sans naviguer
+entre plusieurs sources dispersees.
+
+
+
+
+                                                                                            50
+3.4.2     Rapport de score explicable
+Le rapport de score explicable repond a un besoin simple en apparence, mais central pour
+le projet : un resultat numerique seul n’est pas suffisant pour guider un candidat ou aider
+un recruteur. Le module a donc pour objectif de fournir une lecture plus interpretable du
+score, en expliquant les composantes qui influencent le resultat et en distinguant ce qui
+releve du niveau technique, des tests, du profil ou d’autres dimensions prises en compte
+par le systeme.
+    Fonctionnellement, cette brique sert a relier l’evaluation a une restitution defendable.
+Elle prend place a un moment sensible du processus de recrutement, celui ou un utilisateur
+veut comprendre ce qu’un score signifie reellement et sur quels elements il repose. Dans
+HireCue, cette explicabilite joue aussi un role de confiance, car elle rend le parcours moins
+opaque.
+    La restitution attendue ne se limite donc pas a l’affichage d’une note globale. Elle doit
+faire apparaitre une repartition detaillee du resultat, des sous-scores lisibles et des explica-
+tions suffisamment claires pour distinguer les points forts, les insuffisances eventuelles et
+les marges d’amelioration. Dans le parcours candidat, cette logique peut etre prolongee
+par des conseils de progression. Dans le parcours recruteur, elle apporte surtout une
+lecture plus claire pour appuyer la decision sans se substituer au jugement humain.
+
+
+3.4.3     Recommandations IA cote recruteur
+Ce module a ete pense pour reduire le temps consacre au tri initial tout en laissant au
+recruteur la maitrise de la decision. L’objectif fonctionnel n’est donc pas de produire un
+verdict automatique, mais de presenter des profils rapproches d’un poste avec des indica-
+teurs plus utiles qu’une simple liste de candidatures. Le recruteur peut ainsi visualiser un
+score d’adequation, des competences rapprochees, des ecarts a surveiller et une explication
+associee.
+    Dans HireCue, cette fonctionnalite prend surtout de la valeur lorsqu’elle est reliee aux
+autres briques du systeme. Une recommandation ne reste pas isolee : elle peut renvoyer
+vers le score detaille, vers les signaux de risque, vers des questions personnalisees ou vers
+un scenario de reengagement.
+    Dans le cadre du projet, le format cible correspond a une mise en avant d’un nombre
+restreint de candidats pertinents, typiquement trois profils recommandes pour une offre.
+Cette limitation permet de conserver un resultat lisible dans le dashboard recruteur et
+d’associer a chaque recommandation une justification exploitable. Lorsque le parcours le
+permet, ces recommandations peuvent aussi deboucher sur des actions concretes, comme
+l’invitation du candidat a passer un test complementaire ou l’ouverture d’un module de
+questions personnalisees.
+
+
+
+
+                                                                                             51
+3.4.4     Skill Gap Roadmap
+La roadmap de competences a ete introduite pour repondre a un manque frequent dans
+les plateformes de recrutement : le candidat connait l’issue de son evaluation, mais il ne
+sait pas toujours comment progresser. Le role de ce module est de transformer un ecart
+entre profil et poste en un parcours de progression plus concret. L’utilisateur concerne
+est d’abord le candidat, mais le resultat peut aussi aider l’equipe produit ou le recruteur
+a mieux comprendre la logique des recommandations affichees.
+    La valeur metier de cette fonctionnalite tient a son positionnement. Elle deplace
+HireCue d’une logique purement evaluative vers une logique d’accompagnement. Une
+candidature n’est plus seulement acceptee ou ecartee ; elle peut aussi donner lieu a un
+retour structure sur les competences a renforcer.
+    Dans le perimetre observe, cette roadmap est rattachee a une candidature et a une offre
+cible. Elle ne se resume donc pas a une recommandation generale de formation. Elle vise
+plutot a expliciter, pour un binome candidat-poste donne, les competences manquantes,
+les priorites de progression et, lorsque la fonctionnalite est activee, un support PDF
+permettant de conserver ou de partager le plan d’amelioration.
+
+
+3.4.5     Chatbot RAG
+Le chatbot lie a la roadmap intervient comme un prolongement de cette derniere. Son
+objectif est de repondre aux questions du candidat en s’appuyant sur le contexte deja
+disponible : contenu de la roadmap, competences observees, poste cible et historique des
+echanges. L’interet fonctionnel de cette brique est de garder la discussion ancree dans un
+perimetre utile au lieu d’ouvrir une conversation trop generale.
+    Dans le projet, ce module apporte surtout de la fluidite. Il permet au candidat
+d’approfondir un conseil, de demander une reformulation ou de clarifier une etape sans de-
+voir sortir du parcours. Son utilite depend donc autant de la qualite du contexte transmis
+que de la generation elle-meme.
+
+
+3.4.6     Questions personnalisees
+Les questions personnalisees s’adressent au recruteur et prolongent l’analyse du profil
+vers la preparation de l’entretien. Le besoin fonctionnel est clair : une liste de questions
+standard ne permet pas toujours d’explorer les points faibles ou les zones d’incertitude
+d’un candidat. En s’appuyant sur le poste, sur les ecarts de competences et sur les
+recommandations deja calculees, le module propose des questions plus ciblees.
+   Cette brique renforce le caractere operationnel de HireCue. Elle traduit un resultat
+analytique en un usage concret pour la suite du recrutement, tout en gardant un format
+assez simple pour etre directement affiche dans le dashboard recruteur.
+
+
+
+
+                                                                                         52
+3.4.7     Candidate Engagement & Motivation Insights
+Le suivi d’engagement candidat vise a donner plus de lisibilite au parcours apres l’evaluation.
+Dans la structure du systeme, cette brique s’appuie sur des marqueurs de progression et
+sur des informations utiles a la lecture du comportement du candidat face a sa roadmap,
+a ses notifications ou a certaines relances. L’objectif n’est pas de fabriquer artificielle-
+ment une motivation, mais de reperer si le parcours reste actif, incomplet ou en perte
+d’interaction.
+    Du point de vue metier, cette fonctionnalite peut aider a mieux interpreter certains
+cas limites. Un candidat qui consulte sa roadmap, revient sur son parcours et interagit
+avec les modules d’accompagnement n’est pas dans la meme situation qu’un profil qui
+reste inactif. Cette distinction nourrit ensuite d’autres briques, notamment les alertes ou
+le reengagement.
+
+
+3.4.8     Reengagement des candidats
+Le reengagement vise a mieux exploiter le vivier deja present dans la plateforme. Plutot
+que de relancer exclusivement une recherche externe, le recruteur peut retrouver des
+profils deja connus, identifier ceux qui restent pertinents pour un poste et lancer une
+relance structuree. Ce module concerne d’abord le dashboard recruteur, mais il a aussi
+un effet sur l’experience candidat lorsqu’une nouvelle opportunite lui est proposee.
+    Dans le projet, cette brique apporte une valeur metier directe. Elle aide a transformer
+des candidatures anciennes ou peu actives en un vivier mieux valorise, sans imposer une
+reprise manuelle de toute l’analyse.
+
+
+3.4.9     Relance admin des candidats inactifs
+Au-dela du reengagement pilote par le recruteur, un besoin plus transversal concerne la
+relance des candidats inactifs depuis le dashboard Admin. L’objectif est de disposer d’un
+declencheur simple permettant d’envoyer un email a des profils restes sans activite depuis
+une duree voisine de soixante jours. Cette fonctionnalite vise moins la selection pour un
+poste precis que la reactivation generale du vivier present sur la plateforme.
+    Dans le perimetre actuel, cette brique doit etre decrite avec prudence. Selon le niveau
+de finalisation effectivement retenu, elle peut correspondre a un bouton deja integre, a
+un mecanisme documente ou a une fonctionnalite en cours de consolidation. Dans tous
+les cas, sa place dans le rapport est justifiee, car elle prolonge la logique d’engagement
+candidat et complete les modules de relance deja presents cote recruteur.
+
+
+3.4.10     Smart Candidate Risk Alerts
+Les alertes de risque ont pour role d’attirer l’attention du recruteur sur des dossiers qui
+demandent une lecture plus fine. Il peut s’agir d’un engagement faible, d’informations
+
+                                                                                           53
+manquantes, d’un score bas ou d’une incoherence entre plusieurs signaux. L’objectif
+fonctionnel n’est pas de disqualifier automatiquement un candidat, mais de faire remonter
+des points de vigilance qui meritent une verification humaine.
+    Dans HireCue, cette fonctionnalite renforce l’aide a la decision sans la remplacer. Elle
+s’insere naturellement dans le dashboard recruteur, aux cotes des recommandations et du
+score detaille.
+
+
+3.4.11     Scraping des données externes
+Le scraping des données externes occupe une place importante dans HireCue, car il permet
+d’ouvrir la plateforme vers des sources utiles au recrutement, en particulier LinkedIn et
+d’autres canaux externes exploitables selon les workflows disponibles. Son rôle n’est pas
+de contourner le fonctionnement interne de la plateforme, mais d’enrichir les parcours
+recruteur et administrateur par des profils ou des offres qui ne sont pas encore présents
+dans la base.
+    Dans le cadre du stage, l’intérêt de cette brique apparaît surtout dans deux cas. Le pre-
+mier concerne le sourcing de profils candidats, lorsqu’un recruteur souhaite faire remonter
+des candidats potentiellement pertinents à partir d’un critère ciblé. Le second concerne la
+récupération d’offres externes, afin d’alimenter plus rapidement le vivier d’opportunités
+visibles dans HireCue. Dans les deux cas, la donnée externe n’est jamais utilisée brute.
+Elle doit être vérifiée, nettoyée et adaptée au modèle interne avant de devenir exploitable.
+    Sur le plan technique, PhantomBuster intervient comme outil d’extraction. Il permet
+de lancer des agents capables de récupérer des profils, certaines informations de con-
+tact disponibles, ou encore des offres présentes sur LinkedIn. n8n joue ensuite un rôle
+d’orchestration. Il déclenche les workflows, enchaîne les traitements, centralise les retours
+d’exécution et transmet au backend des structures de données plus cohérentes avec les
+besoins de la plateforme.
+    Le déroulement général du processus peut être résumé en plusieurs étapes. D’abord,
+le recruteur ou l’administrateur saisit des critères de recherche selon le besoin métier.
+Ensuite, le workflow n8n est déclenché. Ce workflow appelle alors PhantomBuster ou,
+selon le cas, une API externe. Les données récupérées sont ensuite consolidées, puis
+soumises à une phase de nettoyage et de normalisation. Les doublons sont supprimés
+avant toute exploitation plus poussée. Enfin, les résultats sont mappés vers le modèle
+interne de HireCue, puis soit insérés dans la base, soit affichés dans un dashboard adapté
+au profil utilisateur.
+    Cette chaîne montre que la qualité du scraping ne dépend pas seulement de la ca-
+pacité à extraire des données. Elle dépend surtout de la validation des contenus, de la
+déduplication, de la cohérence avec la base interne et de la qualité du mapping appliqué
+avant intégration. Autrement dit, la valeur de cette fonctionnalité ne réside pas dans le
+volume brut récupéré, mais dans la transformation d’une donnée externe hétérogène en
+une information exploitable dans les parcours métier de HireCue.
+
+                                                                                          54
+3.5     Conception technique
+La conception technique retenue pendant le stage cherche a separer clairement ce qui releve
+de l’interface, de la logique metier, de la persistence, des traitements intelligents et des
+integrations externes. Cette separation etait necessaire, car les nouvelles fonctionnalites
+ne pouvaient pas etre ajoutees proprement si tout le systeme etait concentre dans une
+seule couche.
+
+
+3.5.1     Architecture backend
+L’architecture backend de HireCue repose sur une organisation en couches, structurée
+principalement autour des routes API, des contrôleurs, des services métier, des reposi-
+tories et des modèles Sequelize. Ce découpage répond à un objectif de modularité et de
+maintenabilité, en séparant clairement les responsabilités entre l’exposition des endpoints,
+le traitement applicatif, la logique métier et l’accès aux données persistantes.
+    Les routes constituent les points d’entrée du système. Elles exposent les services
+consommés par le frontend, ainsi que certains endpoints mobilisés dans des workflows
+internes ou des traitements spécialisés. Les contrôleurs assurent ensuite la réception
+et l’orchestration initiale des requêtes : ils récupèrent les paramètres, appliquent les
+vérifications nécessaires, gèrent les aspects liés à l’authentification ou à l’autorisation,
+puis délèguent l’exécution au niveau des services. Cette approche permet de conserver
+des contrôleurs relativement légers, centrés sur la gestion du flux HTTP plutôt que sur
+l’implémentation de la logique métier.
+    La logique métier est principalement portée par les services. Cette couche regroupe
+les traitements essentiels du système, notamment ceux liés au calcul des scores, à la
+génération des rapports explicables, à la construction des roadmaps de progression, aux
+recommandations destinées aux recruteurs, à la génération de questions personnalisées,
+ainsi qu’aux scénarios de réengagement de candidats. Le choix d’isoler ces traitements
+dans des services dédiés présente plusieurs avantages : il améliore la lisibilité du code,
+facilite la réutilisation de fonctionnalités communes, réduit le couplage entre modules et
+rend l’évolution du système plus maîtrisable.
+    L’accès aux données est, quant à lui, pris en charge par les repositories et les modèles
+Sequelize, qui assurent les opérations de lecture, d’écriture, de mise à jour et de sup-
+pression dans la base de données MySQL. Cette couche permet d’encapsuler la logique
+d’accès aux données et de limiter la dépendance directe des services vis-à-vis du schéma
+relationnel. Elle favorise également une meilleure cohérence dans les requêtes et simplifie
+la maintenance lorsque certaines structures doivent évoluer.
+    Cette architecture a joué un rôle particulièrement important dans la réalisation des
+fonctionnalités développées dans le cadre de ce projet. En effet, des modules comme
+le score report explicable, la roadmap personnalisée, le chatbot associé à la roadmap,
+les recommandations intelligentes pour recruteur, les questions personnalisées ou en-
+
+
+                                                                                         55
+

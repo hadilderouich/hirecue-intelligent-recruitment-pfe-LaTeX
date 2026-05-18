@@ -2,74 +2,71 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[french]{babel}
 \usepackage{lmodern}
 \usepackage[a4paper,margin=2.5cm]{geometry}
-\usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{array}
-\usepackage[table]{xcolor}
-\usepackage{colortbl}
-\usepackage{titlesec}
-\usepackage{fancyhdr}
-\usepackage[hidelinks]{hyperref}
-\usepackage{tocloft}
+\usepackage{longtable}
+\IfFileExists{colortbl.sty}{\usepackage[table]{xcolor}}{\usepackage{xcolor}}
 
-\definecolor{headerblue}{HTML}{B4C6E7}
+\definecolor{TableHeaderBlue}{HTML}{B4C6E7}
+\colorlet{headerblue}{TableHeaderBlue}
+\IfFileExists{colortbl.sty}{}{\providecommand{\rowcolor}[1]{}}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+    linktoc=all
+}
 
 \graphicspath{{./images/}}
-\setstretch{1.2}
+\linespread{1.2}\selectfont
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0.8pt}
-\fancyhead[L]{\itshape\leftmark}
-\fancyfoot[C]{\thepage}
-
-\titleformat{\chapter}[display]
-  {\normalfont\bfseries\Huge}
-  {Chapitre \Roman{chapter}}
-  {0.8ex}
-  {\Huge}
-
-\titlespacing*{\chapter}{0pt}{-10pt}{24pt}
-
 \makeatletter
+\def\ps@hirecuepages{%
+  \def\@oddhead{}%
+  \def\@evenhead{}%
+  \def\@oddfoot{\hfill\footnotesize\thepage}%
+  \def\@evenfoot{\@oddfoot}%
+}
 \renewcommand{\chaptermark}[1]{%
   \markboth{Chapitre \thechapter.\ #1}{}%
 }
+\let\ps@plain\ps@hirecuepages
 \makeatother
 
 \begin{document}
+\hypersetup{pageanchor=false}
 
 \begin{titlepage}
     \centering
     \vspace*{1.5cm}
 
-    {\Large Republique Tunisienne\par}
+    {\Large R\'epublique Tunisienne\par}
     \vspace{0.3cm}
-    {\large Ministere de l'Enseignement Superieur et de la Recherche Scientifique\par}
+    {\large Minist\`ere de l'Enseignement Sup\'erieur et de la Recherche Scientifique\par}
     \vspace{0.3cm}
-    {\large Rapport de Projet de Fin d'Etudes\par}
+    {\large Rapport de Projet de Fin d'\'Etudes\par}
     \vspace{2cm}
 
     {\Huge\bfseries HireCue\par}
     \vspace{0.4cm}
-    {\LARGE Plateforme de recrutement intelligente basee sur l'IA\par}
+    {\LARGE Plateforme de recrutement intelligente bas\'ee sur l'IA\par}
     \vspace{2cm}
 
     \begin{tabular}{>{\bfseries}p{5cm}p{8cm}}
         Organisme d'accueil : & Teligencia Labs \\
-        Nature du document : & Rapport PFE niveau ingenieur \\
-        Theme : & Intelligence artificielle appliquee au recrutement \\
+        Nature du document : & Rapport PFE niveau ing\'enieur \\
+        Theme : & Intelligence artificielle appliqu\'ee au recrutement \\
     \end{tabular}
 
     \vfill
-
-    {\large Annee universitaire 2025--2026\par}
+    {\large Ann\'ee universitaire 2025--2026\par}
+    {\large Ann\'ee universitaire 2025--2026\par}
 \end{titlepage}
 
 \thispagestyle{empty}
@@ -90,47 +87,71 @@
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline
-\rowcolor{headerblue}
+\rowcolor{TableHeaderBlue}
 \textbf{Abr\'eviation} & \textbf{Signification} \\
-\hline
-IA & Intelligence Artificielle \\
-\hline
-LLM & Large Language Model \\
-\hline
-RAG & Retrieval-Augmented Generation \\
 \hline
 API & Application Programming Interface \\
 \hline
-n8n & Outil d'automatisation de workflows \\
+CEO & Chief Executive Officer \\
 \hline
-SQL & Structured Query Language \\
+CRISP-DM & Cross Industry Standard Process for Data Mining \\
 \hline
-UI & User Interface \\
+CV & Curriculum Vitae \\
 \hline
-UX & User Experience \\
+HTTP & HyperText Transfer Protocol \\
 \hline
-Git & Global Information Tracker \\
+IA & Intelligence Artificielle \\
+\hline
+JSON & JavaScript Object Notation \\
+\hline
+KPI & Key Performance Indicator \\
+\hline
+LLM & Large Language Model \\
+\hline
+MySQL & My Structured Query Language \\
+\hline
+n8n & Outil d'automatisation et d'orchestration de workflows \\
+\hline
+ORM & Object-Relational Mapping \\
+\hline
+PDF & Portable Document Format \\
+\hline
+RAG & Retrieval-Augmented Generation \\
+\hline
+REST & Representational State Transfer \\
+\hline
+SaaS & Software as a Service \\
+\hline
+Scrum & Methodologie agile de gestion de projet \\
+\hline
+UML & Unified Modeling Language \\
+\hline
+Webhook & Point d'appel HTTP declenchant automatiquement un workflow \\
 \hline
 \end{tabular}
 \end{table}
 \newpage
-
+Le recrutement conna\^it aujourd'hui une transformation importante sous l'effet de la num\'erisation des processus et de l'usage croissant de l'intelligence artificielle. Dans les organisations confront\'ees \`a un volume \'elev\'e de candidatures, il ne suffit plus de diffuser des offres et de centraliser des CV. L'enjeu devient aussi de mieux exploiter les donn\'ees disponibles, de r\'eduire le temps consacr\'e au tri manuel et d'am\'eliorer la lecture des profils avant la prise de d\'ecision.
 \chapter*{Introduction G\'en\'erale}
-\addcontentsline{toc}{chapter}{Introduction G\'en\'erale}
+Dans cette perspective, le projet \textit{HireCue} s'inscrit dans l'\'evolution d'une plateforme de recrutement intelligente d\'ej\`a existante. Le travail men\'e pendant le stage ne concerne pas uniquement l'automatisation de certaines t\^aches. Il r\'epond aussi \`a un besoin concret de clart\'e dans l'interpr\'etation des scores, de personnalisation du suivi candidat et d'assistance plus directe au recruteur. La question pos\'ee est donc celle de l'\'evolution d'une plateforme de recrutement vers une solution plus intelligente, plus structur\'ee et plus utile en contexte r\'eel, sans perdre en coh\'erence technique ni en fiabilit\'e.
 
-Le recrutement connait aujourd'hui une transformation importante sous l'effet de la numerisation des processus et de l'usage croissant de l'intelligence artificielle. Dans les organisations confrontees a un volume eleve de candidatures, il ne suffit plus de diffuser des offres et de centraliser des CV. L'enjeu devient aussi de mieux exploiter les donnees disponibles, de reduire le temps consacre au tri manuel et d'ameliorer la lecture des profils avant la prise de decision.
+Le travail r\'ealis\'e dans le cadre de ce projet de fin d'\'etudes porte notamment sur le rapport de score explicable, les recommandations IA c\^ot\'e recruteur, la roadmap de comp\'etences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces \'evolutions ont \'et\'e engag\'ees pour mieux exploiter les donn\'ees d\'ej\`a pr\'esentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide \`a la d\'ecision sans remplacer l'appr\'eciation humaine.
 
-Dans cette perspective, le projet \textit{HireCue} s'inscrit dans l'evolution d'une plateforme de recrutement intelligente deja existante. Le travail mene pendant le stage ne concerne pas uniquement l'automatisation de certaines taches. Il repond aussi a un besoin concret de clarte dans l'interpretation des scores, de personnalisation du suivi candidat et d'assistance plus directe au recruteur. La question posee est donc celle de l'evolution d'une plateforme de recrutement vers une solution plus intelligente, plus structuree et plus utile en contexte reel, sans perdre en coherence technique ni en fiabilite.
+Le pr\'esent rapport est organis\'e en plusieurs chapitres compl\'ementaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte m\'etier et technique. Le deuxi\`eme chapitre pr\'ecise les besoins, l'architecture globale et les outils mobilis\'es. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la r\'ealisation et les r\'esultats obtenus autour de l'\'evolution de la plateforme.
 
-Le travail realise dans le cadre de ce projet de fin d'etudes porte notamment sur le rapport de score explicable, les recommandations IA cote recruteur, la roadmap de competences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces evolutions ont ete engagees pour mieux exploiter les donnees deja presentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide a la decision sans remplacer l'appreciation humaine.
+Le travail réalisé dans le cadre de ce projet de fin d'études porte notamment sur le rapport de score explicable, les recommandations IA côté recruteur, la roadmap de compétences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces évolutions ont été engagées pour mieux exploiter les données déjà présentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide à la décision sans remplacer l'appréciation humaine.
 
-Le present rapport est organise en plusieurs chapitres complementaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte metier et technique. Le deuxieme chapitre precise les besoins, l'architecture globale et les outils mobilises. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la realisation et les resultats obtenus autour de l'evolution de la plateforme.
+Le présent rapport est organisé en plusieurs chapitres complémentaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte métier et technique. Le deuxième chapitre précise les besoins, l'architecture globale et les outils mobilisés. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la réalisation et les résultats obtenus autour de l'évolution de la plateforme.
 
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
+\hypersetup{pageanchor=true}
+\pagestyle{hirecuepages}
 
 \input{chapitre1}
 \input{Chapitre2}
+\input{Chapitre3}
+\input{Chapitre4}
 
 \end{document}
