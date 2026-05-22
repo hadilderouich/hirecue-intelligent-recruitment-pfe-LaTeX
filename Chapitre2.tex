@@ -4,7 +4,7 @@
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-Ce chapitre formalise les besoins du projet \textit{HireCue} et rassemble les principaux éléments ayant structuré son évolution pendant le stage. L'accent est d'abord mis sur les acteurs du système, puis sur les besoins fonctionnels et non fonctionnels ainsi que sur le backlog produit. La lecture se prolonge ensuite par l'architecture globale de l'application, les diagrammes UML utiles à la compréhension du système et l'étude des logiciels et des technologies mobilisés.
+Ce chapitre formalise les besoins du projet \textit{HireCue} et rassemble les principaux éléments ayant structuré son évolution pendant le stage. L'accent est d'abord mis sur les acteurs du système, puis sur les besoins fonctionnels et non fonctionnels ainsi que sur le backlog produit. La lecture se prolonge ensuite par l'architecture globale de l'application, les diagrammes UML utiles à la compréhension du système et l'étude des logiciels et des technologies mobilisés. Ce chapitre prend également en compte la couche décisionnelle ajoutée à \textit{HireCue} à travers Power BI, dont l'objectif est de transformer les données issues de MySQL en indicateurs exploitables pour le suivi stratégique et opérationnel.
 
 \section{Sp\'ecifications des besoins}
 
@@ -61,7 +61,9 @@ Les besoins fonctionnels correspondent aux services attendus par les acteurs du 
 \item réengagement de candidats inactifs, avec un ciblage prioritaire des profils restés sans interaction récente ;
 \item relance admin de candidats inactifs depuis une période voisine de 60 jours, via un bouton ou un mécanisme dédié selon le niveau de finalisation retenu ;
 \item affichage de \textit{Smart Candidate Risk Alerts} dans le dashboard recruteur ;
-\item suivi de \textit{Candidate Engagement \& Motivation Insights} pour mieux lire la dynamique du parcours candidat.
+\item suivi de \textit{Candidate Engagement \& Motivation Insights} pour mieux lire la dynamique du parcours candidat ;
+\item affichage de dashboards décisionnels Power BI pour suivre les indicateurs stratégiques et opérationnels ;
+\item expérimentation \textit{AI Workforce Forecasting} pour explorer une logique de prévision RH à partir des données de la plateforme.
 \end{itemize}
 
 \begin{figure}[H]
@@ -171,12 +173,16 @@ F20-ter & Workflow d'envoi de messages LinkedIn aux CEO et founders & Automatise
 \hline
 F21 & Suivi des quotas IA et cache & Encadrer les appels IA par des quotas, de la persistance et des mécanismes de cache afin de maintenir des traitements maîtrisables en production. & Haute & Réalisé & Phase 3 \\
 \hline
+F22 & Dashboards décisionnels Power BI & Connecter la base MySQL de \textit{HireCue} à Power BI, préparer les données avec Power Query, créer des KPIs et visualisations, puis réaliser les dashboards \textit{Executive Overview} et \textit{Product \& Operations Analytics}. Les rapports sont intégrés dans une application React / Node.js via \texttt{iframe}. & Haute & Réalisé & Phase 4 \\
+\hline
+F22-bis & AI Workforce Forecasting & Mettre en place une expérimentation Deep Learning dans l'interface web afin d'explorer la prévision ou l'analyse de tendances liées aux données RH et opérationnelles de \textit{HireCue}. & Moyenne & En consolidation & Phase 4 \\
+\hline
 \end{longtable}
 \normalsize
 
 \section{Architecture logique et physique globale de l'application}
 
-L'architecture globale permet de comprendre la manière dont les composants techniques de \textit{HireCue} sont organisés et coordonnés. Elle met en évidence les relations entre l'interface utilisateur, la logique métier, les services IA, la base de données et les outils d'automatisation mobilisés dans le projet. Cette lecture est importante, car une partie essentielle du stage a consisté à faire évoluer des briques déjà existantes sans rompre l'équilibre d'ensemble de la plateforme.
+L'architecture globale permet de comprendre la manière dont les composants techniques de \textit{HireCue} sont organisés et coordonnés. Elle met en évidence les relations entre l'interface utilisateur, la logique métier, les services IA, la base de données, les outils d'automatisation et la couche décisionnelle mobilisés dans le projet. Cette lecture est importante, car une partie essentielle du stage a consisté à faire évoluer des briques déjà existantes sans rompre l'équilibre d'ensemble de la plateforme.
 
 \subsection{Architecture physique de l'application}
 
@@ -188,7 +194,7 @@ Lorsque certains traitements dépassent le périmètre applicatif classique, le 
 
 Par ailleurs, plusieurs automatisations sont prises en charge par \textit{n8n}, en particulier pour l'import d'offres externes, certains flux de sourcing et d'autres traitements transverses. Les traitements plus lourds ou non immédiats peuvent être découplés du flux principal à l'aide de RabbitMQ, qui permet de gérer des files de messages et des exécutions asynchrones. Docker intervient également comme support de conteneurisation afin de stabiliser l'environnement d'exécution de certaines briques et de faciliter leur déploiement.
 
-Enfin, l'architecture physique intègre aussi des services externes, notamment LinkedIn et PhantomBuster, mobilisés dans certains scénarios de sourcing ou d'intégration. L'ensemble de ces composants échange principalement via des APIs REST, ce qui permet de conserver une séparation nette des responsabilités tout en maintenant une communication cohérente entre les briques de la plateforme.
+Enfin, l'architecture physique intègre aussi des services externes, notamment LinkedIn et PhantomBuster, mobilisés dans certains scénarios de sourcing ou d'intégration. Elle est complétée par Power BI, qui se connecte à MySQL pour construire des rapports décisionnels ensuite affichés dans l'interface web via une intégration \texttt{iframe}. L'ensemble de ces composants échange principalement via des APIs REST ou des connecteurs dédiés, ce qui permet de conserver une séparation nette des responsabilités tout en maintenant une communication cohérente entre les briques de la plateforme.
 
 \begin{figure}[H]
 \centering
@@ -202,9 +208,11 @@ Sur le plan logique, \textit{HireCue} peut être décomposée en plusieurs couch
 
 La \textbf{couche métier} est prise en charge par le backend Node.js / Express. Elle concentre les règles de gestion, les routes applicatives, la coordination des parcours et la communication avec les autres briques du système. C'est à ce niveau que s'articulent, par exemple, la consultation du score report, la gestion des recommandations, l'accès aux roadmaps ou le suivi des notifications et du réengagement.
 
-La \textbf{couche services IA} rassemble les traitements utilisés pour expliquer les scores, générer les roadmaps, produire des recommandations ou assister l'entretien. Dans \textit{HireCue}, cette couche n'est pas isolée du besoin métier ; elle vient en appui de parcours déjà existants et doit rester cohérente avec les contraintes fonctionnelles de la plateforme.
+La \textbf{couche services IA / LLM} rassemble les traitements utilisés pour expliquer les scores, générer les roadmaps, produire des recommandations ou assister l'entretien. Dans \textit{HireCue}, cette couche n'est pas isolée du besoin métier ; elle vient en appui de parcours déjà existants et doit rester cohérente avec les contraintes fonctionnelles de la plateforme.
 
 La \textbf{couche données} repose sur MySQL et assure la persistance des utilisateurs, des candidatures, des scores, des roadmaps, des notifications, des historiques de chat et des journaux utiles au suivi. Elle constitue le support central de la traçabilité et de la réutilisation des informations déjà calculées.
+
+La \textbf{couche décisionnelle} s'appuie sur Power BI pour transformer les données MySQL en KPIs et visualisations, puis les exposer dans une interface web à travers une intégration \texttt{iframe}. Elle complète la lecture opérationnelle de \textit{HireCue} en ajoutant des dashboards destinés au suivi stratégique et au pilotage de l'activité.
 
 La \textbf{couche orchestration et automatisation} est principalement assurée par \textit{n8n} et par certains mécanismes asynchrones comme RabbitMQ. Elle intervient lorsqu'un traitement doit être déclenché en dehors du flux immédiat de l'utilisateur, par exemple pour certaines recommandations, intégrations ou exécutions de workflows.
 
@@ -269,7 +277,7 @@ Cette vue globale met donc en évidence le rôle central de \textit{n8n} comme c
 
 \section{Étude des outils}
 
-Cette partie présente les logiciels et les technologies mobilisés dans le projet, ainsi que les principaux critères ayant orienté leur choix. L'objectif est de montrer que les outils retenus répondent à des besoins concrets de développement, d'intégration, d'automatisation et d'exploitation des services intelligents.
+Cette partie présente les logiciels et les technologies mobilisés dans le projet, ainsi que les principaux critères ayant orienté leur choix. L'objectif est de montrer que les outils retenus répondent à des besoins concrets de développement, d'intégration, d'automatisation, d'exploitation des services intelligents et d'analyse décisionnelle.
 
 \subsection{Logiciels utilisés}
 
@@ -307,6 +315,8 @@ Le développement et l'intégration de \textit{HireCue} ont mobilisé plusieurs 
 \hline
 \centering\includegraphics[width=1.3cm]{PhpMyAdmin-Logo.wine.png} & phpMyAdmin & Outil de consultation et d'administration de la base de données utilisé pour vérifier les structures et le contenu des tables. \\
 \hline
+\includegraphics[width=1.1cm]{New_Power_BI_Logo.png} & Power BI Desktop & Outil utilisé pour connecter la base MySQL, préparer les données avec Power Query, créer les KPIs et construire les dashboards décisionnels de \textit{HireCue}. \\
+\hline
 \centering\includegraphics[width=1.3cm]{Overleaf.jpg} & Overleaf & Environnement de rédaction LaTeX adapté à la préparation, à la structuration et à la mise en forme du rapport PFE. \\
 \hline
 \centering\includegraphics[width=1.3cm]{PhantomBuster.png} & PhantomBuster & Outil utilisé dans certains workflows de sourcing LinkedIn et d'exploitation de profils externes. \\
@@ -340,15 +350,21 @@ Le projet \textit{HireCue} s'appuie sur un ensemble de technologies complémenta
 \hline
 \endhead
 
-\includegraphics[width=1.4cm]{react.png} & React.js & Bibliothèque frontend utilisée pour construire les interfaces de la plateforme et structurer les parcours utilisateur. \\
+\includegraphics[width=1.4cm]{react.png} & React.js & Bibliothèque frontend utilisée pour construire les interfaces de la plateforme, structurer les parcours utilisateur et afficher les dashboards Power BI intégrés. \\
 \hline
-\includegraphics[width=1.4cm]{Node.js_logo.svg.png} & Node.js & Environnement d'exécution JavaScript retenu pour le backend principal de l'application. \\
+\includegraphics[width=1.4cm]{Node.js_logo.svg.png} & Node.js & Environnement d'exécution JavaScript retenu pour le backend principal de l'application et l'intégration web des dashboards analytiques. \\
 \hline
 \includegraphics[width=1.4cm]{Expressjs.png} & Express.js & Framework backend employé pour structurer les routes, les services métier et les APIs du projet. \\
 \hline
 \includegraphics[width=1.4cm]{MySQL.png} & MySQL & Système de gestion de base de données utilisé pour la persistance des informations métier. \\
 \hline
 \includegraphics[width=1.4cm]{Sequelize.png} & Sequelize & ORM utilisé pour simplifier l'accès aux données et la manipulation des tables MySQL depuis le backend. \\
+\hline
+\includegraphics[width=1.1cm]{New_Power_BI_Logo.png} & Power BI & Solution de Business Intelligence utilisée pour créer les dashboards décisionnels à partir des données de \textit{HireCue}. \\
+\hline
+\includegraphics[width=1.2cm]{PowerQuery-Logo.png} & Power Query & Moteur de transformation des données utilisé pour nettoyer, typer, filtrer et préparer les modèles analytiques dans Power BI. \\
+\hline
+\textit{--} & DAX & Langage de formules utilisé pour créer les mesures, les KPIs et les calculs analytiques dans Power BI. \\
 \hline
 \includegraphics[width=1.4cm]{Python.svg.png} & Python & Langage mobilisé pour plusieurs services IA et certaines briques de génération ou d'analyse. \\
 \hline
@@ -359,6 +375,8 @@ Le projet \textit{HireCue} s'appuie sur un ensemble de technologies complémenta
 \includegraphics[width=1.4cm]{rag.png} & RAG & Approche utilisée pour structurer le chatbot lié à la roadmap et contextualiser certaines réponses. \\
 \hline
 \includegraphics[width=1.4cm]{RESTAPI.png} & REST API & Mode de communication principal entre frontend, backend, services IA et intégrations externes. \\
+\hline
+\includegraphics[width=1.2cm]{Calculoid---iframe.jpg} & iframe & Balise HTML utilisée pour intégrer les rapports Power BI dans l'interface web sans reconstruire toutes les visualisations dans React. \\
 \hline
 \includegraphics[width=1.4cm]{RabbitMQ.png} & RabbitMQ & Solution utilisée pour la gestion des files de messages et de certains traitements asynchrones. \\
 \hline
@@ -377,7 +395,9 @@ Le projet \textit{HireCue} s'appuie sur un ensemble de technologies complémenta
 
 Les technologies principales de \textit{HireCue} n'ont pas été sélectionnées depuis zéro dans le cadre de ce PFE. La plateforme existait déjà, était déjà hébergée et reposait sur un socle technique stabilisé. Le frontend était construit avec React.js, le backend principal avec Node.js et Express, et la persistance des données était assurée par MySQL avec Sequelize comme couche ORM. Certains traitements IA/ML étaient, quant à eux, isolés dans des projets ou microservices Python, avec Flask pour exposer certains services intelligents sous forme d'API.
 
-Dans ce contexte, le travail réalisé a surtout consisté à exploiter et à faire évoluer cette architecture existante. Les efforts ont porté sur l'intégration et l'amélioration de modules IA, d'agents LLM, de workflows \textit{n8n}, d'automatisations LinkedIn et de services IA/ML répartis sur plusieurs briques techniques. Cette orientation est cohérente avec la nature du stage : il ne s'agissait pas de reconstruire \textit{HireCue}, mais d'ajouter des fonctionnalités avancées, de renforcer les parcours existants et de connecter la plateforme à des services externes comme PhantomBuster, UniPile, Gmail et LinkedIn.
+Dans ce contexte, le travail réalisé a surtout consisté à exploiter et à faire évoluer cette architecture existante. Les efforts ont porté sur l'intégration et l'amélioration de modules IA, d'agents LLM, de workflows \textit{n8n}, d'automatisations LinkedIn, de services IA/ML répartis sur plusieurs briques techniques et d'une couche décisionnelle Power BI. Cette orientation est cohérente avec la nature du stage : il ne s'agissait pas de reconstruire \textit{HireCue}, mais d'ajouter des fonctionnalités avancées, de renforcer les parcours existants et de connecter la plateforme à des services externes comme PhantomBuster, UniPile, Gmail, LinkedIn et Power BI.
+
+L'ajout de Power BI est cohérent avec \textit{HireCue}, car la plateforme dispose déjà de données structurées dans MySQL. Power Query facilite leur nettoyage, la correction des types, le filtrage et la préparation des modèles analytiques. DAX permet ensuite de construire des mesures et des KPIs adaptés au suivi RH et opérationnel. L'intégration via \texttt{iframe} permet d'exposer les dashboards dans l'interface web sans reconstruire toutes les visualisations directement dans React. Cette extension ne remplace pas les modules IA ni les workflows \textit{n8n} ; elle les complète par une lecture décisionnelle des données.
 
 L'architecture existante présente plusieurs avantages. La séparation entre frontend, backend, services IA et workflows automatisés rend le système plus maintenable et limite le couplage entre les responsabilités. Le backend Node.js / Express conserve la logique métier principale et l'accès aux données, tandis que les microservices Python et Flask permettent d'isoler des traitements IA plus lourds ou plus spécialisés. De leur côté, les workflows \textit{n8n} peuvent être ajoutés ou modifiés sans fragiliser directement le backend principal, ce qui facilite l'évolutivité et l'intégration d'outils externes.
 

@@ -27,10 +27,19 @@
 \setcounter{tocdepth}{3}
 
 \makeatletter
+\newcommand{\hirecuepagefooter}{%
+  \begingroup
+  \edef\hirecuecurrentpage{\thepage}%
+  \ifx\hirecuecurrentpage\@empty
+  \else
+    Page \hirecuecurrentpage
+  \fi
+  \endgroup
+}
 \def\ps@hirecuepages{%
   \def\@oddhead{}%
   \def\@evenhead{}%
-  \def\@oddfoot{\hfill\footnotesize\thepage}%
+  \def\@oddfoot{\hfill\footnotesize\hirecuepagefooter}%
   \def\@evenfoot{\@oddfoot}%
 }
 \renewcommand{\chaptermark}[1]{%
@@ -138,10 +147,6 @@ Dans cette perspective, le projet \textit{HireCue} s'inscrit dans l'\'evolution 
 Le travail r\'ealis\'e dans le cadre de ce projet de fin d'\'etudes porte notamment sur le rapport de score explicable, les recommandations IA c\^ot\'e recruteur, la roadmap de comp\'etences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces \'evolutions ont \'et\'e engag\'ees pour mieux exploiter les donn\'ees d\'ej\`a pr\'esentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide \`a la d\'ecision sans remplacer l'appr\'eciation humaine.
 
 Le pr\'esent rapport est organis\'e en plusieurs chapitres compl\'ementaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte m\'etier et technique. Le deuxi\`eme chapitre pr\'ecise les besoins, l'architecture globale et les outils mobilis\'es. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la r\'ealisation et les r\'esultats obtenus autour de l'\'evolution de la plateforme.
-
-Le travail réalisé dans le cadre de ce projet de fin d'études porte notamment sur le rapport de score explicable, les recommandations IA côté recruteur, la roadmap de compétences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces évolutions ont été engagées pour mieux exploiter les données déjà présentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide à la décision sans remplacer l'appréciation humaine.
-
-Le présent rapport est organisé en plusieurs chapitres complémentaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte métier et technique. Le deuxième chapitre précise les besoins, l'architecture globale et les outils mobilisés. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la réalisation et les résultats obtenus autour de l'évolution de la plateforme.
 
 \newpage
 \pagenumbering{arabic}

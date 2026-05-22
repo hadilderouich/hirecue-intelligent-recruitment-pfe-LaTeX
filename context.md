@@ -1,6 +1,6 @@
 # Contexte du projet HireCue
 
-_Date de consolidation : 2026-05-05_
+_Date de consolidation : 2026-05-22_
 
 ## 1. Objectif du projet
 
@@ -33,7 +33,9 @@ Les principales cibles sont les suivantes :
 - fournir au recruteur des recommandations de candidats plus utiles ;
 - générer des questions personnalisées pour préparer l'entretien ;
 - améliorer le suivi candidat, les notifications et le reengagement ;
-- automatiser l'import d'offres et certaines intégrations externes.
+- automatiser l'import d'offres et certaines intégrations externes ;
+- fournir une lecture décisionnelle des données RH et opérationnelles à travers des dashboards Power BI ;
+- explorer une logique de prévision RH avec `AI Workforce Forecasting`.
 
 ### Objectifs techniques
 
@@ -46,7 +48,9 @@ Ils peuvent être résumés ainsi :
 - réutiliser un cache pour limiter les recalculs coûteux ;
 - mettre en place ou consolider des traitements asynchrones lorsque la charge le justifie ;
 - maintenir une traçabilité suffisante des traitements et des intégrations ;
-- articuler les workflows externes avec la plateforme sans dégrader l'expérience utilisateur.
+- articuler les workflows externes avec la plateforme sans dégrader l'expérience utilisateur ;
+- connecter MySQL à Power BI pour construire un modèle analytique exploitable ;
+- intégrer les dashboards décisionnels dans l'interface web via React / Node.js et iframe.
 
 ## 2. Présentation de HireCue
 
@@ -58,13 +62,14 @@ Le projet de stage ne consistait pas à concevoir une plateforme à partir de z�
 
 ### Domaine
 
-Le projet se situe à l'intersection de trois dimensions :
+Le projet se situe à l'intersection de quatre dimensions :
 
 - le recrutement numérique, avec des besoins de gestion d'offres, de candidatures et de suivi des parcours ;
 - l'intelligence artificielle, utilisée pour enrichir l'analyse, générer des explications et assister la décision ;
+- la Business Intelligence, utilisée pour consolider les données RH et opérationnelles dans des dashboards décisionnels ;
 - le modèle SaaS, qui impose des exigences de robustesse, de scalabilité, de traçabilité et de maintien en production.
 
-HireCue ne se limite donc pas a un simple job board. La plateforme s'orienté vers une logique d'orchestration du recrutement, dans laquelle les données existantes sont exploitées pour produire des informations plus utiles aux recruteurs et aux candidats.
+HireCue ne se limite donc pas a un simple job board. La plateforme s'oriente vers une logique d'orchestration du recrutement et de pilotage analytique, dans laquelle les données existantes sont exploitées pour produire des informations plus utiles aux recruteurs, aux candidats, aux administrateurs et aux décideurs.
 
 ### État initial de la plateforme
 
@@ -89,6 +94,8 @@ L'architecture de HireCue repose sur une séparation claire entre interface, log
 - MySQL assure la persistence ;
 - les services IA produisent certaines sorties textuelles ou analytiques ;
 - n8n orchestre plusieurs automatisations externes ;
+- Power BI, Power Query et DAX ajoutent une couche décisionnelle exploitant les données RH et opérationnelles ;
+- l'interface React / Node.js permet l'affichage web de dashboards analytiques via iframe ;
 - RabbitMQ prend en charge certains traitements asynchrones, notamment pour les recommandations.
 
 Cette architecture a influence toute la démarche du stage, car les fonctionnalités ajoutées devaient s'intégrer a un système déjà composé de plusieurs briques techniques et métier.
@@ -110,6 +117,8 @@ Composants frontend significatifs observés :
   - `src/jsx/components/Dashboard/CandidateSearchForm.jsx`
 - admin :
   - `src/jsx/components/Dashboard/ExternalJobsImportPanel.jsx`.
+- analytique :
+  - intégration web des dashboards Power BI dans une application React / Node.js via iframe.
 
 Cette intégration est importante dans le rapport, car elle montre que les fonctionnalités ne sont pas restees au stade de services isolés. Elles ont été rattachées a des parcours utilisateur identifiables.
 
@@ -125,8 +134,37 @@ L'environnement technique observe dans les repositories du projet repose princip
 - services IA en Python dans `hr-AiHirecue` et `hr-intelligencePFE` ;
 - workflows d'automatisation via `n8n` ;
 - sourcing LinkedIn via `PhantomBuster` ;
+- couche Business Intelligence avec `Power BI`, `Power Query` et `DAX` ;
+- intégration web des dashboards analytiques via `React.js`, `Node.js` et `iframe` ;
 - traitements asynchrones via `RabbitMQ` pour certaines fonctionnalités ;
-- usage de cache, logs applicatifs et quotas IA pour encadrer les traitements coûteux.
+- usage de cache, logs applicatifs et quotas IA pour encadrer les traitements coûteux ;
+- expérimentation analytique `AI Workforce Forecasting` basée sur Python.
+
+### Technologies complémentaires pour l'analytique
+
+Les technologies ajoutées autour du module décisionnel doivent être présentées de manière séparée des modules IA / LLM afin d'éviter toute confusion entre génération intelligente et analyse décisionnelle.
+
+Business Intelligence :
+
+- `Power BI` pour la création des rapports et dashboards ;
+- `Power Query` pour le nettoyage, la transformation et la préparation des données ;
+- `DAX` pour les mesures analytiques et les KPIs.
+
+Frontend / Web :
+
+- `React.js` pour l'affichage côté interface ;
+- `Node.js` pour l'intégration web dans l'environnement applicatif ;
+- intégration `iframe` pour embarquer les dashboards Power BI.
+
+Base de données :
+
+- `MySQL` comme source principale des données RH et opérationnelles.
+
+Deep Learning / IA :
+
+- `Python` pour l'expérimentation analytique ;
+- `AI Workforce Forecasting` comme prototype de prévision RH ;
+- `TensorFlow` ou `scikit-learn` uniquement si l'implémentation confirmée du prototype les utilise réellement.
 
 ### Repositories principaux analysés
 
@@ -141,7 +179,7 @@ L'environnement technique observe dans les repositories du projet repose princip
 
 Le travail du stage a porté sur l'évolution progressive de HireCue autour de fonctionnalités déjà reliées à des besoins métier concrets. L'objectif n'était pas d'ajouter des modules de façon decorative, mais d'améliorer la lecture des résultats, d'assister la décision et de rendre plusieurs parcours plus fluides.
 
-Les développements ou consolidations les plus importants concernent le score explicable, les recommandations IA, la roadmap de compétences, le chatbot associé, les workflows n8n, le reengagement candidat et l'intégration frontend/backend de ces briques.
+Les développements ou consolidations les plus importants concernent le score explicable, les recommandations IA, la roadmap de compétences, le chatbot associé, les workflows n8n, le reengagement candidat, l'intégration frontend/backend de ces briques et l'ajout d'une couche analytique Power BI.
 
 Cette section a pour objectif de clarifier le périmètre réel du projet afin d'éviter de présenter de manière uniforme des briques qui n'ont pas toutes atteint le même niveau de maturité. Certaines fonctionnalités ont été effectivement intégrées dans les parcours applicatifs et documentees par des endpoints, des tables ou des composants frontend. D'autres apparaissent comme des automatisations mises en place, consolidées partiellement ou encore en cours de stabilisation. Le rapport doit donc employer des formulations prudentes et distinguer ce qui est réalisé, consolide, documenté ou encore en cours.
 
@@ -205,6 +243,32 @@ Le projet couvre enfin un workflow de prospection ciblée à partir de profils d
 
 Une fois les leads qualifies, un envoi d'email peut être déclenché afin de présenter ou de rappeler les services de HireCue. La traçabilité des envois et le suivi de statut doivent être mentionnes dans le rapport lorsqu'ils sont documentes. Toutefois, cette brique doit rester présentée comme une automatisation complémentaire, souvent en cours de consolidation, plutôt que comme le cœur fonctionnel du projet.
 
+### 11. Module décisionnel Power BI
+
+Le module décisionnel Power BI ajoute une couche analytique à HireCue. Il exploite les données RH et opérationnelles déjà stockées dans MySQL afin de produire des indicateurs, des mesures et des visualisations utiles aux décideurs, aux administrateurs et au suivi produit.
+
+Les tâches réalisées ou documentées dans ce périmètre sont les suivantes :
+
+- connexion de la base MySQL de HireCue avec Power BI ;
+- récupération des données RH et opérationnelles depuis MySQL ;
+- nettoyage et transformation des données avec Power Query ;
+- création des relations entre tables et préparation du modèle analytique ;
+- création de KPIs et de mesures analytiques, notamment avec DAX ;
+- création de visualisations et de dashboards interactifs ;
+- réalisation de deux dashboards : `Executive Overview` et `Product & Operations Analytics` ;
+- intégration des dashboards dans une application React / Node.js via iframe ;
+- affichage web des dashboards analytiques dans l'interface applicative.
+
+Cette brique ne remplace pas les modules IA / LLM. Elle complète HireCue par une couche décisionnelle orientée analyse, suivi et pilotage.
+
+### 12. Expérimentation AI Workforce Forecasting
+
+L'expérimentation `AI Workforce Forecasting` correspond à une exploration analytique complémentaire autour de la prévision RH. Elle vise à tester une logique de prévision basée sur les données de la plateforme, par exemple l'évolution de l'activité, des candidatures, des offres ou de certains besoins opérationnels.
+
+Cette partie doit être présentée comme une expérimentation Deep Learning ou machine learning selon le niveau réel de maturité du prototype. Elle s'appuie sur Python et peut mobiliser TensorFlow ou scikit-learn uniquement si ces bibliothèques sont effectivement utilisées dans l'implémentation confirmée.
+
+Dans le contexte du rapport, cette expérimentation montre que HireCue évolue aussi vers une lecture prédictive des données, sans confondre cette brique avec les modules LLM déjà intégrés au score, aux recommandations ou à la roadmap.
+
 ### Backlog fonctionnel enrichi
 
 Le backlog a été détaillé autour des briques effectivement traitées ou consolidées dans le projet :
@@ -220,7 +284,13 @@ Le backlog a été détaillé autour des briques effectivement traitées ou cons
 - scraping des données externes ;
 - scraping candidats via n8n + PhantomBuster ;
 - pipeline d'import des offres LinkedIn ;
-- workflows de prospection et d'envoi d'emails, à présenter comme automatisations complémentaires lorsqu'ils ne sont pas totalement stabilisés.
+- workflows de prospection et d'envoi d'emails, à présenter comme automatisations complémentaires lorsqu'ils ne sont pas totalement stabilisés ;
+- connexion de MySQL avec Power BI ;
+- nettoyage et transformation des données dans Power Query ;
+- modélisation des relations analytiques et création de mesures DAX ;
+- réalisation des dashboards `Executive Overview` et `Product & Operations Analytics` ;
+- intégration web des dashboards Power BI via React / Node.js et iframe ;
+- expérimentation `AI Workforce Forecasting` pour explorer une logique de prévision RH.
 
 ## 6. Modules IA / LLM
 
@@ -373,7 +443,102 @@ Dans le rapport, ces intégrations ne doivent pas être présentées comme inter
 
 Les limites des services tiers doivent rester visibles : dépendance aux quotas, variations de formats, disponibilité variable des emails, échec possible de certains agents, restrictions LinkedIn et besoin de dédoublonnage avant insertion dans HireCue.
 
-## 9. Méthodologie (Scrum + CRISP-DM)
+## 9. Module décisionnel et analytique Power BI
+
+### Rôle du module décisionnel
+
+Le module décisionnel et analytique Power BI ajoute une couche de Business Intelligence à HireCue. Son rôle est d'exploiter les données RH et opérationnelles produites par la plateforme afin de les transformer en indicateurs, en KPIs et en dashboards interactifs.
+
+Cette partie s'inscrit dans la continuité des modules existants, mais avec un objectif différent. Les modules IA / LLM assistent l'analyse individuelle, la génération d'explications et l'accompagnement candidat. La couche Power BI vise plutôt le pilotage global, la lecture opérationnelle et l'aide à la décision à partir d'indicateurs agrégés.
+
+### Tâches réalisées
+
+Les travaux réalisés autour de Power BI couvrent l'ensemble de la chaîne analytique :
+
+- connexion de la base MySQL de HireCue avec Power BI ;
+- récupération des données RH et opérationnelles depuis MySQL ;
+- nettoyage, filtrage et transformation des données avec Power Query ;
+- préparation du modèle analytique et création des relations entre tables ;
+- création de KPIs et de mesures analytiques avec DAX ;
+- création de visualisations et de dashboards interactifs ;
+- réalisation des dashboards `Executive Overview` et `Product & Operations Analytics` ;
+- intégration des dashboards dans une application React / Node.js via iframe ;
+- affichage web des dashboards analytiques dans l'interface HireCue.
+
+### Architecture analytique
+
+La chaîne analytique peut être résumée comme suit :
+
+`MySQL -> Power BI -> Power Query -> KPIs / Dashboards -> React / Node.js -> Interface Web`
+
+Dans cette architecture :
+
+- MySQL fournit les données sources liées aux candidats, aux jobs, aux workflows, aux événements et aux indicateurs de plateforme ;
+- Power Query prépare, nettoie et transforme les données avant leur exploitation analytique ;
+- Power BI génère les mesures, KPIs, graphiques et tableaux de bord ;
+- React / Node.js permet l'intégration web des dashboards via iframe ;
+- `AI Workforce Forecasting` constitue une expérimentation analytique complémentaire autour de la prévision RH.
+
+### Dashboards réalisés
+
+`Executive Overview` est destiné aux décideurs, aux administrateurs et aux profils ayant besoin d'une vue synthétique de l'activité globale.
+
+KPIs possibles :
+
+- nombre de candidats ;
+- nombre de jobs ;
+- statistiques globales de la plateforme ;
+- activité globale ;
+- indicateurs de performance du recrutement.
+
+`Product & Operations Analytics` vise le suivi opérationnel des workflows, des événements et de l'activité système.
+
+KPIs possibles :
+
+- événements applicatifs ;
+- workflows et automatisations ;
+- jobs externes ;
+- statistiques opérationnelles ;
+- suivi d'activité et tendances d'utilisation.
+
+### Positionnement dans HireCue
+
+Cette partie ne remplace pas les modules IA / LLM existants. Elle complète HireCue par une couche décisionnelle et analytique permettant de suivre l'activité, de comparer les indicateurs et de préparer des décisions à partir de données agrégées.
+
+Le projet combine désormais plusieurs briques complémentaires :
+
+- IA / LLM ;
+- automatisation n8n ;
+- scraping LinkedIn et intégrations externes ;
+- workflows backend ;
+- dashboards décisionnels Power BI ;
+- expérimentation Deep Learning ou machine learning autour de `AI Workforce Forecasting`.
+
+## 10. AI Workforce Forecasting
+
+### Objectif de l'expérimentation
+
+`AI Workforce Forecasting` représente une expérimentation analytique complémentaire au module Power BI. L'objectif est d'explorer une logique de prévision RH à partir des données déjà disponibles dans HireCue.
+
+Cette expérimentation peut porter sur des tendances comme le volume de candidatures, l'évolution des offres, l'activité de la plateforme, les besoins de recrutement ou certains signaux opérationnels. Elle doit être décrite avec prudence si le prototype n'a pas atteint le même niveau de maturité que les fonctionnalités intégrées au cœur applicatif.
+
+### Positionnement technique
+
+La brique de prévision peut s'appuyer sur :
+
+- les données MySQL extraites de la plateforme ;
+- une préparation des variables et indicateurs utiles à la prévision ;
+- Python pour l'expérimentation ;
+- TensorFlow ou scikit-learn uniquement si ces bibliothèques sont réellement utilisées ;
+- une restitution web expérimentale dans l'interface applicative.
+
+Cette expérimentation prolonge la logique analytique de HireCue. Elle ne doit pas être confondue avec les modules LLM, qui produisent des explications, des recommandations ou des contenus textuels contextualisés.
+
+### Apport dans le rapport
+
+Dans le rapport PFE, cette partie peut être utilisée pour montrer l'ouverture du projet vers l'analyse prédictive. Elle permet aussi de relier la démarche CRISP-DM à une chaîne de données concrète : compréhension du besoin RH, extraction des données, préparation, expérimentation, évaluation et restitution.
+
+## 11. Méthodologie (Scrum + CRISP-DM)
 
 ### Démarche itérative
 
@@ -388,7 +553,7 @@ Une telle approche permettait :
 
 ### Agile Scrum
 
-Pour la dimension applicative, la logique Scrum est adaptée au projet, car les évolutions ont été menées par lots fonctionnels successifs : score report, roadmap, chatbot, recommandations, automatisation, reengagement et dashboards.
+Pour la dimension applicative, la logique Scrum est adaptée au projet, car les évolutions ont été menées par lots fonctionnels successifs : score report, roadmap, chatbot, recommandations, automatisation, reengagement, dashboards applicatifs et dashboards décisionnels Power BI.
 
 Cette approche permet de :
 
@@ -398,7 +563,7 @@ Cette approche permet de :
 
 ### CRISP-DM
 
-Pour les briques IA et LLM, une logique proche de CRISP-DM reste pertinente. Les sorties générées ne peuvent pas être évaluées uniquement sur leur faisabilité technique. Elles doivent aussi être reliées au besoin métier, à la qualité des données disponibles et à la cohérence des résultats retournés.
+Pour les briques IA, LLM et analytiques, une logique proche de CRISP-DM reste pertinente. Les sorties générées ou prédites ne peuvent pas être évaluées uniquement sur leur faisabilité technique. Elles doivent aussi être reliées au besoin métier, à la qualité des données disponibles et à la cohérence des résultats retournés.
 
 Dans le cadre de HireCue, cette logique se retrouve dans :
 
@@ -406,9 +571,10 @@ Dans le cadre de HireCue, cette logique se retrouve dans :
 - l'analyse des données disponibles : scores, informations de poste, résultats de tests, CV ;
 - la structuration des données d'entrée ;
 - l'évaluation de la qualité des sorties produites ;
-- l'intégration dans une plateforme avec quotas, cache et gestion d'erreurs.
+- l'intégration dans une plateforme avec quotas, cache et gestion d'erreurs ;
+- la préparation de données analytiques pour Power BI et l'expérimentation `AI Workforce Forecasting`.
 
-## 10. Résultats obtenus
+## 12. Résultats obtenus
 
 ### Fonctionnalités livrées ou consolidées
 
@@ -422,7 +588,11 @@ Au terme du travail analysé, les principales fonctionnalités livrées ou conso
 - reengagement du talent pool ;
 - alertes de risque dans le dashboard recruteur ;
 - automatisation de certains flux n8n ;
-- intégration visible de ces briques dans le frontend et le backend.
+- intégration visible de ces briques dans le frontend et le backend ;
+- couche décisionnelle Power BI connectée à MySQL ;
+- dashboards `Executive Overview` et `Product & Operations Analytics` ;
+- intégration web des dashboards via React / Node.js et iframe ;
+- expérimentation `AI Workforce Forecasting`.
 
 ### Améliorations apportées
 
@@ -434,9 +604,13 @@ Ensuite, la plateforme devient plus utile operationnellement. Les automatisation
 
 Enfin, la plateforme devient plus maîtrisable techniquement. Le cache, les quotas IA, la persistence des résultats et la traçabilité renforcent la fiabilité de l'ensemble.
 
+La plateforme gagne aussi une capacité de pilotage analytique. Les données RH et opérationnelles ne sont plus seulement exploitées dans les parcours métier ; elles peuvent aussi être consolidées dans Power BI pour produire des indicateurs globaux, des dashboards et des analyses de tendance.
+
 ### Valeur apportée
 
 Pour le recruteur, la valeur se situe dans une meilleure aide à la décision, une lecture plus rapide des profils et des outils plus concrets pour prioriser, analyser et relancer.
+
+Pour les administrateurs et décideurs, la valeur se situe dans une meilleure visibilité sur l'activité globale, les performances de recrutement, les workflows et les indicateurs opérationnels.
 
 Pour le candidat, la valeur se situe dans une meilleure compréhension des résultats, un accompagnement plus structure à travers la roadmap et un échange plus contextualise via le chatbot.
 
@@ -448,6 +622,11 @@ Le stage a permis de consolider plusieurs compétences techniques :
 - structuration de services backend Node.js / Express ;
 - manipulation d'une base MySQL via Sequelize ;
 - intégration de services IA et de fonctionnalités LLM ;
+- modélisation de données analytiques dans Power BI ;
+- nettoyage et transformation de données avec Power Query ;
+- création de mesures DAX et de KPIs décisionnels ;
+- intégration web de dashboards via React / Node.js et iframe ;
+- expérimentation de prévision RH avec Python ;
 - mise en place de cache, quotas et traitements asynchrones ;
 - orchestration de workflows n8n et interaction avec des services tiers.
 
@@ -458,7 +637,8 @@ Au-dela des aspects techniques, le projet a aussi permis de renforcer :
 - la capacité a analyser un existant avant intervention ;
 - la priorisation de fonctionnalités selon leur valeur et leur faisabilité ;
 - la coordination entre modules hétérogènes ;
-- la prise en compte des contraintes de robustesse et de production dans les choix techniques.
+- la prise en compte des contraintes de robustesse et de production dans les choix techniques ;
+- l'articulation entre développement applicatif, automatisation, analyse décisionnelle et expérimentation prédictive.
 
 ### Compréhension métier
 
@@ -469,7 +649,7 @@ Le stage a également apporte une meilleure compréhension du domaine du recrute
 - rôle de l'accompagnement candidat dans l'acceptabilite de la plateforme ;
 - intérêt de l'automatisation pour fluidifier le traitement des candidatures.
 
-## 11. Difficultés rencontrées
+## 13. Difficultés rencontrées
 
 ### Difficultés techniques
 
@@ -500,9 +680,10 @@ Le projet met également en évidence plusieurs enjeux liés aux données :
 - besoin de garder des scores sources cohérents ;
 - nécessité de persister correctement les sorties générées ;
 - suivi des historiques utiles au chatbot et au reengagement ;
-- vérification de certaines tables ou nomenclatures non totalement homogènes entre code et documentation.
+- vérification de certaines tables ou nomenclatures non totalement homogènes entre code et documentation ;
+- besoin de préparer un modèle de données exploitable pour Power BI sans dégrader les données sources de HireCue.
 
-## 12. Perspectives
+## 14. Perspectives
 
 Les pistes d'évolution identifiées à partir du projet sont les suivantes :
 
@@ -511,10 +692,13 @@ Les pistes d'évolution identifiées à partir du projet sont les suivantes :
 - clarifier certaines parties du reverse publishing LinkedIn ;
 - mieux documenter ou compléter la couche RAG si une base documentaire plus riche est mise en place ;
 - renforcer la persistance de certains marqueurs de progression métier dans les roadmaps ;
+- consolider le modèle analytique Power BI et documenter les mesures DAX les plus importantes ;
+- stabiliser l'intégration web des dashboards Power BI selon les contraintes d'accès, d'authentification et de partage ;
+- poursuivre l'évaluation de l'expérimentation `AI Workforce Forecasting` avec des données historiques suffisantes ;
 - poursuivre l'amélioration des diagnostics d'erreur et de la traçabilité ;
 - valider plus complètement certains flux de sourcing et de publication externes.
 
-## 13. Règles de rédaction académique
+## 15. Règles de rédaction académique
 
 ### Style et originalité
 
@@ -530,7 +714,7 @@ Les pistes d'évolution identifiées à partir du projet sont les suivantes :
 
 Tous les mots français du rapport doivent être correctement accentués. Les caractères spéciaux français doivent être respectés dans tous les fichiers LaTeX visibles par le lecteur. Les commandes LaTeX, URLs, endpoints API, chemins de fichiers et noms techniques ne doivent pas être modifiés.
 
-## 14. Points de vigilance pour le rapport
+## 16. Points de vigilance pour le rapport
 
 | Element | Chapitre concerné | Action à faire | Priorite |
 | --- | --- | --- | --- |
@@ -543,6 +727,10 @@ Tous les mots français du rapport doivent être correctement accentués. Les ca
 | Repartition détaillée du score, sous-scores et conseils d'amélioration | Chapitre 3 | Renforcer la description fonctionnelle et la réalisation du score explicable | Haute |
 | Roadmap liée à chaque candidature et à chaque offre | Chapitre 3 | Preciser le rattachement de la roadmap au binôme candidat-offre et l'usage du PDF associé | Moyenne |
 | Parametres de recherche de l'import d'offres externes depuis le dashboard Admin | Chapitre 2 et 3 | Completer la description fonctionnelle et technique du workflow d'import | Moyenne |
+| Module décisionnel Power BI | Chapitre 2, 3 et 4 | Ajouter la connexion MySQL, Power Query, DAX, les KPIs, les dashboards et l'intégration iframe | Haute |
+| Architecture analytique | Chapitre 3 | Présenter la chaîne MySQL -> Power BI -> Power Query -> KPIs / Dashboards -> React / Node.js -> Interface Web | Haute |
+| Dashboards Executive Overview et Product & Operations Analytics | Chapitre 3 et 4 | Décrire les objectifs, les indicateurs et les usages de chaque dashboard | Haute |
+| AI Workforce Forecasting | Chapitre 3 et 4 | Présenter cette partie comme une expérimentation analytique complémentaire, sans la confondre avec les modules LLM | Moyenne |
 | Distinction entre fonctionnalités réalisées, documentees et en cours de consolidation | Chapitre 1, 2 et 3 | Uniformiser les formulations pour éviter de sur-promettre certains workflows ou intégrations externes | Haute |
 
 - Le rapport doit présenter le travail réellement réalisé sur HireCue et non une plateforme théorique.
@@ -550,8 +738,10 @@ Tous les mots français du rapport doivent être correctement accentués. Les ca
 - La problématique, la mission, les moyens utilisés et les résultats obtenus doivent rester au centre du contenu.
 - Les fonctionnalités non confirmees dans le code ne doivent pas être présentées comme des acquis certains.
 - Les modules IA doivent être décrits comme des briques d'assistance et non comme des mécanismes de décision autonome.
+- Le module Power BI doit être présenté comme une couche décisionnelle complémentaire, distincte des modules IA / LLM.
+- `AI Workforce Forecasting` doit être décrit comme une expérimentation analytique si son niveau de maturité reste exploratoire.
 
-## 15. Références techniques utiles
+## 17. Références techniques utiles
 
 ### Images à insérer dans le chapitre 3
 
@@ -565,6 +755,20 @@ Tous les mots français du rapport doivent être correctement accentués. Les ca
 - `diagramme d’activité.png`
 - `N8n-logo-new.svg.png`
 - `PhantomBuster.png`
+
+### Dashboards Power BI à documenter
+
+- `Executive Overview`
+- `Product & Operations Analytics`
+
+### Chaîne analytique à décrire
+
+- `MySQL -> Power BI -> Power Query -> KPIs / Dashboards -> React / Node.js -> Interface Web`
+- connexion MySQL comme source de données ;
+- transformations Power Query ;
+- mesures DAX et KPIs ;
+- intégration React / Node.js via iframe ;
+- expérimentation `AI Workforce Forecasting`.
 
 ### Endpoints importants
 
