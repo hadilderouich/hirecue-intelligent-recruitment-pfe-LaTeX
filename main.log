@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.7)  22 MAY 2026 20:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.7)  29 MAY 2026 16:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -493,31 +493,37 @@ Overfull \hbox (1.92542pt too wide) in paragraph at lines 54--54
  posts 
  []
 
-[5] [6])
+[5] [6] [7])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [7] (main.lof [8
+ [8] (main.lof [9
 
-])
+]
+Overfull \hbox (13.5142pt too wide) in paragraph at lines 47--47
+ [][] [][]\T1/lmr/m/n/12 Questions per-son-nal-isées générées au-toma-tique-men
+t pour les can-di-dats recom- 
+ []
+
+)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
- [9] (main.lot)
+ [10] (main.lot)
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
- [10
+ [11
 
-] [11
+] [12
 
-] [12] [13
+] [13] [14
 
 ]
 Package hyperref Info: Option `pageanchor' set `true' on input line 154.
  (chapitre1.tex
 Chapter 1.
-<./images/logo_teligencia.png, id=988, 836.3747pt x 273.27094pt>
+<./images/logo_teligencia.png, id=1245, 836.3747pt x 273.27094pt>
 File: ./images/logo_teligencia.png Graphic file (type png)
 <use ./images/logo_teligencia.png>
 Package pdftex.def Info: ./images/logo_teligencia.png  used on input line 18.
@@ -525,13 +531,13 @@ Package pdftex.def Info: ./images/logo_teligencia.png  used on input line 18.
 [1
 
 ]
-<./images/Secteur.png, id=995, 1413.28pt x 770.88pt>
+<./images/Secteur.png, id=1252, 1413.28pt x 770.88pt>
 File: ./images/Secteur.png Graphic file (type png)
 <use ./images/Secteur.png>
 Package pdftex.def Info: ./images/Secteur.png  used on input line 54.
 (pdftex.def)             Requested size: 341.43307pt x 186.2383pt.
  [2 <./images/logo_teligencia.png>]
-<./images/Organigramme.png, id=1001, 1541.76pt x 1027.84pt>
+<./images/Organigramme.png, id=1258, 1541.76pt x 1027.84pt>
 File: ./images/Organigramme.png Graphic file (type png)
 <use ./images/Organigramme.png>
 Package pdftex.def Info: ./images/Organigramme.png  used on input line 66.
@@ -543,19 +549,19 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 8
 (C:\Users\Hadil Derouich\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<./images/hirecuelogo.jpeg, id=1011, 217.81375pt x 232.87pt>
+<./images/hirecuelogo.jpeg, id=1269, 217.81375pt x 232.87pt>
 File: ./images/hirecuelogo.jpeg Graphic file (type jpg)
 <use ./images/hirecuelogo.jpeg>
 Package pdftex.def Info: ./images/hirecuelogo.jpeg  used on input line 90.
 (pdftex.def)             Requested size: 163.88815pt x 175.21703pt.
 
 [5 <./images/hirecuelogo.jpeg>]
-<./images/tanitjob.png, id=1018, 225.84375pt x 225.84375pt>
+<./images/tanitjob.png, id=1275, 225.84375pt x 225.84375pt>
 File: ./images/tanitjob.png Graphic file (type png)
 <use ./images/tanitjob.png>
 Package pdftex.def Info: ./images/tanitjob.png  used on input line 104.
 (pdftex.def)             Requested size: 159.33821pt x 159.34735pt.
-<./images/logo_keejob_light.png, id=1019, 1003.75pt x 410.53375pt>
+<./images/logo_keejob_light.png, id=1276, 1003.75pt x 410.53375pt>
 File: ./images/logo_keejob_light.png Graphic file (type png)
 <use ./images/logo_keejob_light.png>
 Package pdftex.def Info: ./images/logo_keejob_light.png  used on input line 110
@@ -1288,19 +1294,19 @@ Underfull \hbox (badness 2005) in paragraph at lines 275--275
  []
 
 [14] [15]
-<./images/scrum.png, id=1066, 1027.84pt x 422.57875pt>
+<./images/scrum.png, id=1323, 1027.84pt x 422.57875pt>
 File: ./images/scrum.png Graphic file (type png)
 <use ./images/scrum.png>
 Package pdftex.def Info: ./images/scrum.png  used on input line 297.
 (pdftex.def)             Requested size: 341.43307pt x 140.37347pt.
  [16 <./images/scrum.png>]
-<./images/mthode-crisp.png, id=1072, 408.77719pt x 389.95688pt>
+<./images/mthode-crisp.png, id=1330, 408.77719pt x 389.95688pt>
 File: ./images/mthode-crisp.png Graphic file (type png)
 <use ./images/mthode-crisp.png>
 Package pdftex.def Info: ./images/mthode-crisp.png  used on input line 317.
 (pdftex.def)             Requested size: 341.43307pt x 325.72885pt.
  [17 <./images/mthode-crisp.png>]
-<./images/umllogo.png, id=1079, 225.84375pt x 225.84375pt>
+<./images/umllogo.png, id=1336, 225.84375pt x 225.84375pt>
 File: ./images/umllogo.png Graphic file (type png)
 <use ./images/umllogo.png>
 Package pdftex.def Info: ./images/umllogo.png  used on input line 329.
@@ -1334,14 +1340,14 @@ Overfull \hbox (2.27763pt too wide) in paragraph at lines 65--66
 les in-di-ca-teurs stratégiques
  []
 
-<./images/besoinsfonctionnels.png, id=1094, 727.518pt x 417.35925pt>
+<./images/besoinsfonctionnels.png, id=1351, 727.518pt x 417.35925pt>
 File: ./images/besoinsfonctionnels.png Graphic file (type png)
 <use ./images/besoinsfonctionnels.png>
 Package pdftex.def Info: ./images/besoinsfonctionnels.png  used on input line 7
 1.
 (pdftex.def)             Requested size: 409.71692pt x 235.0442pt.
 [21] [22 <./images/besoinsfonctionnels.png>]
-<./images/Besoinsnonfonctionnels.png, id=1104, 985.281pt x 430.60875pt>
+<./images/Besoinsnonfonctionnels.png, id=1362, 985.281pt x 430.60875pt>
 File: ./images/Besoinsnonfonctionnels.png Graphic file (type png)
 <use ./images/Besoinsnonfonctionnels.png>
 Package pdftex.def Info: ./images/Besoinsnonfonctionnels.png  used on input lin
@@ -1774,20 +1780,20 @@ Overfull \hbox (56.28595pt too wide) in paragraph at lines 183--183
  []
 
 [28]
-<./images/Architecture_physique.png, id=1131, 3358.5475pt x 1303.87125pt>
+<./images/Architecture_physique.png, id=1389, 3358.5475pt x 1303.87125pt>
 File: ./images/Architecture_physique.png Graphic file (type png)
 <use ./images/Architecture_physique.png>
 Package pdftex.def Info: ./images/Architecture_physique.png  used on input line
  201.
 (pdftex.def)             Requested size: 455.24411pt x 176.73126pt.
  [29] [30 <./images/Architecture_physique.png>]
-<./images/Architecture_logique.png, id=1142, 2452.16125pt x 1600.98125pt>
+<./images/Architecture_logique.png, id=1399, 2452.16125pt x 1600.98125pt>
 File: ./images/Architecture_logique.png Graphic file (type png)
 <use ./images/Architecture_logique.png>
 Package pdftex.def Info: ./images/Architecture_logique.png  used on input line 
 223.
 (pdftex.def)             Requested size: 455.24411pt x 297.20291pt.
-<./images/Casdutilisation_globale.png, id=1143, 407.72325pt x 458.9145pt>
+<./images/Casdutilisation_globale.png, id=1400, 407.72325pt x 458.9145pt>
 File: ./images/Casdutilisation_globale.png Graphic file (type png)
 <use ./images/Casdutilisation_globale.png>
 Package pdftex.def Info: ./images/Casdutilisation_globale.png  used on input li
@@ -1795,7 +1801,7 @@ ne 237.
 (pdftex.def)             Requested size: 455.24411pt x 512.40518pt.
  [31 <./images/Architecture_logique.png>] [32 <./images/Casdutilisation_globale
 .png>]
-<./images/diagramme de classe.png, id=1154, 2357.80875pt x 730.73pt>
+<./images/diagramme de classe.png, id=1411, 2357.80875pt x 730.73pt>
 File: ./images/diagramme de classe.png Graphic file (type png)
 <use ./images/diagramme de classe.png>
 Package pdftex.def Info: ./images/diagramme de classe.png  used on input line 2
@@ -1813,34 +1819,34 @@ Overfull \hbox (20.58704pt too wide) in paragraph at lines 269--270
 \T1/lmr/m/it/12 n8n \T1/lmr/m/n/12 comme couche d'orchestration
  []
 
-<./images/globalusecasen8n.png, id=1160, 2652.91125pt x 1524.69624pt>
+<./images/globalusecasen8n.png, id=1417, 2652.91125pt x 1524.69624pt>
 File: ./images/globalusecasen8n.png Graphic file (type png)
 <use ./images/globalusecasen8n.png>
 Package pdftex.def Info: ./images/globalusecasen8n.png  used on input line 273.
 
 (pdftex.def)             Requested size: 455.24411pt x 261.63776pt.
 [34 <./images/globalusecasen8n.png (PNG copy)>]
-<./images/vscode.png, id=1165, 315.1775pt x 161.60374pt>
+<./images/vscode.png, id=1423, 315.1775pt x 161.60374pt>
 File: ./images/vscode.png Graphic file (type png)
 <use ./images/vscode.png>
 Package pdftex.def Info: ./images/vscode.png  used on input line 304.
 (pdftex.def)             Requested size: 36.98866pt x 18.96501pt.
-<./images/Git_GitHub.png, id=1166, 301.125pt x 168.63pt>
+<./images/Git_GitHub.png, id=1424, 301.125pt x 168.63pt>
 File: ./images/Git_GitHub.png Graphic file (type png)
 <use ./images/Git_GitHub.png>
 Package pdftex.def Info: ./images/Git_GitHub.png  used on input line 306.
 (pdftex.def)             Requested size: 36.98866pt x 20.71332pt.
-<./images/Postman.png, id=1167, 410.53375pt x 123.46124pt>
+<./images/Postman.png, id=1425, 410.53375pt x 123.46124pt>
 File: ./images/Postman.png Graphic file (type png)
 <use ./images/Postman.png>
 Package pdftex.def Info: ./images/Postman.png  used on input line 308.
 (pdftex.def)             Requested size: 36.98866pt x 11.12233pt.
-<./images/Docker_Logo.png, id=1168, 2342.9934pt x 533.1117pt>
+<./images/Docker_Logo.png, id=1426, 2342.9934pt x 533.1117pt>
 File: ./images/Docker_Logo.png Graphic file (type png)
 <use ./images/Docker_Logo.png>
 Package pdftex.def Info: ./images/Docker_Logo.png  used on input line 310.
 (pdftex.def)             Requested size: 36.98866pt x 8.4112pt.
-<./images/N8n-logo-new.svg.png, id=1169, 3854.4pt x 1541.76pt>
+<./images/N8n-logo-new.svg.png, id=1427, 3854.4pt x 1541.76pt>
 File: ./images/N8n-logo-new.svg.png Graphic file (type png)
 <use ./images/N8n-logo-new.svg.png>
 Package pdftex.def Info: ./images/N8n-logo-new.svg.png  used on input line 312.
@@ -1851,34 +1857,34 @@ Underfull \hbox (badness 3209) in paragraph at lines 312--313
 []|\T1/lmr/m/n/10.95 Plateforme d'automatisation mo-bil-isée pour
  []
 
-<./images/PlantUML.png, id=1170, 639.89063pt x 414.04688pt>
+<./images/PlantUML.png, id=1428, 639.89063pt x 414.04688pt>
 File: ./images/PlantUML.png Graphic file (type png)
 <use ./images/PlantUML.png>
 Package pdftex.def Info: ./images/PlantUML.png  used on input line 314.
 (pdftex.def)             Requested size: 36.98866pt x 23.93196pt.
-<./images/PhpMyAdmin-Logo.wine.png, id=1171, 3011.25pt x 2007.5pt>
+<./images/PhpMyAdmin-Logo.wine.png, id=1429, 3011.25pt x 2007.5pt>
 File: ./images/PhpMyAdmin-Logo.wine.png Graphic file (type png)
 <use ./images/PhpMyAdmin-Logo.wine.png>
 Package pdftex.def Info: ./images/PhpMyAdmin-Logo.wine.png  used on input line 
 316.
 (pdftex.def)             Requested size: 36.98866pt x 24.6587pt.
-<./images/New_Power_BI_Logo.png, id=1172, 963.6pt x 963.6pt>
+<./images/New_Power_BI_Logo.png, id=1430, 963.6pt x 963.6pt>
 File: ./images/New_Power_BI_Logo.png Graphic file (type png)
 <use ./images/New_Power_BI_Logo.png>
 Package pdftex.def Info: ./images/New_Power_BI_Logo.png  used on input line 318
 .
 (pdftex.def)             Requested size: 31.2982pt x 31.28868pt.
-<./images/Overleaf.jpg, id=1173, 451.6875pt x 175.65625pt>
+<./images/Overleaf.jpg, id=1431, 451.6875pt x 175.65625pt>
 File: ./images/Overleaf.jpg Graphic file (type jpg)
 <use ./images/Overleaf.jpg>
 Package pdftex.def Info: ./images/Overleaf.jpg  used on input line 320.
 (pdftex.def)             Requested size: 36.98866pt x 14.38246pt.
-<./images/PhantomBuster.png, id=1174, 908.39375pt x 229.85875pt>
+<./images/PhantomBuster.png, id=1432, 908.39375pt x 229.85875pt>
 File: ./images/PhantomBuster.png Graphic file (type png)
 <use ./images/PhantomBuster.png>
 Package pdftex.def Info: ./images/PhantomBuster.png  used on input line 322.
 (pdftex.def)             Requested size: 36.98866pt x 9.35762pt.
-<./images/logo-unipile-fond-fonce-1-2-1-1-1500x679.png, id=1175, 1505.625pt x 6
+<./images/logo-unipile-fond-fonce-1-2-1-1-1500x679.png, id=1433, 1505.625pt x 6
 81.54625pt>
 File: ./images/logo-unipile-fond-fonce-1-2-1-1-1500x679.png Graphic file (type 
 png)
@@ -1886,7 +1892,7 @@ png)
 Package pdftex.def Info: ./images/logo-unipile-fond-fonce-1-2-1-1-1500x679.png 
  used on input line 324.
 (pdftex.def)             Requested size: 42.67912pt x 19.31195pt.
-<./images/LinkedIn_logo.svg.png, id=1176, 3854.4pt x 1005.7575pt>
+<./images/LinkedIn_logo.svg.png, id=1434, 3854.4pt x 1005.7575pt>
 File: ./images/LinkedIn_logo.svg.png Graphic file (type png)
 <use ./images/LinkedIn_logo.svg.png>
 Package pdftex.def Info: ./images/LinkedIn_logo.svg.png  used on input line 326
@@ -1897,28 +1903,28 @@ ignored: Infinite glue shrinkage found in box being split [35 <./images/vscode.p
 mages/Git_GitHub.png> <./images/Postman.png> <./images/Docker_Logo.png> <./imag
 es/N8n-logo-new.svg.png> <./images/PlantUML.png> <./images/PhpMyAdmin-Logo.wine
 .png> <./images/New_Power_BI_Logo.png> <./images/Overleaf.jpg>]
-<./images/react.png, id=1190, 365.365pt x 138.5175pt>
+<./images/react.png, id=1447, 365.365pt x 138.5175pt>
 File: ./images/react.png Graphic file (type png)
 <use ./images/react.png>
 Package pdftex.def Info: ./images/react.png  used on input line 353.
 (pdftex.def)             Requested size: 39.83368pt x 15.1017pt.
-<./images/Node.js_logo.svg.png, id=1191, 1284.8pt x 786.94pt>
+<./images/Node.js_logo.svg.png, id=1448, 1284.8pt x 786.94pt>
 File: ./images/Node.js_logo.svg.png Graphic file (type png)
 <use ./images/Node.js_logo.svg.png>
 Package pdftex.def Info: ./images/Node.js_logo.svg.png  used on input line 355.
 
 (pdftex.def)             Requested size: 39.83368pt x 24.38768pt.
-<./images/Expressjs.png, id=1192, 348.30125pt x 145.54375pt>
+<./images/Expressjs.png, id=1449, 348.30125pt x 145.54375pt>
 File: ./images/Expressjs.png Graphic file (type png)
 <use ./images/Expressjs.png>
 Package pdftex.def Info: ./images/Expressjs.png  used on input line 357.
 (pdftex.def)             Requested size: 39.83368pt x 16.645pt.
-<./images/MySQL.png, id=1193, 225.84375pt x 225.84375pt>
+<./images/MySQL.png, id=1450, 225.84375pt x 225.84375pt>
 File: ./images/MySQL.png Graphic file (type png)
 <use ./images/MySQL.png>
 Package pdftex.def Info: ./images/MySQL.png  used on input line 359.
 (pdftex.def)             Requested size: 39.83368pt x 39.83339pt.
-<./images/Sequelize.png, id=1194, 225.84375pt x 225.84375pt>
+<./images/Sequelize.png, id=1451, 225.84375pt x 225.84375pt>
 File: ./images/Sequelize.png Graphic file (type png)
 <use ./images/Sequelize.png>
 Package pdftex.def Info: ./images/Sequelize.png  used on input line 361.
@@ -1928,7 +1934,7 @@ File: ./images/New_Power_BI_Logo.png Graphic file (type png)
 Package pdftex.def Info: ./images/New_Power_BI_Logo.png  used on input line 363
 .
 (pdftex.def)             Requested size: 31.2982pt x 31.28868pt.
-<./images/PowerQuery-Logo.png, id=1195, 191.71625pt x 167.62625pt>
+<./images/PowerQuery-Logo.png, id=1452, 191.71625pt x 167.62625pt>
 File: ./images/PowerQuery-Logo.png Graphic file (type png)
 <use ./images/PowerQuery-Logo.png>
 Package pdftex.def Info: ./images/PowerQuery-Logo.png  used on input line 365.
@@ -1938,17 +1944,17 @@ Underfull \hbox (badness 1769) in paragraph at lines 367--368
 []|\T1/lmr/m/n/10.95 Langage de for-mules util-isé pour créer les
  []
 
-<./images/Python.svg.png, id=1196, 1284.8pt x 380.42125pt>
+<./images/Python.svg.png, id=1453, 1284.8pt x 380.42125pt>
 File: ./images/Python.svg.png Graphic file (type png)
 <use ./images/Python.svg.png>
 Package pdftex.def Info: ./images/Python.svg.png  used on input line 369.
 (pdftex.def)             Requested size: 39.83368pt x 11.78944pt.
-<./images/Flask.png, id=1197, 360.34625pt x 140.525pt>
+<./images/Flask.png, id=1454, 360.34625pt x 140.525pt>
 File: ./images/Flask.png Graphic file (type png)
 <use ./images/Flask.png>
 Package pdftex.def Info: ./images/Flask.png  used on input line 371.
 (pdftex.def)             Requested size: 39.83368pt x 15.53284pt.
-<./images/ollama-logo.png, id=1198, 602.25pt x 207.77625pt>
+<./images/ollama-logo.png, id=1455, 602.25pt x 207.77625pt>
 File: ./images/ollama-logo.png Graphic file (type png)
 <use ./images/ollama-logo.png>
 Package pdftex.def Info: ./images/ollama-logo.png  used on input line 373.
@@ -1958,23 +1964,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 373--374
 []|\T1/lmr/m/n/10.95 Outils util-isés pour cer-taines généra-tions
  []
 
-<./images/rag.png, id=1199, 301.125pt x 168.63pt>
+<./images/rag.png, id=1456, 301.125pt x 168.63pt>
 File: ./images/rag.png Graphic file (type png)
 <use ./images/rag.png>
 Package pdftex.def Info: ./images/rag.png  used on input line 375.
 (pdftex.def)             Requested size: 39.83368pt x 22.30605pt.
-<./images/RESTAPI.png, id=1200, 1361.085pt x 754.31813pt>
+<./images/RESTAPI.png, id=1457, 1361.085pt x 754.31813pt>
 File: ./images/RESTAPI.png Graphic file (type png)
 <use ./images/RESTAPI.png>
 Package pdftex.def Info: ./images/RESTAPI.png  used on input line 377.
 (pdftex.def)             Requested size: 39.83368pt x 22.06458pt.
-<./images/Calculoid---iframe.jpg, id=1201, 401.5pt x 229.85875pt>
+<./images/Calculoid---iframe.jpg, id=1458, 401.5pt x 229.85875pt>
 File: ./images/Calculoid---iframe.jpg Graphic file (type jpg)
 <use ./images/Calculoid---iframe.jpg>
 Package pdftex.def Info: ./images/Calculoid---iframe.jpg  used on input line 37
 9.
 (pdftex.def)             Requested size: 34.14322pt x 19.5465pt.
-<./images/RabbitMQ.png, id=1202, 569.12625pt x 89.33376pt>
+<./images/RabbitMQ.png, id=1459, 569.12625pt x 89.33376pt>
 File: ./images/RabbitMQ.png Graphic file (type png)
 <use ./images/RabbitMQ.png>
 Package pdftex.def Info: ./images/RabbitMQ.png  used on input line 381.
@@ -1988,7 +1994,7 @@ File: ./images/Docker_Logo.png Graphic file (type png)
 <use ./images/Docker_Logo.png>
 Package pdftex.def Info: ./images/Docker_Logo.png  used on input line 385.
 (pdftex.def)             Requested size: 39.83368pt x 9.06195pt.
-<./images/SocketIO.png, id=1203, 319.1925pt x 159.59625pt>
+<./images/SocketIO.png, id=1460, 319.1925pt x 159.59625pt>
 File: ./images/SocketIO.png Graphic file (type png)
 <use ./images/SocketIO.png>
 Package pdftex.def Info: ./images/SocketIO.png  used on input line 387.
@@ -1998,7 +2004,7 @@ Underfull \hbox (badness 4660) in paragraph at lines 387--388
 []|\T1/lmr/m/n/10.95 Technologie citée dans le con-texte pro-jet
  []
 
-<./images/FirebaseAuthentication.png, id=1204, 1027.84pt x 466.74374pt>
+<./images/FirebaseAuthentication.png, id=1461, 1027.84pt x 466.74374pt>
 File: ./images/FirebaseAuthentication.png Graphic file (type png)
 <use ./images/FirebaseAuthentication.png>
 Package pdftex.def Info: ./images/FirebaseAuthentication.png  used on input lin
@@ -2025,7 +2031,7 @@ Chapter 3.
 [40
 
 ]
-<./images/Diagramme dâ€™architecture.png, id=1240, 2826.56pt x 1541.76pt>
+<./images/Diagramme dâ€™architecture.png, id=1498, 2826.56pt x 1541.76pt>
 File: ./images/Diagramme dâ€™architecture.png Graphic file (type png)
 <use ./images/Diagramme dâ€™architecture.png>
 Package pdftex.def Info: ./images/Diagramme dâ€™architecture.png  used on input
@@ -2044,7 +2050,7 @@ Package pdftex.def Info: ./images/Casdutilisation_globale.png  used on input li
 ne 55.
 (pdftex.def)             Requested size: 432.48051pt x 486.78317pt.
  [43]
-<./images/casdutilisation_raffine.png, id=1257, 657.657pt x 388.45125pt>
+<./images/casdutilisation_raffine.png, id=1514, 657.657pt x 388.45125pt>
 File: ./images/casdutilisation_raffine.png Graphic file (type png)
 <use ./images/casdutilisation_raffine.png>
 Package pdftex.def Info: ./images/casdutilisation_raffine.png  used on input li
@@ -2057,26 +2063,26 @@ n de posts \T1/lmr/m/it/12 Hire-Cue \T1/lmr/m/n/12 sur LinkedIn,
  []
 
 [44 <./images/casdutilisation_raffine.png>]
-<./images/usecasenormalpost.png, id=1263, 1578.89874pt x 1364.09625pt>
+<./images/usecasenormalpost.png, id=1520, 1578.89874pt x 1364.09625pt>
 File: ./images/usecasenormalpost.png Graphic file (type png)
 <use ./images/usecasenormalpost.png>
 Package pdftex.def Info: ./images/usecasenormalpost.png  used on input line 82.
 
 (pdftex.def)             Requested size: 432.48051pt x 373.6394pt.
  [45 <./images/usecasenormalpost.png>]
-<./images/usecaseoffrejob.png, id=1269, 1921.1775pt x 566.115pt>
+<./images/usecaseoffrejob.png, id=1526, 1921.1775pt x 566.115pt>
 File: ./images/usecaseoffrejob.png Graphic file (type png)
 <use ./images/usecaseoffrejob.png>
 Package pdftex.def Info: ./images/usecaseoffrejob.png  used on input line 95.
 (pdftex.def)             Requested size: 432.48051pt x 127.43948pt.
-<./images/usecaseceooutrich.png, id=1270, 1980.39874pt x 921.4425pt>
+<./images/usecaseceooutrich.png, id=1527, 1980.39874pt x 921.4425pt>
 File: ./images/usecaseceooutrich.png Graphic file (type png)
 <use ./images/usecaseceooutrich.png>
 Package pdftex.def Info: ./images/usecaseceooutrich.png  used on input line 108
 .
 (pdftex.def)             Requested size: 432.48051pt x 201.21355pt.
  [46 <./images/usecaseoffrejob.png>]
-<./images/Diagramme de sÃ©quence â€” GÃ©nÃ©ration de roadmap.png, id=1276, 1244
+<./images/Diagramme de sÃ©quence â€” GÃ©nÃ©ration de roadmap.png, id=1534, 1244
 .65pt x 1330.9725pt>
 File: ./images/Diagramme de sÃ©quence â€” GÃ©nÃ©ration de roadmap.png Graphic f
 ile (type png)
@@ -2086,7 +2092,7 @@ admap.png  used on input line 125.
 (pdftex.def)             Requested size: 432.48051pt x 462.47606pt.
  [47 <./images/usecaseceooutrich.png>]
 [48 <./images/Diagramme de sÃ©quence â€” GÃ©nÃ©ration de roadmap.png>]
-<./images/Diagramme de sÃ©quence â€” Recommandations IA.png, id=1288, 1504.6212
+<./images/Diagramme de sÃ©quence â€” Recommandations IA.png, id=1545, 1504.6212
 5pt x 888.31876pt>
 File: ./images/Diagramme de sÃ©quence â€” Recommandations IA.png Graphic file (
 type png)
@@ -2094,7 +2100,7 @@ type png)
 Package pdftex.def Info: ./images/Diagramme de sÃ©quence â€” Recommandations IA
 .png  used on input line 138.
 (pdftex.def)             Requested size: 432.48051pt x 255.32866pt.
-<./images/Diagramme de sÃ©quence â€” Score explicable.png, id=1289, 1242.6425pt
+<./images/Diagramme de sÃ©quence â€” Score explicable.png, id=1546, 1242.6425pt
  x 892.33376pt>
 File: ./images/Diagramme de sÃ©quence â€” Score explicable.png Graphic file (ty
 pe png)
@@ -2103,7 +2109,7 @@ Package pdftex.def Info: ./images/Diagramme de sÃ©quence â€” Score explicable.p
 ng  used on input line 151.
 (pdftex.def)             Requested size: 432.48051pt x 310.56505pt.
  [49 <./images/Diagramme de sÃ©quence â€” Recommandations IA.png>]
-<./images/diagramme dâ€™activitÃ©.png, id=1295, 855.195pt x 490.83376pt>
+<./images/diagramme dâ€™activitÃ©.png, id=1552, 855.195pt x 490.83376pt>
 File: ./images/diagramme dâ€™activitÃ©.png Graphic file (type png)
 <use ./images/diagramme dâ€™activitÃ©.png>
 Package pdftex.def Info: ./images/diagramme dâ€™activitÃ©.png  used on input li
@@ -2117,13 +2123,13 @@ l-ité au par-cours après l'évaluation.
  []
 
 [53] [54] [55] [56]
-<./images/archi_backend.png, id=1327, 1413.28pt x 770.88pt>
+<./images/archi_backend.png, id=1584, 1413.28pt x 770.88pt>
 File: ./images/archi_backend.png Graphic file (type png)
 <use ./images/archi_backend.png>
 Package pdftex.def Info: ./images/archi_backend.png  used on input line 269.
 (pdftex.def)             Requested size: 455.24411pt x 248.30989pt.
  [57 <./images/archi_backend.png>]
-<./images/archi_basededonnes.png, id=1333, 1413.28pt x 770.88pt>
+<./images/archi_basededonnes.png, id=1590, 1413.28pt x 770.88pt>
 File: ./images/archi_basededonnes.png Graphic file (type png)
 <use ./images/archi_basededonnes.png>
 Package pdftex.def Info: ./images/archi_basededonnes.png  used on input line 28
@@ -2151,186 +2157,244 @@ Overfull \hbox (4.01025pt too wide) in paragraph at lines 403--403
 []\T1/lmr/bx/n/14.4 Workflow CEO / Founder / Owner scrap-ing + email sender 
  []
 
-[64] [65] [66] [67]
-Overfull \hbox (8.01862pt too wide) in paragraph at lines 472--473
+[64] [65]
+Underfull \hbox (badness 10000) in paragraph at lines 462--463
+[]|\T1/lmr/m/n/12 Modèle Deep Learn-ing com-paré à LSTM pour
+ []
+
+[66]
+<./images/Coonectpowerbi-mysql.png, id=1630, 1106.63437pt x 452.4403pt>
+File: ./images/Coonectpowerbi-mysql.png Graphic file (type png)
+<use ./images/Coonectpowerbi-mysql.png>
+Package pdftex.def Info: ./images/Coonectpowerbi-mysql.png  used on input line 
+479.
+(pdftex.def)             Requested size: 432.48051pt x 176.81691pt.
+ [67{C:/Users/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/l
+m-mathsy.enc}] [68 <./images/Coonectpowerbi-mysql.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 505--505
+[]|\T1/lmr/bx/n/12 Groupe de
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--513
+[]|\T1/lmr/m/n/12 KPIs opéra-
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 513--514
+[]|\T1/lmr/m/it/12 Events Overview\T1/lmr/m/n/12 , \T1/lmr/m/it/12 Com-pleted E
+vents\T1/lmr/m/n/12 , \T1/lmr/m/it/12 Planned Events\T1/lmr/m/n/12 ,
+ []
+
+[69]
+<./images/Dashboard1.png, id=1646, 669.702pt x 377.0085pt>
+File: ./images/Dashboard1.png Graphic file (type png)
+<use ./images/Dashboard1.png>
+Package pdftex.def Info: ./images/Dashboard1.png  used on input line 532.
+(pdftex.def)             Requested size: 455.24411pt x 256.28185pt.
+ [70 <./images/Dashboard1.png>]
+<./images/Dashboard2.png, id=1654, 746.79pt x 421.575pt>
+File: ./images/Dashboard2.png Graphic file (type png)
+<use ./images/Dashboard2.png>
+Package pdftex.def Info: ./images/Dashboard2.png  used on input line 549.
+(pdftex.def)             Requested size: 455.24411pt x 256.99312pt.
+<./images/reactnode.jpg, id=1656, 1204.5pt x 677.53125pt>
+File: ./images/reactnode.jpg Graphic file (type jpg)
+<use ./images/reactnode.jpg>
+Package pdftex.def Info: ./images/reactnode.jpg  used on input line 562.
+(pdftex.def)             Requested size: 432.48051pt x 243.27008pt.
+ [71 <./images/Dashboard2.png>]
+<./images/AIForeCasting1.png, id=1663, 1140.05925pt x 451.08525pt>
+File: ./images/AIForeCasting1.png Graphic file (type png)
+<use ./images/AIForeCasting1.png>
+Package pdftex.def Info: ./images/AIForeCasting1.png  used on input line 577.
+(pdftex.def)             Requested size: 455.24411pt x 180.12805pt.
+ [72 <./images/reactnode.jpg>]
+Overfull \hbox (13.01013pt too wide) in paragraph at lines 582--583
+[]\T1/lmr/m/n/12 La fig-ure []3.21[] mon-tre l'interface générale du mod-ule. E
+lle per-met de lancer l'entraînement
+ []
+
+<./images/AIForeCasting2.png, id=1669, 1141.26375pt x 544.434pt>
+File: ./images/AIForeCasting2.png Graphic file (type png)
+<use ./images/AIForeCasting2.png>
+Package pdftex.def Info: ./images/AIForeCasting2.png  used on input line 586.
+(pdftex.def)             Requested size: 455.24411pt x 217.1716pt.
+[73 <./images/AIForeCasting1.png> <./images/AIForeCasting2.png>] [74] [75]
+Overfull \hbox (8.01862pt too wide) in paragraph at lines 636--637
 []\T1/lmr/m/n/12 Dans ce con-texte, une com-para-i-son en-tre Phan-tom-Buster e
 t UniP-ile ap-porte un éclairage
  []
 
-[68]
-Overfull \hbox (1.87775pt too wide) in paragraph at lines 480--481
+
+Overfull \hbox (1.87775pt too wide) in paragraph at lines 644--645
 []\T1/lmr/m/n/12 La même logique s'applique aux work-flows de pub-li-ca-tion. P
 our la pub-li-ca-tion LinkedIn
  []
 
-[69]) (Chapitre4.tex [70]
+[76]) (Chapitre4.tex [77]
 Chapter 4.
-[71
+[78
 
 ]
-Underfull \hbox (badness 2961) in paragraph at lines 37--38
+Underfull \hbox (badness 2961) in paragraph at lines 39--40
 \T1/lmr/m/n/10.95 et restent ex-ploita-bles dans
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--43
+Underfull \hbox (badness 10000) in paragraph at lines 45--45
 []|\T1/lmr/m/n/10.95 Tests d'intégration
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--45
+Underfull \hbox (badness 10000) in paragraph at lines 47--47
+[]|\T1/lmr/m/n/10.95 Tests dé-ci-sion-nels
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 47--47
+[]|\T1/lmr/m/n/10.95 Vérification de la con-nex-ion
+ []
+
+
+Underfull \hbox (badness 1917) in paragraph at lines 47--47
+\T1/lmr/m/n/10.95 MySQL, des trans-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 5908) in paragraph at lines 47--47
+\T1/lmr/m/n/10.95 Power Query, des mesures
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--49
 []|\T1/lmr/m/n/10.95 Observation qual-i-ta-tive du
  []
 
 
-Underfull \hbox (badness 3471) in paragraph at lines 45--45
+Underfull \hbox (badness 3471) in paragraph at lines 49--49
 \T1/lmr/m/n/10.95 des files Rab-bitMQ et des
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 \T1/lmr/m/n/10.95 lourds n'alourdissent pas
  []
 
-[72] [73]
-Underfull \hbox (badness 10000) in paragraph at lines 77--77
+[79] [80]
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
 []|\T1/lmr/m/n/10.95 Lecture des con-seils
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
 []|\T1/lmr/m/n/10.95 Consultation de la
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 81--81
+Underfull \hbox (badness 1895) in paragraph at lines 85--85
 \T1/lmr/m/n/10.95 con-textuelles à par-tir de la
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
 []|\T1/lmr/m/n/10.95 Consultation ou
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
 \T1/lmr/m/n/10.95 télécharge-ment du
  []
 
 
-Underfull \hbox (badness 2393) in paragraph at lines 83--83
+Underfull \hbox (badness 2393) in paragraph at lines 87--87
 []|\T1/lmr/m/n/10.95 Un sup-port PDF as-so-cié à
  []
 
-[74]
-Underfull \hbox (badness 1418) in paragraph at lines 111--111
+[81]
+Underfull \hbox (badness 1418) in paragraph at lines 115--115
 []|\T1/lmr/m/n/10.95 Lecture des raisons de
  []
 
 
-Underfull \hbox (badness 1817) in paragraph at lines 113--113
+Underfull \hbox (badness 1817) in paragraph at lines 117--117
 []|\T1/lmr/m/n/10.95 Invitation à passer un
  []
 
 
-Underfull \hbox (badness 2538) in paragraph at lines 115--115
+Underfull \hbox (badness 2538) in paragraph at lines 119--119
 []|\T1/lmr/m/n/10.95 Consultation des ques-
  []
 
 
-Underfull \hbox (badness 1052) in paragraph at lines 117--117
+Underfull \hbox (badness 1052) in paragraph at lines 121--121
 \T1/lmr/m/n/10.95 des points de vig-i-lance sans
  []
 
 
-Underfull \hbox (badness 1577) in paragraph at lines 119--119
+Underfull \hbox (badness 1577) in paragraph at lines 123--123
 \T1/lmr/m/n/10.95 re-lance par email ou no-ti-fi-
  []
 
 
-Underfull \hbox (badness 1394) in paragraph at lines 119--119
+Underfull \hbox (badness 1394) in paragraph at lines 123--123
 \T1/lmr/m/n/10.95 ca-tion pour des pro-fils déjà
  []
 
-[75]
-Underfull \hbox (badness 3240) in paragraph at lines 143--143
+[82] [83]
+Underfull \hbox (badness 3240) in paragraph at lines 147--147
 []|\T1/lmr/m/n/10.95 Supervision des traite-
  []
 
 
-Underfull \hbox (badness 3579) in paragraph at lines 147--147
+Underfull \hbox (badness 3579) in paragraph at lines 151--151
 []|\T1/lmr/m/n/10.95 Suivi des im-ports ex-
  []
 
 
-Underfull \hbox (badness 3536) in paragraph at lines 149--149
+Underfull \hbox (badness 3536) in paragraph at lines 153--153
 []|\T1/lmr/m/n/10.95 Les traite-ments ex-ternes et
  []
 
-[76] [77] [78]
-Overfull \hbox (1.56511pt too wide) in paragraph at lines 194--195
+[84] [85] [86]
+Overfull \hbox (1.56511pt too wide) in paragraph at lines 198--199
 []\T1/lmr/m/n/12 Un sec-ond work-flow, basé sur Gmail Trig-ger, dé-tecte les ré
 ponses en-trantes. Lorsqu'une
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 []|\T1/lmr/m/n/10.95 Sourcing can-di-
  []
 
 
-Underfull \hbox (badness 1603) in paragraph at lines 207--207
+Underfull \hbox (badness 1603) in paragraph at lines 211--211
 \T1/lmr/m/n/10.95 dats via n8n +
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 []|\T1/lmr/m/n/10.95 Les can-di-dats sources
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 \T1/lmr/m/n/10.95 sont af-fichés dans le
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 \T1/lmr/m/n/10.95 dash-board re-cru-teur
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 \T1/lmr/m/n/10.95 avec un for-mat ex-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--209
+Underfull \hbox (badness 10000) in paragraph at lines 213--213
 []|\T1/lmr/m/n/10.95 Import d'offres
- []
-
-
-Underfull \hbox (badness 2334) in paragraph at lines 209--209
-[]|\T1/lmr/m/n/10.95 Verifier la récupéra-tion des
- []
-
-
-Underfull \hbox (badness 6268) in paragraph at lines 209--209
-[]|\T1/lmr/m/n/10.95 Les of-fres ex-ploita-bles
- []
-
-
-Underfull \hbox (badness 2990) in paragraph at lines 211--211
-[]|\T1/lmr/m/n/10.95 La pub-li-ca-tion ex-terne
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 211--211
-\T1/lmr/m/n/10.95 d'orchestration reste
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 211--212
-[]|\T1/lmr/m/n/10.95 À con-
  []
 
 
@@ -2339,53 +2403,18 @@ Underfull \hbox (badness 2334) in paragraph at lines 213--213
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 213--213
-\T1/lmr/m/n/10.95 tions J'aime et statis-tiques
+Underfull \hbox (badness 6268) in paragraph at lines 213--213
+[]|\T1/lmr/m/n/10.95 Les of-fres ex-ploita-bles
  []
 
 
-Underfull \hbox (badness 1521) in paragraph at lines 213--213
-\T1/lmr/m/n/10.95 d'engagement après pub-li-ca-
+Underfull \hbox (badness 2990) in paragraph at lines 215--215
+[]|\T1/lmr/m/n/10.95 La pub-li-ca-tion ex-terne
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 213--213
-[]|\T1/lmr/m/n/10.95 Les don-nées
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--213
-\T1/lmr/m/n/10.95 d'engagement sont
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--213
-\T1/lmr/m/n/10.95 pour un dash-board
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
-[]|\T1/lmr/m/n/10.95 À con-
- []
-
-
-Underfull \hbox (badness 3635) in paragraph at lines 215--215
-[]|\T1/lmr/m/n/10.95 Verifier l'envoi des de-man-
- []
-
-
-Underfull \hbox (badness 2707) in paragraph at lines 215--215
-\T1/lmr/m/n/10.95 des de con-nex-ion, le suivi
- []
-
-
-Underfull \hbox (badness 3713) in paragraph at lines 215--215
-\T1/lmr/m/n/10.95 d'acceptation et l'envoi du
- []
-
-
-Underfull \hbox (badness 7291) in paragraph at lines 215--215
-\T1/lmr/m/n/10.95 traça-bil-ité des statuts
+Underfull \hbox (badness 10000) in paragraph at lines 215--215
+\T1/lmr/m/n/10.95 d'orchestration reste
  []
 
 
@@ -2394,23 +2423,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 215--216
  []
 
 
-Underfull \hbox (badness 1264) in paragraph at lines 217--217
-\T1/lmr/m/n/10.95 réponses dé-tec-tées sont
+Underfull \hbox (badness 2334) in paragraph at lines 217--217
+[]|\T1/lmr/m/n/10.95 Verifier la récupéra-tion des
  []
 
 
-Underfull \hbox (badness 1448) in paragraph at lines 217--217
-\T1/lmr/m/n/10.95 en-reg-istrés en back-end,
+Underfull \hbox (badness 2809) in paragraph at lines 217--217
+\T1/lmr/m/n/10.95 tions J'aime et statis-tiques
  []
 
 
-Underfull \hbox (badness 3895) in paragraph at lines 217--217
-\T1/lmr/m/n/10.95 vis-i-bles dans le dash-
+Underfull \hbox (badness 1521) in paragraph at lines 217--217
+\T1/lmr/m/n/10.95 d'engagement après pub-li-ca-
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 217--217
-\T1/lmr/m/n/10.95 board ad-min avec les
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
+[]|\T1/lmr/m/n/10.95 Les don-nées
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
+\T1/lmr/m/n/10.95 d'engagement sont
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
+\T1/lmr/m/n/10.95 pour un dash-board
  []
 
 
@@ -2418,342 +2457,621 @@ Underfull \hbox (badness 10000) in paragraph at lines 217--218
 []|\T1/lmr/m/n/10.95 À con-
  []
 
-[79] [80] [81]
-Underfull \hbox (badness 10000) in paragraph at lines 267--268
+
+Underfull \hbox (badness 3635) in paragraph at lines 219--219
+[]|\T1/lmr/m/n/10.95 Verifier l'envoi des de-man-
+ []
+
+
+Underfull \hbox (badness 2707) in paragraph at lines 219--219
+\T1/lmr/m/n/10.95 des de con-nex-ion, le suivi
+ []
+
+
+Underfull \hbox (badness 3713) in paragraph at lines 219--219
+\T1/lmr/m/n/10.95 d'acceptation et l'envoi du
+ []
+
+
+Underfull \hbox (badness 7291) in paragraph at lines 219--219
+\T1/lmr/m/n/10.95 traça-bil-ité des statuts
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
+[]|\T1/lmr/m/n/10.95 À con-
+ []
+
+
+Underfull \hbox (badness 1264) in paragraph at lines 221--221
+\T1/lmr/m/n/10.95 réponses dé-tec-tées sont
+ []
+
+
+Underfull \hbox (badness 1448) in paragraph at lines 221--221
+\T1/lmr/m/n/10.95 en-reg-istrés en back-end,
+ []
+
+
+Underfull \hbox (badness 3895) in paragraph at lines 221--221
+\T1/lmr/m/n/10.95 vis-i-bles dans le dash-
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 221--221
+\T1/lmr/m/n/10.95 board ad-min avec les
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+[]|\T1/lmr/m/n/10.95 À con-
+ []
+
+[87] [88] [89]
+<./images/ScoreexpCadidate .png, id=1744, 649.82774pt x 460.72125pt>
+File: ./images/ScoreexpCadidate .png Graphic file (type png)
+<use ./images/ScoreexpCadidate .png>
+Package pdftex.def Info: ./images/ScoreexpCadidate .png  used on input line 280
+.
+(pdftex.def)             Requested size: 432.48051pt x 306.62886pt.
+<./images/ScoreexpCadidate2.png, id=1745, 626.94225pt x 369.17924pt>
+File: ./images/ScoreexpCadidate2.png Graphic file (type png)
+<use ./images/ScoreexpCadidate2.png>
+Package pdftex.def Info: ./images/ScoreexpCadidate2.png  used on input line 287
+.
+(pdftex.def)             Requested size: 432.48051pt x 254.66635pt.
+ [90 <./images/ScoreexpCadidate .png>]
+<./images/ScoreexpCadidate3.png, id=1751, 535.40025pt x 431.81325pt>
+File: ./images/ScoreexpCadidate3.png Graphic file (type png)
+<use ./images/ScoreexpCadidate3.png>
+Package pdftex.def Info: ./images/ScoreexpCadidate3.png  used on input line 294
+.
+(pdftex.def)             Requested size: 432.48051pt x 348.818pt.
+ [91 <./images/ScoreexpCadidate2.png> <./images/ScoreexpCadidate3.png>]
+<./images/AIrecomm.png, id=1761, 888.921pt x 314.97675pt>
+File: ./images/AIrecomm.png Graphic file (type png)
+<use ./images/AIrecomm.png>
+Package pdftex.def Info: ./images/AIrecomm.png  used on input line 309.
+(pdftex.def)             Requested size: 455.24411pt x 161.30887pt.
+ [92 <./images/AIrecomm.png>]
+<./images/Personalized_Question.png, id=1768, 440.24475pt x 511.9125pt>
+File: ./images/Personalized_Question.png Graphic file (type png)
+<use ./images/Personalized_Question.png>
+Package pdftex.def Info: ./images/Personalized_Question.png  used on input line
+ 321.
+(pdftex.def)             Requested size: 341.43307pt x 397.03273pt.
+
+[93 <./images/Personalized_Question.png>]
+<./images/Roadmap.png, id=1776, 884.103pt x 393.26926pt>
+File: ./images/Roadmap.png Graphic file (type png)
+<use ./images/Roadmap.png>
+Package pdftex.def Info: ./images/Roadmap.png  used on input line 336.
+(pdftex.def)             Requested size: 455.24411pt x 202.50291pt.
+<./images/Roadmap2.png, id=1777, 790.75426pt x 427.5975pt>
+File: ./images/Roadmap2.png Graphic file (type png)
+<use ./images/Roadmap2.png>
+Package pdftex.def Info: ./images/Roadmap2.png  used on input line 343.
+(pdftex.def)             Requested size: 455.24411pt x 246.16678pt.
+ [94 <./images/Roadmap.png>]
+<./images/Roadmap3.png, id=1784, 1154.51324pt x 579.3645pt>
+File: ./images/Roadmap3.png Graphic file (type png)
+<use ./images/Roadmap3.png>
+Package pdftex.def Info: ./images/Roadmap3.png  used on input line 350.
+(pdftex.def)             Requested size: 455.24411pt x 228.45306pt.
+ [95 <./images/Roadmap2.png> <./images/Roadmap3.png>]
+<./images/Roadmap4.png, id=1794, 1154.51324pt x 545.6385pt>
+File: ./images/Roadmap4.png Graphic file (type png)
+<use ./images/Roadmap4.png>
+Package pdftex.def Info: ./images/Roadmap4.png  used on input line 365.
+(pdftex.def)             Requested size: 455.24411pt x 215.15434pt.
+ [96 <./images/Roadmap4.png>]
+<./images/InactiveCandidateEmail.png, id=1801, 907.59074pt x 95.1555pt>
+File: ./images/InactiveCandidateEmail.png Graphic file (type png)
+<use ./images/InactiveCandidateEmail.png>
+Package pdftex.def Info: ./images/InactiveCandidateEmail.png  used on input lin
+e 378.
+(pdftex.def)             Requested size: 455.24411pt x 47.73007pt.
+<./images/inactive.jpeg, id=1802, 874.26625pt x 788.9475pt>
+File: ./images/inactive.jpeg Graphic file (type jpg)
+<use ./images/inactive.jpeg>
+Package pdftex.def Info: ./images/inactive.jpeg  used on input line 385.
+(pdftex.def)             Requested size: 364.19667pt x 328.65909pt.
+
+[97 <./images/InactiveCandidateEmail.png> <./images/inactive.jpeg>]
+<./images/RiskAlert.png, id=1810, 843.75224pt x 423.984pt>
+File: ./images/RiskAlert.png Graphic file (type png)
+<use ./images/RiskAlert.png>
+Package pdftex.def Info: ./images/RiskAlert.png  used on input line 398.
+(pdftex.def)             Requested size: 455.24411pt x 228.75385pt.
+<./images/RiskAlert2.png, id=1811, 1155.1155pt x 540.21825pt>
+File: ./images/RiskAlert2.png Graphic file (type png)
+<use ./images/RiskAlert2.png>
+Package pdftex.def Info: ./images/RiskAlert2.png  used on input line 405.
+(pdftex.def)             Requested size: 455.24411pt x 212.90164pt.
+ [98 <./images/RiskAlert.png> <./images/RiskAlert2.png>]
+<./images/SourcedCandidate.png, id=1820, 925.65825pt x 430.60875pt>
+File: ./images/SourcedCandidate.png Graphic file (type png)
+<use ./images/SourcedCandidate.png>
+Package pdftex.def Info: ./images/SourcedCandidate.png  used on input line 422.
+
+(pdftex.def)             Requested size: 455.24411pt x 211.78201pt.
+ [99]
+<./images/SourcedCandidate2.png, id=1825, 1154.51324pt x 549.85425pt>
+File: ./images/SourcedCandidate2.png Graphic file (type png)
+<use ./images/SourcedCandidate2.png>
+Package pdftex.def Info: ./images/SourcedCandidate2.png  used on input line 429
+.
+(pdftex.def)             Requested size: 455.24411pt x 216.81668pt.
+<./images/SourcedCandidate3.png, id=1826, 988.29225pt x 277.035pt>
+File: ./images/SourcedCandidate3.png Graphic file (type png)
+<use ./images/SourcedCandidate3.png>
+Package pdftex.def Info: ./images/SourcedCandidate3.png  used on input line 436
+.
+(pdftex.def)             Requested size: 455.24411pt x 127.61095pt.
+ [100 <./images/SourcedCandidate.png> <./images/SourcedCandidate2.png>]
+<./images/CEO_Email3.png, id=1837, 1150.89975pt x 458.31226pt>
+File: ./images/CEO_Email3.png Graphic file (type png)
+<use ./images/CEO_Email3.png>
+Package pdftex.def Info: ./images/CEO_Email3.png  used on input line 447.
+(pdftex.def)             Requested size: 455.24411pt x 181.2866pt.
+<./images/CEO_Email.png, id=1838, 891.33pt x 469.755pt>
+File: ./images/CEO_Email.png Graphic file (type png)
+<use ./images/CEO_Email.png>
+Package pdftex.def Info: ./images/CEO_Email.png  used on input line 454.
+(pdftex.def)             Requested size: 455.24411pt x 239.92311pt.
+ [101 <./images/SourcedCandidate3.png> <./images/CEO_Email3.png>]
+<./images/CEO_Email2.png, id=1845, 819.66225pt x 257.763pt>
+File: ./images/CEO_Email2.png Graphic file (type png)
+<use ./images/CEO_Email2.png>
+Package pdftex.def Info: ./images/CEO_Email2.png  used on input line 461.
+(pdftex.def)             Requested size: 455.24411pt x 143.16241pt.
+<./images/CEO_Linkedin.png, id=1849, 282.45525pt x 440.847pt>
+File: ./images/CEO_Linkedin.png Graphic file (type png)
+<use ./images/CEO_Linkedin.png>
+Package pdftex.def Info: ./images/CEO_Linkedin.png  used on input line 472.
+(pdftex.def)             Requested size: 250.38564pt x 390.79198pt.
+ [102 <./images/CEO_Email.png> <./images/CEO_Email2.png>]
+<./images/CEO_Linkedin2.png, id=1856, 708.246pt x 311.9655pt>
+File: ./images/CEO_Linkedin2.png Graphic file (type png)
+<use ./images/CEO_Linkedin2.png>
+Package pdftex.def Info: ./images/CEO_Linkedin2.png  used on input line 479.
+(pdftex.def)             Requested size: 455.24411pt x 200.52835pt.
+ [103 <./images/CEO_Linkedin.png> <./images/CEO_Linkedin2.png>]
+<./images/ExternalJobs.png, id=1865, 1129.21875pt x 541.42274pt>
+File: ./images/ExternalJobs.png Graphic file (type png)
+<use ./images/ExternalJobs.png>
+Package pdftex.def Info: ./images/ExternalJobs.png  used on input line 490.
+(pdftex.def)             Requested size: 455.24411pt x 218.27538pt.
+<./images/ExternalJobs2.png, id=1866, 929.27174pt x 355.92975pt>
+File: ./images/ExternalJobs2.png Graphic file (type png)
+<use ./images/ExternalJobs2.png>
+Package pdftex.def Info: ./images/ExternalJobs2.png  used on input line 497.
+(pdftex.def)             Requested size: 455.24411pt x 174.36908pt.
+ [104 <./images/ExternalJobs.png> <./images/ExternalJobs2.png>]
+<./images/postlinkedin.png, id=1875, 322.806pt x 375.20175pt>
+File: ./images/postlinkedin.png Graphic file (type png)
+<use ./images/postlinkedin.png>
+Package pdftex.def Info: ./images/postlinkedin.png  used on input line 508.
+(pdftex.def)             Requested size: 250.38564pt x 291.03024pt.
+<./images/PostStatistic.png, id=1876, 929.874pt x 479.391pt>
+File: ./images/PostStatistic.png Graphic file (type png)
+<use ./images/PostStatistic.png>
+Package pdftex.def Info: ./images/PostStatistic.png  used on input line 515.
+(pdftex.def)             Requested size: 455.24411pt x 234.69882pt.
+ [105 <./images/postlinkedin.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 529--530
 []|\T1/lmr/bx/n/10.95 Apport pour
  []
 
 
-Underfull \hbox (badness 1275) in paragraph at lines 269--269
+Underfull \hbox (badness 1275) in paragraph at lines 531--531
 []|\T1/lmr/m/n/10.95 Génération d'un score avec
  []
 
 
-Underfull \hbox (badness 1142) in paragraph at lines 269--270
+Underfull \hbox (badness 1142) in paragraph at lines 531--532
 []|\T1/lmr/m/n/10.95 Améliore la com-préhen-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--271
+Underfull \hbox (badness 10000) in paragraph at lines 533--533
 []|\T1/lmr/m/n/10.95 Roadmap de com-pé-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--273
+Underfull \hbox (badness 10000) in paragraph at lines 535--535
 []|\T1/lmr/m/n/10.95 Chatbot RAG con-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--274
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
 []|\T1/lmr/m/n/10.95 Prolonge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--274
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
 \T1/lmr/m/n/10.95 l'accompagnement sans
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--277
+Underfull \hbox (badness 10000) in paragraph at lines 539--539
 []|\T1/lmr/m/n/10.95 Questions per-son-nal-
  []
 
 
-Underfull \hbox (badness 1931) in paragraph at lines 277--277
+Underfull \hbox (badness 1931) in paragraph at lines 539--539
 []|\T1/lmr/m/n/10.95 Questions d'entretien adap-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
 []|\T1/lmr/m/n/10.95 Rend la pré-pa-ra-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 279--279
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
+[]|\T1/lmr/m/n/10.95 Relance au-toma-tique
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 541--542
+[]|\T1/lmr/m/n/10.95 Améliore l'engagement
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 541--542
+\T1/lmr/m/n/10.95 can-di-dat et lim-ite
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 543--543
+[]|\T1/lmr/m/n/10.95 Smart Can-di-date Risk
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 543--543
+[]|\T1/lmr/m/n/10.95 Détection de sig-naux de
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 543--543
+\T1/lmr/m/n/10.95 risque avec score, sévérité,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 545--545
 []|\T1/lmr/m/n/10.95 Declenchement ou pré-pa-
  []
 
 
-Underfull \hbox (badness 1158) in paragraph at lines 279--279
+Underfull \hbox (badness 1158) in paragraph at lines 545--545
 \T1/lmr/m/n/10.95 ra-tion de flux de sourc-ing,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 279--279
+Underfull \hbox (badness 10000) in paragraph at lines 545--545
 \T1/lmr/m/n/10.95 d'import, de pub-li-ca-tion
  []
 
 
-Underfull \hbox (badness 3872) in paragraph at lines 279--280
+Underfull \hbox (badness 3872) in paragraph at lines 545--546
 \T1/lmr/m/n/10.95 de cer-taines opéra-tions
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 281--281
+Underfull \hbox (badness 10000) in paragraph at lines 547--547
 []|\T1/lmr/m/n/10.95 Interaction track-ing
  []
 
 
-Underfull \hbox (badness 1360) in paragraph at lines 281--281
+Underfull \hbox (badness 1360) in paragraph at lines 547--547
 \T1/lmr/m/n/10.95 du suivi des com-men-taires,
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 281--282
+Underfull \hbox (badness 1418) in paragraph at lines 547--548
 \T1/lmr/m/n/10.95 a-ly-tique dans les dash-
  []
 
 
-Underfull \hbox (badness 2744) in paragraph at lines 283--283
+Underfull \hbox (badness 2744) in paragraph at lines 549--549
 []|\T1/lmr/m/n/10.95 Reverse flow LinkedIn
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 283--283
+Underfull \hbox (badness 1783) in paragraph at lines 549--549
 \T1/lmr/m/n/10.95 d'une of-fre depuis \T1/lmr/m/it/10.95 Hire-Cue
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--285
+Underfull \hbox (badness 10000) in paragraph at lines 551--551
 []|\T1/lmr/m/n/10.95 Outreach CEO /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
+Underfull \hbox (badness 10000) in paragraph at lines 551--552
 []|\T1/lmr/m/n/10.95 Soutient une prospec-
  []
 
 
-Underfull \hbox (badness 5607) in paragraph at lines 285--286
+Underfull \hbox (badness 5607) in paragraph at lines 551--552
 \T1/lmr/m/n/10.95 tion plus con-trôlée et
  []
 
 
-Underfull \hbox (badness 4739) in paragraph at lines 287--287
+Underfull \hbox (badness 4739) in paragraph at lines 553--553
 []|\T1/lmr/m/n/10.95 CEO Email Out-reach
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 []|\T1/lmr/m/n/10.95 Rend les cam-pagnes
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 \T1/lmr/m/n/10.95 d'emailing CEO plus
  []
 
 
-Underfull \hbox (badness 3354) in paragraph at lines 287--288
+Underfull \hbox (badness 3354) in paragraph at lines 553--554
 \T1/lmr/m/n/10.95 mesurables et ex-ploita-
  []
 
-[82] [83] [84]
-Underfull \hbox (badness 3088) in paragraph at lines 328--329
+[106 <./images/PostStatistic.png>]
+Overfull \vbox (138.7828pt too high) has occurred while \output is active []
+
+
+[107]
+File: ./images/Dashboard1.png Graphic file (type png)
+<use ./images/Dashboard1.png>
+Package pdftex.def Info: ./images/Dashboard1.png  used on input line 570.
+(pdftex.def)             Requested size: 455.24411pt x 256.28185pt.
+File: ./images/Dashboard2.png Graphic file (type png)
+<use ./images/Dashboard2.png>
+Package pdftex.def Info: ./images/Dashboard2.png  used on input line 581.
+(pdftex.def)             Requested size: 455.24411pt x 256.99312pt.
+ [108]
+File: ./images/AIForeCasting1.png Graphic file (type png)
+<use ./images/AIForeCasting1.png>
+Package pdftex.def Info: ./images/AIForeCasting1.png  used on input line 598.
+(pdftex.def)             Requested size: 455.24411pt x 180.12805pt.
+ [109]
+File: ./images/AIForeCasting2.png Graphic file (type png)
+<use ./images/AIForeCasting2.png>
+Package pdftex.def Info: ./images/AIForeCasting2.png  used on input line 607.
+(pdftex.def)             Requested size: 455.24411pt x 217.1716pt.
+ [110] [111]
+Underfull \hbox (badness 3088) in paragraph at lines 658--659
 []|\T1/lmr/m/n/10.95 Améliore la flu-id-ité du
  []
 
 
-Underfull \hbox (badness 1546) in paragraph at lines 330--331
+Underfull \hbox (badness 1546) in paragraph at lines 660--661
 \T1/lmr/m/n/10.95 re-cru-teur et préserve la
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 664--665
 \T1/lmr/m/n/10.95 d'automatisation, tout
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 336--336
+Underfull \hbox (badness 1968) in paragraph at lines 666--666
 []|\T1/lmr/m/n/10.95 Les exé-cu-tions sont plus ex-
  []
 
 
-Underfull \hbox (badness 6842) in paragraph at lines 338--338
+Underfull \hbox (badness 6842) in paragraph at lines 668--668
 []|\T1/lmr/m/n/10.95 Interaction track-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 668--669
 []|\T1/lmr/m/n/10.95 Rend l'analyse
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 668--669
 \T1/lmr/m/n/10.95 d'engagement pos-si-
  []
 
 
-Underfull \hbox (badness 7468) in paragraph at lines 338--339
+Underfull \hbox (badness 7468) in paragraph at lines 668--669
 \T1/lmr/m/n/10.95 ble, mais im-pose une
  []
 
 
-Underfull \hbox (badness 1168) in paragraph at lines 340--340
+Underfull \hbox (badness 1168) in paragraph at lines 670--670
 []|\T1/lmr/m/n/10.95 Validation JSON et
  []
 
 
-Underfull \hbox (badness 1424) in paragraph at lines 340--341
+Underfull \hbox (badness 1424) in paragraph at lines 670--671
 []|\T1/lmr/m/n/10.95 Évite les blocages fonc-
  []
 
 
-Underfull \hbox (badness 3138) in paragraph at lines 340--341
+Underfull \hbox (badness 3138) in paragraph at lines 670--671
 \T1/lmr/m/n/10.95 tion-nels et sta-bilise les
  []
 
 
-Underfull \hbox (badness 2884) in paragraph at lines 342--342
+Underfull \hbox (badness 2884) in paragraph at lines 672--672
 []|\T1/lmr/m/n/10.95 Le cal-cul asyn-chrone per-met
  []
 
 
-Underfull \hbox (badness 3792) in paragraph at lines 342--342
+Underfull \hbox (badness 3792) in paragraph at lines 672--672
 \T1/lmr/m/n/10.95 d'éviter des traite-ments blo-
  []
 
-[85] [86] [87]
-Underfull \hbox (badness 10000) in paragraph at lines 388--388
+[112] [113] [114] [115]
+Underfull \hbox (badness 10000) in paragraph at lines 726--726
 []|\T1/lmr/bx/n/10.95 Critere
  []
 
 
-Underfull \hbox (badness 5696) in paragraph at lines 388--389
+Underfull \hbox (badness 5696) in paragraph at lines 726--727
 []|\T1/lmr/bx/n/10.95 Point de vig-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 390--390
+Underfull \hbox (badness 10000) in paragraph at lines 728--728
 []|\T1/lmr/m/n/10.95 Cohérence métier,
  []
 
 
-Underfull \hbox (badness 1622) in paragraph at lines 390--390
+Underfull \hbox (badness 1622) in paragraph at lines 728--728
 \T1/lmr/m/n/10.95 lis-i-bil-ité, sous-scores,
  []
 
 
-Underfull \hbox (badness 2547) in paragraph at lines 390--390
+Underfull \hbox (badness 2547) in paragraph at lines 728--728
 \T1/lmr/m/n/10.95 in-ter-prétable avec une
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 390--391
+Underfull \hbox (badness 10000) in paragraph at lines 728--729
 []|\T1/lmr/m/n/10.95 Risque de sur-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 390--391
+Underfull \hbox (badness 10000) in paragraph at lines 728--729
 \T1/lmr/m/n/10.95 interpréter un
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 392--392
+Underfull \hbox (badness 10000) in paragraph at lines 730--730
 []|\T1/lmr/m/n/10.95 Recommandations
  []
 
 
-Underfull \hbox (badness 1337) in paragraph at lines 392--392
+Underfull \hbox (badness 1337) in paragraph at lines 730--730
 \T1/lmr/m/n/10.95 jus-ti-fi-ca-tion, in-té-gra-
  []
 
 
-Underfull \hbox (badness 2828) in paragraph at lines 392--392
+Underfull \hbox (badness 2828) in paragraph at lines 730--730
 \T1/lmr/m/n/10.95 tial, avec un rank-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 394--394
+Underfull \hbox (badness 10000) in paragraph at lines 732--732
 \T1/lmr/m/n/10.95 offre, clarté péd-a-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 394--394
+Underfull \hbox (badness 10000) in paragraph at lines 732--732
 \T1/lmr/m/n/10.95 gogique, val-i-da-tion
  []
 
 
-Underfull \hbox (badness 3354) in paragraph at lines 394--394
+Underfull \hbox (badness 3354) in paragraph at lines 732--732
 []|\T1/lmr/m/n/10.95 La roadmap con-stitue
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 394--394
+Underfull \hbox (badness 10000) in paragraph at lines 732--732
 \T1/lmr/m/n/10.95 une base crédi-ble
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 394--395
+Underfull \hbox (badness 10000) in paragraph at lines 732--733
 []|\T1/lmr/m/n/10.95 Qualite dépen-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--396
+Underfull \hbox (badness 10000) in paragraph at lines 734--734
 []|\T1/lmr/m/n/10.95 Le chat-bot pro-longe
  []
 
 
-Underfull \hbox (badness 5064) in paragraph at lines 396--396
+Underfull \hbox (badness 5064) in paragraph at lines 734--734
 \T1/lmr/m/n/10.95 utile-ment la roadmap
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
+Underfull \hbox (badness 10000) in paragraph at lines 734--735
 []|\T1/lmr/m/n/10.95 Reponses
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
+Underfull \hbox (badness 10000) in paragraph at lines 734--735
 \T1/lmr/m/n/10.95 génériques pos-
  []
 
 
-Underfull \hbox (badness 2538) in paragraph at lines 398--398
+Underfull \hbox (badness 2538) in paragraph at lines 736--736
 []|\T1/lmr/m/n/10.95 Questions per-son-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 398--398
+Underfull \hbox (badness 10000) in paragraph at lines 736--736
 []|\T1/lmr/m/n/10.95 Utilite pour
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 398--398
+Underfull \hbox (badness 10000) in paragraph at lines 736--736
 \T1/lmr/m/n/10.95 l'entretien, for-mat
  []
 
 
-Underfull \hbox (badness 1742) in paragraph at lines 398--398
+Underfull \hbox (badness 1742) in paragraph at lines 736--736
 []|\T1/lmr/m/n/10.95 Les ques-tions générées
  []
 
 
-Underfull \hbox (badness 1596) in paragraph at lines 398--398
+Underfull \hbox (badness 1596) in paragraph at lines 736--736
 \T1/lmr/m/n/10.95 ren-dent la pré-pa-ra-tion
  []
 
 
-Underfull \hbox (badness 1546) in paragraph at lines 398--399
+Underfull \hbox (badness 1546) in paragraph at lines 736--737
 []|\T1/lmr/m/n/10.95 Necessite de con-
  []
 
-[88] [89] [90]) [91] (main.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 738--738
+[]|\T1/lmr/m/n/10.95 Prévision de séries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 738--738
+\T1/lmr/m/n/10.95 i-son LSTM/GRU,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 738--738
+\T1/lmr/m/n/10.95 métriques MAE,
+ []
+
+
+Underfull \hbox (badness 2799) in paragraph at lines 738--738
+\T1/lmr/m/n/10.95 tif, avec de meilleurs
+ []
+
+
+Underfull \hbox (badness 7168) in paragraph at lines 738--739
+[]|\T1/lmr/m/n/10.95 Historique en-core
+ []
+
+[116] [117] [118]) [119] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E95640AEB38A4B65D65D55698283736E;27801.
+(rerunfilecheck)             Checksum: 8936C4F52A00E26440925653A4C17388;34492.
  ) 
 Here is how much of TeX's memory you used:
- 11256 strings out of 467691
- 186929 string characters out of 5410596
- 657457 words of memory out of 5000000
- 39865 multiletter control sequences out of 15000+600000
+ 11686 strings out of 467691
+ 198015 string characters out of 5410596
+ 660442 words of memory out of 5000000
+ 40204 multiletter control sequences out of 15000+600000
  688960 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,83p,1033b,576s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,83p,1082b,576s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/
 lmbx10.pfb><C:/Users/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/lm/lmbx12.pfb><C:/Users/Hadil Derouich/AppData/Local/Programs/MiKTeX/font
@@ -2762,12 +3080,13 @@ TeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Hadil Derouich/AppData/Local/Prog
 rams/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/Hadil Derouich/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/Hadil Derouich/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/Hadil D
-erouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/User
-s/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb
->
-Output written on main.pdf (105 pages, 11939458 bytes).
+erouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/User
+s/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb
+><C:/Users/Hadil Derouich/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
+mtt12.pfb>
+Output written on main.pdf (134 pages, 15255989 bytes).
 PDF statistics:
- 1582 PDF objects out of 1728 (max. 8388607)
- 281 named destinations out of 1000 (max. 500000)
- 1303 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2077 PDF objects out of 2487 (max. 8388607)
+ 371 named destinations out of 1000 (max. 500000)
+ 1642 words of extra memory for PDF output out of 10000 (max. 10000000)
 

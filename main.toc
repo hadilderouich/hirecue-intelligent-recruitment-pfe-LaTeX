@@ -91,41 +91,65 @@
 \contentsline {subsection}{\numberline {3.6.10}Pipeline d'import des offres LinkedIn}{65}{subsection.3.6.10}%
 \contentsline {subsection}{\numberline {3.6.11}Reverse flow de publication vers LinkedIn}{65}{subsection.3.6.11}%
 \contentsline {subsection}{\numberline {3.6.12}Workflow d'automatisation des messages LinkedIn}{66}{subsection.3.6.12}%
-\contentsline {section}{\numberline {3.7}Automatisation des workflows}{66}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Workflows pour le sourcing candidat}{66}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Scraping LinkedIn des profils}{67}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Pipeline d'import des offres d'emploi LinkedIn}{67}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}Workflow d'envoi d'emails}{67}{subsection.3.7.4}%
-\contentsline {section}{\numberline {3.8}Difficultés rencontrées}{68}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Conclusion}{69}{section.3.9}%
-\contentsline {chapter}{\numberline {4}Validation, Exp\'erimentation et \'Evaluation de la solution}{71}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{71}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Strategie de validation}{71}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Validation selon Scrum}{72}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Evaluation selon CRISP-DM}{72}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Scenarios de test}{73}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Scenario candidat}{73}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Scenario recruteur}{74}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Scenario administrateur}{75}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Scenarios des workflows automatisés}{76}{subsection.4.3.4}%
-\contentsline {subsubsection}{\numberline {4.3.4.1}Workflow de scraping des profils LinkedIn}{77}{subsubsection.4.3.4.1}%
-\contentsline {subsubsection}{\numberline {4.3.4.2}Workflow d'import des offres d'emploi externes}{77}{subsubsection.4.3.4.2}%
-\contentsline {subsubsection}{\numberline {4.3.4.3}Workflow reverse flow de publication LinkedIn}{78}{subsubsection.4.3.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.4.4}Workflow d'automatisation des messages LinkedIn}{78}{subsubsection.4.3.4.4}%
-\contentsline {subsubsection}{\numberline {4.3.4.5}Workflow d'extraction des emails CEO, enrichissement et tracking}{78}{subsubsection.4.3.4.5}%
-\contentsline {section}{\numberline {4.4}Resultats expérimentaux}{80}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Resultats du score explicable}{81}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Resultats des recommandations IA}{81}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Resultats de la Skill Gap Roadmap}{81}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Resultats du chatbot RAG}{82}{subsection.4.4.4}%
-\contentsline {subsection}{\numberline {4.4.5}Resultats des workflows n8n}{82}{subsection.4.4.5}%
-\contentsline {section}{\numberline {4.5}Evaluation des performances}{84}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Performance des modules IA}{84}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Performance des workflows n8n}{84}{subsection.4.5.2}%
-\contentsline {section}{\numberline {4.6}Evaluation des modules IA selon CRISP-DM}{87}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Evaluation du score explicable}{87}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Evaluation des recommandations IA}{88}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Evaluation de la roadmap IA}{88}{subsection.4.6.3}%
-\contentsline {subsection}{\numberline {4.6.4}Evaluation du chatbot RAG}{88}{subsection.4.6.4}%
-\contentsline {section}{\numberline {4.7}Analyse critique et limites}{89}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Conclusion}{91}{section.4.8}%
+\contentsline {section}{\numberline {3.7}Module décisionnel Power BI}{66}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Connexion de Power BI à la base MySQL de HireCue}{67}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Nettoyage et transformation avec Power Query}{68}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Création des KPIs et mesures DAX}{68}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}Dashboard Executive Overview}{69}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}Dashboard Product \& Operations Analytics}{70}{subsection.3.7.5}%
+\contentsline {subsection}{\numberline {3.7.6}Intégration des dashboards dans une application React / Node.js}{71}{subsection.3.7.6}%
+\contentsline {subsection}{\numberline {3.7.7}Expérimentation AI Workforce Forecasting}{72}{subsection.3.7.7}%
+\contentsline {section}{\numberline {3.8}Automatisation des workflows}{74}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Workflows pour le sourcing candidat}{74}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Scraping LinkedIn des profils}{74}{subsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.8.3}Pipeline d'import des offres d'emploi LinkedIn}{75}{subsection.3.8.3}%
+\contentsline {subsection}{\numberline {3.8.4}Workflow d'envoi d'emails}{75}{subsection.3.8.4}%
+\contentsline {section}{\numberline {3.9}Difficultés rencontrées}{75}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Conclusion}{77}{section.3.10}%
+\contentsline {chapter}{\numberline {4}Validation, Exp\'erimentation et \'Evaluation de la solution}{78}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{78}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Strategie de validation}{78}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Validation selon Scrum}{79}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Evaluation selon CRISP-DM}{79}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Scenarios de test}{80}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Scenario candidat}{81}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Scenario recruteur}{82}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Scenario administrateur}{83}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Scenarios des workflows automatisés}{84}{subsection.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.1}Workflow de scraping des profils LinkedIn}{85}{subsubsection.4.3.4.1}%
+\contentsline {subsubsection}{\numberline {4.3.4.2}Workflow d'import des offres d'emploi externes}{85}{subsubsection.4.3.4.2}%
+\contentsline {subsubsection}{\numberline {4.3.4.3}Workflow reverse flow de publication LinkedIn}{85}{subsubsection.4.3.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.4.4}Workflow d'automatisation des messages LinkedIn}{86}{subsubsection.4.3.4.4}%
+\contentsline {subsubsection}{\numberline {4.3.4.5}Workflow d'extraction des emails CEO, enrichissement et tracking}{86}{subsubsection.4.3.4.5}%
+\contentsline {subsection}{\numberline {4.3.5}Scenario décisionnel Power BI}{88}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Resultats expérimentaux}{89}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Resultats du score explicable}{90}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Resultats des recommandations IA}{92}{subsection.4.4.2}%
+\contentsline {paragraph}{Questions personnalisées générées pour le recruteur.}{93}{section*.15}%
+\contentsline {subsection}{\numberline {4.4.3}Resultats de la Skill Gap Roadmap}{94}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Resultats du chatbot RAG}{96}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Résultats de la relance automatique des candidats inactifs}{96}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Résultats des Smart Candidate Risk Alerts}{98}{subsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.4.7}Resultats des workflows n8n}{99}{subsection.4.4.7}%
+\contentsline {subsubsection}{\numberline {4.4.7.1}Résultats du sourcing des candidats}{100}{subsubsection.4.4.7.1}%
+\contentsline {subsubsection}{\numberline {4.4.7.2}Résultats du workflow CEO Email Outreach}{101}{subsubsection.4.4.7.2}%
+\contentsline {subsubsection}{\numberline {4.4.7.3}Résultats du workflow LinkedIn Outreach CEO}{103}{subsubsection.4.4.7.3}%
+\contentsline {subsubsection}{\numberline {4.4.7.4}Résultats du workflow d'import des offres externes}{104}{subsubsection.4.4.7.4}%
+\contentsline {subsubsection}{\numberline {4.4.7.5}Résultats de publication LinkedIn et suivi des interactions}{105}{subsubsection.4.4.7.5}%
+\contentsline {subsection}{\numberline {4.4.8}Résultats des dashboards Power BI}{108}{subsection.4.4.8}%
+\contentsline {subsubsection}{\numberline {4.4.8.1}Dashboard Executive Overview}{108}{subsubsection.4.4.8.1}%
+\contentsline {subsubsection}{\numberline {4.4.8.2}Dashboard Product \& Operations Analytics}{109}{subsubsection.4.4.8.2}%
+\contentsline {subsubsection}{\numberline {4.4.8.3}Intégration web des dashboards}{109}{subsubsection.4.4.8.3}%
+\contentsline {subsection}{\numberline {4.4.9}Résultats du module AI Workforce Forecasting}{110}{subsection.4.4.9}%
+\contentsline {section}{\numberline {4.5}Evaluation des performances}{111}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Performance des modules IA}{111}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Performance des workflows n8n}{112}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Performance de la couche décisionnelle Power BI}{112}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Evaluation des modules IA selon CRISP-DM}{114}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Evaluation du score explicable}{114}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Evaluation des recommandations IA}{115}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Evaluation de la roadmap IA}{115}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}Evaluation du chatbot RAG}{115}{subsection.4.6.4}%
+\contentsline {subsection}{\numberline {4.6.5}Évaluation de l'expérimentation AI Workforce Forecasting}{115}{subsection.4.6.5}%
+\contentsline {section}{\numberline {4.7}Analyse critique et limites}{117}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Conclusion}{119}{section.4.8}%

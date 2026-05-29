@@ -428,6 +428,170 @@ Le processus commence par la récupération des leads cibles. Ces leads peuvent 
 
 La suite du workflow dépend de l'acceptation de la connexion. Le système peut attendre un retour ou détecter l'acceptation à travers un événement de synchronisation. Lorsque la connexion est acceptée, un message de suivi personnalisé est préparé puis envoyé automatiquement. Chaque étape donne lieu à une mise à jour de statut : lead identifié, invitation envoyée, connexion acceptée, message de suivi transmis ou action en attente. Cette conservation des traces permet d'assurer un suivi commercial plus rigoureux et d'alimenter ultérieurement des indicateurs analytiques tels que le nombre d'invitations envoyées, le taux d'acceptation ou le taux de réponse.
 
+\section{Module décisionnel Power BI}
+
+Le module décisionnel Power BI constitue la couche de Business Intelligence de \textit{HireCue}. Il complète les modules IA, les workflows \textit{n8n} et les automatisations par une lecture visuelle des données issues de MySQL. Son objectif n'est pas de remplacer les parcours applicatifs existants, mais de transformer les données opérationnelles de la plateforme en indicateurs lisibles pour les décideurs, les administrateurs et les responsables opérationnels.
+
+La réalisation de cette partie suit une logique proche de CRISP-DM. La compréhension métier correspond à l'identification du besoin décisionnel : suivre l'activité globale de \textit{HireCue}, mesurer les volumes de recrutement, observer l'usage de l'IA et surveiller certains indicateurs opérationnels. La compréhension des données porte ensuite sur les tables MySQL disponibles, tandis que la préparation est assurée avec Power Query. Les mesures DAX et les visualisations permettent enfin de construire les KPIs, puis d'évaluer la lisibilité et l'utilité des dashboards produits.
+
+L'intégration web des rapports dans l'application React / Node.js via une balise \texttt{iframe} relève davantage de la démarche Scrum. Elle concerne en effet une évolution applicative progressive : ajout d'une interface, intégration des vues Power BI, navigation entre dashboards et validation de l'affichage dans le navigateur.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.2cm}|p{10.4cm}|}
+\hline
+\textbf{Technologie} & \textbf{Rôle dans le module} \\
+\hline
+MySQL & Source principale des données analytiques de \textit{HireCue}. \\
+\hline
+Power BI & Création des dashboards décisionnels et des visualisations. \\
+\hline
+Power Query & Nettoyage, transformation et préparation des données. \\
+\hline
+DAX & Création des mesures, calculs et KPIs. \\
+\hline
+React.js & Interface web permettant d'afficher et de naviguer entre les dashboards. \\
+\hline
+Node.js & Support applicatif/backend de l'intégration web. \\
+\hline
+\texttt{iframe} & Intégration des rapports Power BI dans l'interface web. \\
+\hline
+LSTM & Modèle Deep Learning utilisé pour la prévision de séries temporelles. \\
+\hline
+GRU & Modèle Deep Learning comparé à LSTM pour l'expérimentation prédictive. \\
+\hline
+\end{tabular}
+\caption{Technologies utilisées dans le module décisionnel Power BI}
+\label{tab:powerbi_technologies}
+\end{table}
+
+\subsection{Connexion de Power BI à la base MySQL de HireCue}
+
+Power BI Desktop est connecté à la base MySQL de \textit{HireCue}. Les données exploitées proviennent donc du système réel de la plateforme et non d'un fichier isolé ou d'un export statique. Cette connexion permet de construire une couche analytique cohérente avec les parcours candidat, recruteur et administrateur, tout en évitant la saisie manuelle de données dans les dashboards.
+
+Selon les données disponibles dans la base, les tables exploitées peuvent inclure notamment des tables métier comme \texttt{users}, \texttt{joblist}, \texttt{candidate\_job} et \texttt{Events}. Elles peuvent aussi comprendre, lorsque leur présence est confirmée dans le modèle, des tables de suivi ou d'analyse telles que \texttt{userLogs}, \texttt{LLMConsumptions}, \texttt{subscriptions}, \texttt{score\_reports} ou des tables équivalentes liées aux scores, aux entretiens, aux workflows et aux interactions. Cette formulation reste volontairement prudente, car le modèle analytique doit suivre les tables réellement présentes et les besoins de reporting validés.
+
+La logique générale peut être résumée par le flux suivant : MySQL \(\rightarrow\) Power BI Desktop \(\rightarrow\) Power Query \(\rightarrow\) modèle de données \(\rightarrow\) mesures DAX \(\rightarrow\) dashboards. Cette chaîne permet aux tableaux de bord de reposer directement sur les données opérationnelles de la plateforme, tout en conservant une étape de préparation avant la visualisation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Coonectpowerbi-mysql.png}
+    \caption{Connexion de Power BI à la base de données MySQL de HireCue}
+    \label{fig:powerbi_mysql_connection}
+\end{figure}
+
+La figure \ref{fig:powerbi_mysql_connection} illustre le principe de connexion entre Power BI et la base MySQL. Les données récupérées alimentent ensuite les processus de nettoyage, de transformation, de modélisation et de création des indicateurs décisionnels. Cette architecture limite les manipulations manuelles et rapproche les dashboards de l'état réel de l'activité \textit{HireCue}.
+
+\subsection{Nettoyage et transformation avec Power Query}
+
+Après la connexion à MySQL, Power Query intervient comme phase de préparation des données avant la construction des visualisations. Cette étape correspond à la phase de préparation de CRISP-DM : elle transforme des données opérationnelles en données plus propres, plus lisibles et plus adaptées à l'analyse décisionnelle.
+
+Les transformations réalisées peuvent comprendre le traitement des valeurs nulles, la correction des types de données, le formatage des dates, la normalisation des colonnes et le renommage de certains champs afin d'améliorer leur lisibilité dans les rapports. Les données non pertinentes pour l'analyse peuvent être filtrées, tandis que les colonnes nécessaires aux KPIs sont préparées ou vérifiées.
+
+Power Query permet également de créer ou de vérifier les relations entre les tables utilisées dans le modèle. Ce point est essentiel lorsque les indicateurs combinent des informations issues des candidats, des offres, des événements, des logs, des abonnements ou des consommations IA. Cette préparation limite les incohérences dans les dashboards et garantit que les indicateurs ne reposent pas uniquement sur des données brutes, mais sur un modèle analytique structuré.
+
+\subsection{Création des KPIs et mesures DAX}
+
+La construction des dashboards repose ensuite sur la création de KPIs à partir des données MySQL préparées avec Power Query. DAX est utilisé pour définir les mesures analytiques nécessaires aux cartes KPI, aux graphiques, aux entonnoirs et aux comparaisons dynamiques. Ces mesures permettent aux indicateurs de réagir aux filtres, aux périodes et aux dimensions sélectionnées dans Power BI.
+
+Les KPIs retenus ne reposent pas sur des chiffres ajoutés dans le rapport, mais sur les noms et familles d'indicateurs visibles dans les dashboards. Ils sont regroupés selon leur usage principal : pilotage stratégique, suivi IA / LLM, analyse du recrutement et supervision opérationnelle.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.2cm}|p{10.4cm}|}
+\hline
+\textbf{Groupe de KPIs} & \textbf{Indicateurs suivis} \\
+\hline
+KPIs stratégiques & \textit{Active Companies}, \textit{Active Recruiters}, \textit{Jobs Created}, \textit{Total Applications}, \textit{Active Subscriptions}, \textit{Revenue Proxy}, \textit{Selection Rate}. \\
+\hline
+KPIs IA / LLM & \textit{Total AI Tokens}, \textit{Average Score With AI}, \textit{LLM Calls}, \textit{Total AI Cost}, \textit{Avg Tokens Per Call}, \textit{Average AI Duration}, \textit{AI Cost by Provider}, \textit{AI Tokens Consumption by Task}, \textit{AI Tasks Distribution}. \\
+\hline
+KPIs recrutement & \textit{Recruitment Funnel}, \textit{Total Applications}, \textit{Video Interview Invites}, \textit{Selected Candidates}, \textit{Average Final Score}, \textit{Average Score Comparison}, \textit{Jobs by Status}, \textit{Jobs Growth Over Time}. \\
+\hline
+KPIs opérationnels & \textit{Events Overview}, \textit{Completed Events}, \textit{Planned Events}, \textit{Open Events}, \textit{Upcoming Today}, \textit{Recent Activity Logs}, \textit{Candidate Pipeline by Status}, \textit{Roadmaps Generated}, \textit{Not Completed Interviews}, \textit{Jobs by Job Type}. \\
+\hline
+\end{tabular}
+\caption{Familles de KPIs exploitées dans les dashboards Power BI}
+\label{tab:powerbi_kpis}
+\end{table}
+
+Les KPIs stratégiques aident les décideurs à suivre la performance générale de la plateforme. Les KPIs IA / LLM permettent de mesurer l'usage des services intelligents, notamment la consommation de tokens, les appels LLM, les coûts associés et les durées moyennes observées. Les KPIs de recrutement donnent une lecture du tunnel candidat, des candidatures, des sélections, des scores et de l'évolution des offres. Enfin, les KPIs opérationnels facilitent le suivi quotidien des événements, des logs, des statuts candidats, des roadmaps et des entretiens non complétés.
+
+\subsection{Dashboard Executive Overview}
+
+Le dashboard \textit{Executive Overview} est conçu comme une vue stratégique destinée aux décideurs et aux responsables qui ont besoin d'une lecture synthétique de l'activité globale de \textit{HireCue}. Il regroupe des cartes KPI, des graphiques temporels, des distributions et des indicateurs de performance afin de faciliter une lecture rapide des tendances principales.
+
+Les cartes KPI visibles dans cette vue incluent notamment \textit{Active Companies}, \textit{Active Recruiters}, \textit{Jobs Created}, \textit{Total Applications}, \textit{Active Subscriptions}, \textit{Total AI Tokens}, \textit{Revenue Proxy} et \textit{Selection Rate}. Ces indicateurs donnent une première lecture de la taille de l'activité, de l'utilisation de la plateforme, de la dynamique des candidatures et de l'usage global de l'IA.
+
+Le dashboard contient également des visualisations telles que \textit{Jobs Growth Over Time}, \textit{Revenue Proxy Over Time}, \textit{Subscription Distribution}, \textit{AI Cost Over Time}, \textit{Recruitment Funnel}, \textit{AI Tokens Consumption by Task}, \textit{Jobs by Status}, \textit{Average Score Comparison} et \textit{Completed Events}. L'ensemble permet de suivre la performance générale, d'observer les tendances de recrutement, de visualiser l'usage de l'IA et d'appuyer la prise de décision à partir d'indicateurs consolidés.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Dashboard1.png}
+    \caption{Dashboard Executive Overview de HireCue}
+    \label{fig:dashboard-executive-overview}
+\end{figure}
+
+La figure \ref{fig:dashboard-executive-overview} présente la vue \textit{Executive Overview} intégrée dans le module décisionnel. Elle regroupe les indicateurs stratégiques liés aux entreprises actives, recruteurs actifs, offres créées, candidatures, abonnements, consommation de tokens IA, revenu proxy et taux de sélection. Cette vue offre une lecture synthétique de la performance globale de la plateforme.
+
+\subsection{Dashboard Product \& Operations Analytics}
+
+Le dashboard \textit{Product \& Operations Analytics} adopte une lecture plus opérationnelle. Il est destiné au suivi produit, aux workflows et à l'activité quotidienne de la plateforme. Là où \textit{Executive Overview} donne une vue synthétique pour la décision, ce second dashboard fournit une analyse plus détaillée des usages, des statuts et des comportements observés.
+
+Les indicateurs visibles couvrent notamment \textit{Average Score With AI}, \textit{LLM Calls}, \textit{Total AI Cost}, \textit{Average Final Score}, \textit{Avg Tokens Per Call}, \textit{Average AI Duration}, \textit{Selection Rate} et \textit{Selected Candidates}. Ces mesures permettent de suivre à la fois la performance du recrutement et l'usage des modules IA.
+
+La vue opérationnelle comprend aussi \textit{Jobs by Job Type}, \textit{AI Cost by Provider}, \textit{Recent Activity Logs}, \textit{AI Tokens Consumption Over Time}, \textit{AI Tasks Distribution}, \textit{Candidate Pipeline by Status}, \textit{Events Overview}, \textit{Roadmaps Generated} et \textit{Not Completed Interviews}. Elle aide ainsi à surveiller les logs récents, comprendre la consommation de tokens et le coût IA, suivre les événements, analyser les statuts candidats et compléter la lecture stratégique du dashboard \textit{Executive Overview}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Dashboard2.png}
+    \caption{Dashboard Product \& Operations Analytics de HireCue}
+    \label{fig:dashboard-product-operations}
+\end{figure}
+
+La figure \ref{fig:dashboard-product-operations} illustre la vue \textit{Product \& Operations Analytics}. Cette page permet de suivre les indicateurs opérationnels de la plateforme, notamment les appels LLM, le coût IA, le score moyen avec IA, les tokens consommés, les logs récents, les événements, les roadmaps générées, les statuts candidats et les entretiens non complétés.
+
+\subsection{Intégration des dashboards dans une application React / Node.js}
+
+Une interface web a été créée afin d'afficher les dashboards Power BI directement depuis le navigateur. Les rapports sont intégrés dans l'application React / Node.js à l'aide d'une balise \texttt{iframe}. React gère l'interface utilisateur, l'organisation des vues et la navigation entre les dashboards, tandis que Node.js peut servir de support applicatif ou backend selon la structure retenue pour l'application.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{reactnode.jpg}
+    \caption{Architecture d'intégration des dashboards Power BI dans l'application React / Node.js}
+    \label{fig:powerbi_react_integration}
+\end{figure}
+
+La figure \ref{fig:powerbi_react_integration} illustre l'architecture d'intégration entre la couche web et les rapports Power BI. L'utilisation de l'\texttt{iframe} évite de reconstruire toutes les visualisations dans React : Power BI conserve son rôle de moteur de visualisation, tandis que l'application web assure l'accès et l'expérience de consultation.
+
+Cette solution permet d'afficher les rapports dans une interface unifiée et de naviguer entre \textit{Executive Overview} et \textit{Product \& Operations Analytics}, notamment à travers une sidebar dédiée. Elle simplifie le déploiement des tableaux de bord tout en conservant les capacités natives de filtrage, d'interaction et de visualisation offertes par Power BI.
+
+\subsection{Expérimentation AI Workforce Forecasting}
+
+L'\textit{AI Workforce Forecasting} constitue une expérimentation Deep Learning intégrée à l'interface web. Elle explore la possibilité de prévoir certaines tendances RH ou opérationnelles à partir des données disponibles dans la plateforme. Son objectif est d'évaluer l'intérêt d'une dimension prédictive en complément des dashboards Power BI, qui restent principalement orientés visualisation et suivi décisionnel.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{AIForeCasting1.png}
+    \caption{Vue générale du module AI Workforce Forecasting}
+    \label{fig:ai-workforce-forecasting-overview}
+\end{figure}
+
+La figure \ref{fig:ai-workforce-forecasting-overview} montre l'interface générale du module. Elle permet de lancer l'entraînement du modèle, d'afficher les prédictions principales et de présenter les KPIs prédits pour les 30 prochains jours. Les indicateurs suivis incluent notamment \textit{Predicted Jobs}, \textit{Predicted Applications}, \textit{Predicted AI Tokens}, \textit{Predicted AI Cost}, \textit{Predicted Revenue Proxy} et \textit{Best Model Used}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{AIForeCasting2.png}
+    \caption{Résultats de prédiction du module AI Workforce Forecasting}
+    \label{fig:ai-workforce-forecasting-results}
+\end{figure}
+
+La figure \ref{fig:ai-workforce-forecasting-results} présente les résultats de prédiction associés à l'expérimentation. Le module compare deux modèles de séries temporelles, LSTM et GRU, afin d'observer leur comportement sur plusieurs indicateurs comme les jobs créés, les candidatures, le coût IA et le revenu proxy. Les courbes permettent de comparer les valeurs réelles avec les valeurs prédites.
+
+La comparaison des modèles repose sur des métriques d'évaluation classiques : MAE, RMSE et MAPE. La MAE mesure l'erreur moyenne absolue, la RMSE pénalise davantage les grandes erreurs et la MAPE exprime l'erreur relative en pourcentage. Le meilleur modèle est sélectionné selon les résultats observés. Cette brique ne remplace toutefois pas les KPIs décisionnels existants et ne doit pas être présentée comme un module totalement industrialisé. À ce stade, il s'agit d'une preuve de concept analytique qui nécessite davantage de données, de validation et d'évaluation avant un usage décisionnel complet.
+
 \section{Automatisation des workflows}
 
 Les workflows d'automatisation permettent à \textit{HireCue} d'aller au-delà des seuls parcours internes de candidature. Ils servent à sourcer, à importer, à nettoyer des données et, dans certains cas, à piloter des communications sans alourdir le backend principal.

@@ -13,6 +13,8 @@ La validation porte ainsi sur plusieurs dimensions complémentaires : vérificat
 
 La stratégie de validation retenue dans \textit{HireCue} repose sur deux approches complémentaires, appliquées à des périmètres distincts. Scrum concerne les évolutions logicielles et techniques de la plateforme, tandis que CRISP-DM sert de cadre d'évaluation pour les modules IA, LLM et RAG.
 
+La couche décisionnelle Power BI a également été intégrée à cette stratégie de validation. Les vérifications ont porté sur la connexion à la base MySQL, la cohérence des données exploitées, le fonctionnement des KPIs, la lisibilité des visualisations, l'intégration des rapports dans l'application React / Node.js et l'expérimentation \textit{AI Workforce Forecasting}. La partie Power BI suit ainsi une logique d'évaluation proche de CRISP-DM, car elle dépend de la compréhension des données, de leur préparation et de l'évaluation des indicateurs. L'intégration web des dashboards relève, quant à elle, de Scrum, puisqu'elle concerne l'ajout progressif d'une interface consultable et validable par l'utilisateur.
+
 \subsection{Validation selon Scrum}
 
 La validation selon Scrum a été appliquée aux fonctionnalités applicatives développées ou améliorées pendant le stage. Les tests ont été menés de manière incrémentale sur les interfaces frontend, les routes backend, les APIs, les dashboards, les workflows \textit{n8n}, les intégrations LinkedIn et les automatisations techniques. Chaque incrément devait être vérifié après intégration afin de contrôler le comportement attendu, les formats d'échange, la cohérence des statuts, l'affichage côté utilisateur et l'absence de régression sur les parcours existants.
@@ -41,6 +43,8 @@ Tests IA / LLM & Controle des données d'entrée, de la cohérence des sorties, 
 Tests workflows n8n & Verification des enchaînements d'automatisation, des statuts de run, du nettoyage et de la transmission des données. & S'assurer que les intégrations externes produisent des sorties réutilisables dans HireCue. \\
 \hline
 Tests d'intégration frontend/backend & Controle des appels API, des formats de retour, des statuts et de l'affichage des résultats dans les dashboards. & Garantir la cohérence entre services métier et composants visibles par l'utilisateur. \\
+\hline
+Tests décisionnels Power BI & Vérification de la connexion MySQL, des transformations Power Query, des mesures DAX, des visualisations et de l'intégration \texttt{iframe}. & Confirmer que les dashboards et les indicateurs décisionnels reflètent correctement les données exploitées. \\
 \hline
 Tests de performance & Observation qualitative du temps de réponse, du cache, des files RabbitMQ et des traitements non bloquants. & Vérifier que les modules restent fluides et que les traitements lourds n'alourdissent pas l'expérience utilisateur. \\
 \hline
@@ -221,6 +225,44 @@ CEO Email Outreach Tracking & Verifier l'extraction des leads CEO, l'envoi d'ema
 \caption{Validation des workflows automatisés}
 \end{table}
 
+\subsection{Scenario décisionnel Power BI}
+
+Le scénario décisionnel Power BI valide l'exploitation des données analytiques de \textit{HireCue} depuis l'interface web. Il commence par la connexion de l'utilisateur à l'application, puis par l'accès au dashboard \textit{Executive Overview}. Cette première étape permet de vérifier les KPIs stratégiques, notamment les indicateurs liés aux entreprises actives, aux recruteurs, aux offres, aux candidatures, aux abonnements, à l'usage de l'IA et au taux de sélection.
+
+L'utilisateur navigue ensuite vers le dashboard \textit{Product \& Operations Analytics}. Cette vue permet de consulter les indicateurs opérationnels liés aux événements, aux jobs, aux candidats, aux logs récents, aux roadmaps générées et à la consommation IA. Les filtres Power BI sont également testés afin de vérifier la navigation par période, entreprise, pays et type d'emploi. Le scénario se poursuit par le contrôle du chargement des visualisations et par l'accès au module \textit{AI Workforce Forecasting}, où l'utilisateur consulte les prédictions disponibles.
+
+Sur le plan méthodologique, ce scénario combine les deux lectures retenues dans le chapitre. Scrum permet de valider l'intégration web, la navigation entre les dashboards et l'affichage via \texttt{iframe}. CRISP-DM permet d'évaluer la cohérence des données MySQL, la préparation analytique, les KPIs et les résultats prédictifs explorés par le module de forecasting.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{7cm}|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Élément testé} & \textbf{Résultat} \\
+\hline
+Connexion MySQL & Validée \\
+\hline
+Chargement des données & Validé \\
+\hline
+KPIs Executive Overview & Validés \\
+\hline
+KPIs Product \& Operations Analytics & Validés \\
+\hline
+Navigation entre dashboards & Validée \\
+\hline
+Filtres Power BI & Validés \\
+\hline
+Intégration \texttt{iframe} & Validée \\
+\hline
+AI Workforce Forecasting & Validé \\
+\hline
+\end{tabular}
+\normalsize
+\caption{Validation du scénario décisionnel Power BI}
+\end{table}
+
 \section{Resultats expérimentaux}
 
 Les résultats expérimentaux observés sur \textit{HireCue} montrent d'abord la capacité de la plateforme à produire un score explicable et à associer ce score à une explication lisible. Ils montrent également la génération d'une roadmap de compétences, l'exploitation d'un chatbot contextuel lié à cette roadmap, la production de recommandations côté recruteur, l'affichage de questions personnalisées et le déclenchement ou la préparation de plusieurs workflows \textit{n8n} rattachés au sourcing, à l'import ou à l'outreach.
@@ -233,11 +275,55 @@ Les résultats observés sur le score explicable montrent que le candidat et le 
 
 Les conseils d'amélioration constituent un autre résultat important. Ils permettent au candidat d'identifier des axes de progression, tandis que le recruteur peut relier le score à des informations plus concrètes sur le profil. Le module reste donc un support de compréhension et d'aide à la décision, sans remplacer l'analyse humaine du dossier.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{\detokenize{ScoreexpCadidate .png}}
+    \caption{Résultat du rapport de score explicable côté candidat}
+    \label{fig:score-explicable-candidat-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{ScoreexpCadidate2.png}
+    \caption{Détail des sous-scores du rapport candidat}
+    \label{fig:score-explicable-candidat-2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{ScoreexpCadidate3.png}
+    \caption{Explications et recommandations associées au score candidat}
+    \label{fig:score-explicable-candidat-3}
+\end{figure}
+
+Les figures \ref{fig:score-explicable-candidat-1}, \ref{fig:score-explicable-candidat-2} et \ref{fig:score-explicable-candidat-3} montrent le résultat obtenu côté candidat. L'interface affiche un score global de candidature pour le poste \textit{Senior Sdet Engineer}, une fenêtre explicative \textit{Why this score?}, puis une décomposition par catégories comme \textit{Coding}, \textit{Personality}, \textit{Psychotechnical}, \textit{Technical} et \textit{CV Score}. Les captures rendent également visibles les recommandations d'amélioration, les statuts tels que \textit{Needs Work}, \textit{Not available} ou \textit{On Track}, ainsi que les compétences manquantes présentées dans la zone \textit{Evidence}. Cette restitution confirme que le score n'est pas affiché seul, mais accompagné d'éléments interprétables pour guider le candidat.
+
 \subsection{Resultats des recommandations IA}
 
 Les recommandations IA côté recruteur affichent les meilleurs candidats associés à une offre, avec un score de compatibilite, les compétences correspondantes, les compétences manquantes et une justification de la recommandation. Le résultat est ainsi plus exploitable qu'une simple liste de candidatures, car il met en avant les raisons qui rapprochent un profil d'un poste donné.
 
 Le classement conserve une logique déterministe. Les règles métier et les critères de comparaison structurent l'ordre des profils, tandis que l'IA intervient pour améliorer la formulation de l'explication. Cette séparation est importante, car elle permet de bénéficier d'une restitution plus lisible sans confier la décision de classement au LLM.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{AIrecomm.png}
+    \caption{Résultat des recommandations IA côté recruteur}
+    \label{fig:ai-recommendations-result}
+\end{figure}
+
+La figure \ref{fig:ai-recommendations-result} présente le résultat des recommandations IA côté recruteur. La capture affiche le module \textit{AI Recommendations (Top 3)} pour une offre donnée, avec un candidat recommandé, son rang, un \textit{fit score}, un niveau d'adéquation \textit{Good fit}, la compétence correspondante \textit{angular}, l'absence de compétence manquante visible et une justification textuelle. Les actions associées, comme l'accès aux questions personnalisées ou l'invitation à un test, montrent que la recommandation sert directement l'aide à la décision recruteur.
+
+\paragraph{Questions personnalisées générées pour le recruteur.}
+Cette fonctionnalité complète le moteur de recommandations IA. Une fois les candidats recommandés identifiés, le système peut générer automatiquement des questions personnalisées adaptées au profil du candidat et au poste visé. L'objectif est d'aider le recruteur à préparer des entretiens plus pertinents, en s'appuyant sur le parcours du candidat, les compétences rapprochées et les écarts détectés par les modules IA de \textit{HireCue}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Personalized_Question.png}
+    \caption{Questions personnalisées générées automatiquement pour les candidats recommandés}
+    \label{fig:personalized-questions}
+\end{figure}
+
+La figure \ref{fig:personalized-questions} montre une fenêtre \textit{Personalized Questions} associée au candidat Hiba Elwafi. Le menu \textit{Focus} permet de choisir plusieurs axes d'évaluation, notamment \textit{General screening}, \textit{Technical depth}, \textit{Missing skills}, \textit{Experience validation} et \textit{Communication}. Les questions affichées sont structurées par blocs, comme \textit{Experience Deep Dive} et \textit{Behavioral / Team Fit}, avec une justification \textit{Why} indiquant le lien entre la question et le rôle. Les boutons \textit{Copy all} et \textit{Regenerate} montrent que le recruteur peut réutiliser ou régénérer ces questions selon le besoin d'entretien.
 
 \subsection{Resultats de la Skill Gap Roadmap}
 
@@ -245,17 +331,193 @@ La Skill Gap Roadmap a permis de détecter les compétences manquantes par rappo
 
 Cette fonctionnalité transforme l'évaluation en accompagnement. Le candidat ne recoit pas seulement un constat d'écart ; il dispose d'une feuille de route qui l'aide à comprendre comment progresser. La valeur du module dépend toutefois de la qualité de la comparaison entre les compétences du candidat et les exigences du poste.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Roadmap.png}
+    \caption{Résultat de génération de la Skill Gap Roadmap}
+    \label{fig:roadmap-result-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Roadmap2.png}
+    \caption{Détail des étapes de progression de la roadmap}
+    \label{fig:roadmap-result-2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Roadmap3.png}
+    \caption{Suivi et visualisation de la progression candidat}
+    \label{fig:roadmap-result-3}
+\end{figure}
+
+Les figures \ref{fig:roadmap-result-1}, \ref{fig:roadmap-result-2} et \ref{fig:roadmap-result-3} illustrent la génération de la roadmap et sa restitution au candidat. La première capture montre le profil candidat, le poste cible et l'analyse des écarts, avec SQL identifié comme compétence manquante prioritaire pour le poste affiché. La deuxième capture détaille le plan \textit{Personalized Learning Roadmap}, avec des étapes de progression comme \textit{Learn Basics}, \textit{Practice} et \textit{Ready to Add}, ainsi que des liens de certification, de test et de projet portfolio. La troisième capture montre l'export PDF de la roadmap, contenant un résumé exécutif, les compétences manquantes et une présentation structurée de la progression. Ces résultats montrent que l'écart de compétences est transformé en parcours d'amélioration consultable et exportable.
+
 \subsection{Resultats du chatbot RAG}
 
 Le chatbot RAG produit des réponses contextualisées à partir de la roadmap, des compétences manquantes, du poste cible et de l'historique de discussion. Les observations montrent que cette brique peut aider le candidat à clarifier une étape, reformuler un conseil ou approfondir un point de progression sans quitter le parcours.
 
 Le chatbot doit toutefois être interprété comme un assistant de guidance. Il ne joue pas le rôle d'un conseiller autonome et ne doit pas produire des orientations sans lien avec le contexte disponible. Sa pertinence dépend directement des données récupérées et du cadrage appliqué au prompt.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Roadmap4.png}
+    \caption{Résultat du chatbot RAG associé à la roadmap}
+    \label{fig:roadmap-chatbot-rag-result}
+\end{figure}
+
+La figure \ref{fig:roadmap-chatbot-rag-result} montre le chatbot \textit{Roadmap Assistant} intégré à l'écran de roadmap. L'interface propose des questions guidées comme \textit{What should I learn first?}, \textit{Explain my roadmap simply} ou \textit{Give me beginner projects}. La capture montre également une question posée par le candidat et le début d'une réponse contextualisée. Cette intégration confirme que le chatbot s'appuie sur la roadmap visible, les compétences manquantes et le poste cible pour accompagner le candidat dans ses prochaines étapes.
+
+\subsection{Résultats de la relance automatique des candidats inactifs}
+
+Cette fonctionnalité permet d'identifier les candidats dont le compte est resté inactif pendant une période proche de soixante jours. L'administrateur peut déclencher une campagne de relance depuis l'interface \textit{HireCue}, afin d'encourager les candidats concernés à revenir sur la plateforme, mettre à jour leur profil, poursuivre leur roadmap ou réaliser de nouvelles évaluations. Cette automatisation vise à améliorer l'engagement candidat et à réduire le risque d'abandon du parcours.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{InactiveCandidateEmail.png}
+    \caption{Interface d'envoi des relances aux candidats inactifs}
+    \label{fig:inactive-candidate-reminder}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{inactive.jpeg}
+    \caption{Email généré automatiquement pour les candidats inactifs}
+    \label{fig:inactive-candidate-email}
+\end{figure}
+
+La figure \ref{fig:inactive-candidate-reminder} montre le bloc \textit{Inactive Candidate Reminders}, avec une indication explicite sur les candidats inactifs depuis environ 60 jours et un bouton \textit{Send inactivity reminder emails}. La figure \ref{fig:inactive-candidate-email} montre l'email reçu par un candidat, intitulé \textit{We Miss You at HireCue}. Le contenu rappelle au candidat qu'il n'a pas été actif récemment, puis propose des actions concrètes comme mettre à jour sa skill roadmap, explorer des suggestions de portfolio GitHub et compléter ses évaluations. Le bouton \textit{Return to your dashboard} relie directement la relance au retour dans la plateforme.
+
+\subsection{Résultats des Smart Candidate Risk Alerts}
+
+Les \textit{Smart Candidate Risk Alerts} permettent aux recruteurs d'identifier rapidement les candidats présentant un risque potentiel dans le pipeline de recrutement. Le système exploite des indicateurs comportementaux et d'activité afin de faire remonter des signaux comme la baisse d'engagement, l'absence d'activité, l'abandon du processus, une faible probabilité de succès ou un risque de désengagement. Ces alertes restent des supports d'aide à la décision : elles attirent l'attention du recruteur sans remplacer son analyse.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{RiskAlert.png}
+    \caption{Interface de détection des risques candidats}
+    \label{fig:risk-alerts-dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{RiskAlert2.png}
+    \caption{Détail d'une analyse de risque générée par l'IA}
+    \label{fig:risk-alert-details}
+\end{figure}
+
+La figure \ref{fig:risk-alerts-dashboard} présente l'interface \textit{Risk Alerts}. Elle contient une barre de recherche, des filtres par job, sévérité, type de risque et statut, ainsi qu'un bouton de génération de résumés IA. Les lignes affichent le candidat, le rôle, les paramètres d'alerte, un niveau de sévérité \textit{HIGH}, un type de risque \textit{Drop-off}, un score de risque et la dernière activité observée. La figure \ref{fig:risk-alert-details} montre le panneau de détail associé à une alerte : le candidat Hiba Elwafi, un \textit{Overall Success Score}, une alerte \textit{Drop-off}, la date du dernier signal, la dernière activité et une recommandation indiquant qu'une décision recruteur reste nécessaire, sans rejet automatique.
+
 \subsection{Resultats des workflows n8n}
 
 Les workflows \textit{n8n} ont montre un intérêt opérationnel pour plusieurs scénarios reliés à LinkedIn et aux intégrations externes. Le scraping LinkedIn permet de récupérer des profils candidats avant normalisation et déduplication. Le pipeline d'import des offres externes facilite l'intégration de nouvelles opportunités dans \textit{HireCue}, sous réserve d'une validation backend avant insertion en base.
 
 Les résultats du reverse flow LinkedIn montrent qu'une offre ou un contenu peut être préparé côté backend, transmis à \textit{n8n}, puis publié via UniPile. Le suivi des interactions constitue une extension importante de ce flux : commentaires, réactions, mentions J'aime et statistiques d'engagement peuvent être conservés pour une exploitation future. Le workflow CEO Email Outreach Tracking prolonge également le workflow d'envoi d'emails en ajoutant des événements backend, une détection des réponses Gmail, une persistance MySQL et des KPIs visibles dans le dashboard admin. Les workflows d'email sender et d'outreach CEO/founder restent pertinents pour structurer la prospection, mais ils demandent encore une consolidation des statuts, des traces et des conditions d'exécution. Les traces enregistrées côté backend sont essentielles pour suivre les runs, comprendre les échecs et alimenter les dashboards.
+
+\subsubsection{Résultats du sourcing des candidats}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{SourcedCandidate.png}
+    \caption{Résultat du workflow de sourcing des candidats}
+    \label{fig:sourced-candidate-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{SourcedCandidate2.png}
+    \caption{Liste ou détail des candidats sourcés}
+    \label{fig:sourced-candidate-2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{SourcedCandidate3.png}
+    \caption{Validation des données de candidats importés}
+    \label{fig:sourced-candidate-3}
+\end{figure}
+
+Les figures \ref{fig:sourced-candidate-1}, \ref{fig:sourced-candidate-2} et \ref{fig:sourced-candidate-3} montrent le parcours de sourcing candidat. La première capture présente le formulaire de recherche avec des critères comme les mots-clés, le pays, la ville, l'entreprise actuelle, le titre du poste, le niveau d'expérience et l'option \textit{LinkedIn only}. La deuxième capture affiche l'onglet \textit{Sourced Candidates} dans le dashboard recruteur, avec une table de candidats contenant le nom, l'email, le titre, la localisation, l'entreprise, la date, le statut \textit{sourced\_linkedin} et l'activité. La troisième capture montre le workflow \textit{n8n} associé : lancement de PhantomBuster, suivi du conteneur, récupération des résultats, normalisation des données, filtrage des doublons, préparation du payload d'import et appel du backend pour marquer le traitement comme terminé ou échoué.
+
+\subsubsection{Résultats du workflow CEO Email Outreach}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{CEO_Email3.png}
+    \caption{Résultats : exemples d’e-mails envoyés aux CEOs}
+    \label{fig:ceo-email-outreach-example}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{CEO_Email.png}
+    \caption{Résultat du workflow d'envoi d'emails aux CEOs}
+    \label{fig:ceo-email-outreach-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{CEO_Email2.png}
+    \caption{Suivi et tracking des emails CEO dans HireCue}
+    \label{fig:ceo-email-outreach-2}
+\end{figure}
+
+Les figures \ref{fig:ceo-email-outreach-example}, \ref{fig:ceo-email-outreach-1} et \ref{fig:ceo-email-outreach-2} présentent les résultats du workflow CEO Email Outreach. La première capture montre un email envoyé automatiquement depuis Gmail, avec un objet ciblé, un message de prospection et une réponse visible du destinataire. La deuxième capture montre un dashboard de tracking avec les cartes \textit{Leads}, \textit{Sent}, \textit{Replies}, \textit{Reply Rate}, \textit{Opened} et \textit{Failed}. Elle affiche aussi une vue d'engagement, une progression de campagne et une table de leads récents avec le nom, l'email, l'entreprise, le rôle, le statut, le nombre d'envois et les réponses. La troisième capture montre le workflow \textit{n8n} complet : extraction ou lecture des leads, normalisation, filtrage des doublons, stockage dans Google Sheets, génération du message, envoi via Gmail, mise à jour de la feuille et détection des réponses par Gmail Trigger avant remontée vers le backend.
+
+\subsubsection{Résultats du workflow LinkedIn Outreach CEO}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{CEO_Linkedin.png}
+    \caption{Résultat du workflow LinkedIn Outreach CEO}
+    \label{fig:ceo-linkedin-outreach-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{CEO_Linkedin2.png}
+    \caption{Suivi des statuts du workflow LinkedIn CEO}
+    \label{fig:ceo-linkedin-outreach-2}
+\end{figure}
+
+Les figures \ref{fig:ceo-linkedin-outreach-1} et \ref{fig:ceo-linkedin-outreach-2} illustrent le workflow LinkedIn Outreach CEO. La première capture montre un message LinkedIn envoyé après connexion, présentant \textit{HireCue} comme une plateforme de recrutement assistée par IA et incluant un lien vers le site. La deuxième capture présente l'orchestration \textit{n8n} en trois parties : détection des profils CEO, owners ou founders via UniPile, récupération des leads à contacter, envoi d'une invitation LinkedIn, marquage de l'invitation envoyée, puis suivi de l'acceptation et envoi d'un message de relance lorsque la relation LinkedIn est créée.
+
+\subsubsection{Résultats du workflow d'import des offres externes}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{ExternalJobs.png}
+    \caption{Résultat du workflow d'import des offres externes}
+    \label{fig:external-jobs-import-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{ExternalJobs2.png}
+    \caption{Validation des offres externes importées dans HireCue}
+    \label{fig:external-jobs-import-2}
+\end{figure}
+
+Les figures \ref{fig:external-jobs-import-1} et \ref{fig:external-jobs-import-2} montrent le résultat du workflow d'import des offres externes. La première capture présente l'interface \textit{External Jobs Import}, avec des paramètres de recherche comme le titre du poste, la localisation, le code pays, le décalage de page et la période de recherche. Elle liste aussi plusieurs plateformes cibles visibles, dont Rapid, Jooble, TheMuse, FranceTravail, EmploiTunisie et Adzuna. La deuxième capture montre le workflow \textit{n8n} : récupération depuis LinkedIn et d'autres plateformes, normalisation par source, fusion des flux, filtrage des doublons, préparation du payload API et envoi vers le backend \textit{HireCue}.
+
+\subsubsection{Résultats de publication LinkedIn et suivi des interactions}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{postlinkedin.png}
+    \caption{Résultat de publication LinkedIn d'un contenu HireCue}
+    \label{fig:linkedin-post-publication}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PostStatistic.png}
+    \caption{Statistiques et suivi des interactions LinkedIn}
+    \label{fig:linkedin-post-statistics}
+\end{figure}
+
+Les figures \ref{fig:linkedin-post-publication} et \ref{fig:linkedin-post-statistics} montrent le résultat du flux de publication LinkedIn et du suivi des interactions. La première capture affiche un post publié pour une opportunité \textit{Senior SDET Engineer}, avec une localisation, une description de poste, un lien de candidature et des hashtags liés à \textit{HireCue}, au recrutement et aux offres d'emploi. La deuxième capture présente le dashboard \textit{Post Statistics}, qui suit le nombre de posts LinkedIn, les commentaires, les réactions et l'engagement total. Elle affiche également un tableau de performance par job, une visualisation du volume d'engagement, un ratio d'engagement et une zone d'insights associée au post synchronisé.
 
 \begin{table}[H]
 \centering
@@ -276,6 +538,10 @@ Recommandations IA & Mise en avant de profils pertinents avec justification. & A
 \hline
 Questions personnalisées & Questions d'entretien adaptées au poste et au profil. & Rend la préparation d'entretien plus ciblée. \\
 \hline
+Relance automatique des candidats inactifs & Identification des profils inactifs depuis une période proche de 60 jours et envoi d'un email de retour vers la plateforme. & Améliore l'engagement candidat et limite l'abandon du parcours. \\
+\hline
+Smart Candidate Risk Alerts & Détection de signaux de risque avec score, sévérité, type d'alerte et détail contextualisé. & Aide le recruteur à prioriser le suivi des candidats à risque. \\
+\hline
 Workflows n8n & Declenchement ou préparation de flux de sourcing, d'import, de publication LinkedIn, d'email sender et d'outreach. & Renforce l'automatisation de certaines opérations repetitives avec suivi de statuts. \\
 \hline
 Interaction tracking LinkedIn & Recuperation ou préparation du suivi des commentaires, réactions, mentions J'aime et statistiques d'engagement. & Prepare l'exploitation analytique dans les dashboards recruteur ou administrateur. \\
@@ -290,6 +556,62 @@ CEO Email Outreach Tracking & Enregistrement des emails envoyés, détection des
 \normalsize
 \caption{Synthese des résultats expérimentaux observés}
 \end{table}
+
+\subsection{Résultats des dashboards Power BI}
+
+Les dashboards Power BI ont été générés avec succès à partir des données issues de MySQL. Les données opérationnelles de \textit{HireCue} ont pu être exploitées dans un modèle analytique, puis restituées sous forme de cartes KPI, de graphiques, de filtres et de vues de synthèse. Les visualisations se sont affichées sans erreur bloquante et ont permis une lecture plus directe de l'activité de la plateforme.
+
+Ces résultats montrent que la couche décisionnelle complète les modules IA et les workflows automatisés. Elle ne remplace pas les parcours applicatifs, mais elle donne une vision agrégée des données produites par ces parcours. Les KPIs rendent notamment plus lisibles les volumes de recrutement, l'activité IA, les événements, les statuts candidats et certains indicateurs liés à l'exploitation de la plateforme.
+
+\subsubsection{Dashboard Executive Overview}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Dashboard1.png}
+    \caption{Résultat du dashboard Executive Overview}
+    \label{fig:result-dashboard-executive-overview}
+\end{figure}
+
+La figure \ref{fig:result-dashboard-executive-overview} présente le résultat du dashboard \textit{Executive Overview}. Cette vue regroupe les indicateurs stratégiques \textit{Active Companies}, \textit{Active Recruiters}, \textit{Jobs Created}, \textit{Total Applications}, \textit{Active Subscriptions}, \textit{Total AI Tokens}, \textit{Revenue Proxy} et \textit{Selection Rate}. Elle fournit une vision synthétique destinée aux décideurs, afin de suivre l'activité globale de \textit{HireCue}, les tendances de recrutement et l'utilisation des ressources IA.
+
+\subsubsection{Dashboard Product \& Operations Analytics}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Dashboard2.png}
+    \caption{Résultat du dashboard Product \& Operations Analytics}
+    \label{fig:result-dashboard-product-operations}
+\end{figure}
+
+La figure \ref{fig:result-dashboard-product-operations} illustre le dashboard \textit{Product \& Operations Analytics}. Cette vue met en avant des indicateurs plus opérationnels, notamment \textit{Average Score With AI}, \textit{LLM Calls}, \textit{Total AI Cost}, \textit{Average Final Score}, \textit{Avg Tokens Per Call}, \textit{Average AI Duration}, \textit{Candidate Pipeline}, \textit{Events Overview}, \textit{Roadmaps Generated} et \textit{Not Completed Interviews}. Elle permet ainsi d'analyser plus finement l'activité produit, les usages IA, les événements et les statuts candidats.
+
+\subsubsection{Intégration web des dashboards}
+
+Les rapports Power BI sont intégrés dans l'application web à l'aide d'une balise \texttt{iframe}. Cette solution permet d'afficher les dashboards directement depuis le navigateur, tout en conservant les visualisations et les filtres construits dans Power BI. La navigation entre \textit{Executive Overview} et \textit{Product \& Operations Analytics} est assurée côté React, tandis que Node.js sert de support applicatif ou backend selon la structure retenue pour l'intégration.
+
+Cette intégration fonctionne comme une passerelle entre la couche décisionnelle et l'expérience web de \textit{HireCue}. Elle évite de reconstruire manuellement les graphiques dans React et permet de valider progressivement l'affichage, la navigation et l'accès aux dashboards selon une démarche Scrum.
+
+\subsection{Résultats du module AI Workforce Forecasting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{AIForeCasting1.png}
+    \caption{Interface du module AI Workforce Forecasting}
+    \label{fig:result-ai-workforce-forecasting-interface}
+\end{figure}
+
+La figure \ref{fig:result-ai-workforce-forecasting-interface} montre l'interface du module \textit{AI Workforce Forecasting}. Cette interface permet de lancer l'entraînement du modèle et de consulter les principales prédictions produites à partir des données disponibles. Les indicateurs suivis portent notamment sur les jobs prévus, les candidatures prévues, les tokens IA prévus, le coût IA prédit, le revenu proxy prédit et le meilleur modèle utilisé.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{AIForeCasting2.png}
+    \caption{Résultats de prédiction AI Workforce Forecasting}
+    \label{fig:result-ai-workforce-forecasting-predictions}
+\end{figure}
+
+La figure \ref{fig:result-ai-workforce-forecasting-predictions} présente les résultats de prédiction du module. L'expérimentation compare deux modèles de séries temporelles, LSTM et GRU, afin d'estimer plusieurs indicateurs : les jobs créés, les candidatures, le coût IA et le revenu proxy. Les courbes permettent de comparer les valeurs réelles avec les valeurs prédites, ce qui donne une première lecture de la capacité des modèles à suivre les tendances observées.
+
+L'évaluation repose sur trois métriques principales. La MAE mesure l'erreur moyenne absolue, la RMSE pénalise davantage les grandes erreurs et la MAPE exprime l'erreur relative en pourcentage. Dans les observations réalisées, LSTM a donné les meilleurs résultats globaux par rapport à GRU. Cette conclusion doit toutefois rester prudente : le module constitue une preuve de concept et nécessite davantage de données historiques, de tests et de validation avant un usage décisionnel complet.
 
 % Exemple : ajouter ici une capture d'écran du rapport de score explicable
 % Exemple : ajouter ici une capture d'écran de la roadmap de compétences
@@ -313,6 +635,14 @@ Le cache joue un rôle important dans cette évaluation. Lorsqu'un rapport de sc
 La performance des workflows \textit{n8n} se mesure surtout par leur capacité à orchestrer plusieurs étapes sans alourdir le backend principal. Les tests ont montré l'intérêt du traitement par lots pour les profils, les offres ou les leads, ainsi que l'importance de la déduplication avant toute insertion en base. Le temps d'exécution reste cependant variable, car il dépend du volume de données, de la réponse des services externes et de la complexité des étapes de nettoyage.
 
 Les webhooks doivent rester stables et produire des statuts lisibles pour que le frontend ou le backend puisse suivre l'avancement du traitement. Les principales limites de performance proviennent des dépendances externes : LinkedIn peut imposer des restrictions, PhantomBuster peut rencontrer des échecs de session ou de collecte, et UniPile reste tributaire de la disponibilité de ses APIs. Les workflows les plus robustes sont donc ceux qui prévoient des retries, des statuts intermédiaires et une conservation des traces d'exécution.
+
+\subsection{Performance de la couche décisionnelle Power BI}
+
+La performance de la couche décisionnelle Power BI a été évaluée de manière qualitative. Le temps de chargement des dashboards dépend principalement du volume de données MySQL exploité, de la complexité du modèle Power BI, du nombre de visualisations affichées et de la disponibilité du service de rapport. Dans le périmètre testé, les dashboards ont pu être consultés depuis l'interface web sans bloquer la navigation applicative.
+
+La réactivité des filtres constitue un point important, car elle conditionne l'exploration des données par période, entreprise, pays ou type d'emploi. Les filtres doivent mettre à jour les cartes KPI et les graphiques de manière cohérente afin de préserver la confiance dans les indicateurs. La cohérence des KPIs a donc été vérifiée en comparant la logique attendue des mesures avec les données préparées dans Power Query et les calculs DAX.
+
+La qualité des visualisations a été évaluée à travers leur lisibilité, leur organisation et leur capacité à fournir une synthèse utile sans surcharger l'utilisateur. L'intégration via \texttt{iframe} s'est montrée adaptée au besoin, car elle conserve les fonctionnalités natives de Power BI tout en rendant les rapports accessibles depuis l'application React / Node.js. Cette solution améliore l'expérience utilisateur lorsqu'elle reste fluide, lisible et cohérente avec la navigation générale de \textit{HireCue}.
 
 \begin{table}[H]
 \centering
@@ -378,6 +708,14 @@ Le chatbot RAG utilise un contexte récupéré depuis la roadmap, le poste cible
 
 Ses limites doivent toutefois être clairement reconnues. Le chatbot dépend fortement de la qualité du contexte transmis. Si les données sont faibles, incomplètes ou mal structurées, les réponses risquent de devenir génériques. Un contrôle du périmètre reste donc nécessaire afin d'éviter que le chatbot ne soit percu comme un conseiller autonome ou comme une source d'information indépendante des données du parcours.
 
+\subsection{Évaluation de l'expérimentation AI Workforce Forecasting}
+
+L'expérimentation \textit{AI Workforce Forecasting} s'inscrit également dans une lecture CRISP-DM. La phase de \textit{Business Understanding} correspond au besoin d'anticiper certaines tendances RH et opérationnelles, comme l'évolution des jobs, des candidatures, du coût IA ou du revenu proxy. L'objectif n'est pas de produire un verdict automatique, mais d'explorer l'intérêt d'une prévision appliquée aux données de \textit{HireCue}.
+
+La phase de \textit{Data Understanding} repose sur l'analyse des données MySQL disponibles et sur l'identification des variables exploitables dans le temps. La phase de \textit{Data Preparation} consiste à préparer les séries temporelles, à organiser les dates, à traiter les valeurs manquantes et à rendre les indicateurs comparables pour l'entraînement. Cette préparation est essentielle, car une prévision fiable dépend directement de la continuité et de la qualité de l'historique.
+
+La phase de \textit{Modeling} compare deux architectures Deep Learning adaptées aux séries temporelles : LSTM et GRU. La phase d'\textit{Evaluation} s'appuie ensuite sur les métriques MAE, RMSE et MAPE afin d'estimer l'écart entre les valeurs réelles et les valeurs prédites. Les observations réalisées montrent un potentiel intéressant, avec de meilleurs résultats observés pour LSTM, mais elles restent limitées par le volume de données disponible. Cette expérimentation est donc prometteuse, tout en nécessitant davantage d'historique, de validation et d'améliorations avant une exploitation décisionnelle complète.
+
 \begin{table}[H]
 \centering
 \small
@@ -396,6 +734,8 @@ Roadmap & Adequation candidat-offre, clart\'e pédagogique, validation JSON, PDF
 Chatbot RAG & Contextualisation, cohérence des réponses, continuit\'e du dialogue & Le chatbot prolonge utilement la roadmap lorsque le contexte est suffisant. & Reponses génériques possibles si le contexte est faible. \\
 \hline
 Questions personnalisées & Utilite pour l'entretien, format exploitable, precision & Les questions générées rendent la préparation d'entretien plus ciblée. & Necessite de contraindre le format et d'éviter les hallucinations. \\
+\hline
+AI Workforce Forecasting & Prévision de séries temporelles, comparaison LSTM/GRU, métriques MAE, RMSE et MAPE & L'expérimentation montre un potentiel prédictif, avec de meilleurs résultats observés pour LSTM. & Historique encore limité et résultats à interpréter comme une preuve de concept. \\
 \hline
 \end{tabular}
 \normalsize
@@ -419,6 +759,8 @@ Les limites IA concernent donc à la fois le contenu et le format. Des hallucina
 Enfin, le scoring doit être interprété avec prudence. Meme lorsqu'il est déterministe et explicable, un score peut induire un biais d'interprétation s'il est lu comme une vérité absolue. Le rôle du système est d'eclairer la décision, de structurer les signaux disponibles et de rendre les critères plus lisibles. Le recruteur doit rester dans la boucle afin de confronter le score aux informations qualitatives, au contexte du poste et aux éléments qui ne sont pas toujours capturables par les données.
 
 Il faut aussi souligner la dépendance aux quotas IA et le besoin d'un monitoring plus avancé. Le cache, la persistance et les files asynchrones ont permis de mieux encadrer les traitements, mais une exploitation plus large en production demanderait un suivi plus fin des consommations, des erreurs, des temps de traitement et des échecs des intégrations.
+
+La couche décisionnelle Power BI présente également certaines limites. La fiabilité des dashboards dépend directement de la qualité des données stockées dans MySQL : des champs incomplets, des statuts mal renseignés ou des dates incohérentes peuvent affecter les KPIs et les visualisations. Certaines analyses restent aussi limitées par le volume de données disponible, en particulier pour les indicateurs temporels et les comparaisons avancées. Les rapports doivent être actualisés régulièrement afin de conserver une lecture pertinente de l'activité. Enfin, le module \textit{AI Workforce Forecasting} repose sur un historique encore limité ; ses résultats prédictifs doivent donc être interprétés avec prudence et considérés comme exploratoires avant toute décision opérationnelle majeure.
 
 Au total, les observations réalisées dans ce chapitre confirment une idée centrale du projet : l'IA assiste le recruteur, mais ne remplace pas son jugement. Les recommandations, les alertes, les explications et les questions personnalisées gagnent en valeur lorsqu'elles sont lues comme des supports à la décision, et non comme des verdicts automatiques.
 
