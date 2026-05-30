@@ -256,6 +256,8 @@ L'architecture backend de \textit{HireCue} repose sur une organisation en couche
 
 Les routes constituent les points d'entrée du système. Elles exposent les services consommés par le frontend, ainsi que certains endpoints mobilisés dans des workflows internes ou des traitements spécialisés. Les contrôleurs assurent ensuite la réception et l'orchestration initiale des requêtes : ils récupèrent les paramètres, appliquent les vérifications nécessaires, gèrent les aspects liés à l'authentification ou à l'autorisation, puis délèguent l'exécution au niveau des services. Cette approche permet de conserver des contrôleurs relativement légers, centrés sur la gestion du flux HTTP plutôt que sur l'implémentation de la logique métier.
 
+Dans les modules IA, les appels passent généralement par des routes REST internes. Le frontend transmet un identifiant de candidature, de poste ou de candidat ; le backend reconstruit ensuite le contexte nécessaire à partir de MySQL avant d'appeler le service IA ou le worker concerné. Les données envoyées aux modèles ne sont donc pas de simples textes libres : elles sont structurées sous forme de payloads contenant les scores, les compétences, les informations du poste, les écarts détectés et, lorsque c'est utile, un historique limité. La réponse est ensuite récupérée, validée, éventuellement mise en cache, puis renvoyée au frontend dans un format exploitable.
+
 La logique métier est principalement portée par les services. Cette couche regroupe les traitements essentiels du système, notamment ceux liés au calcul des scores, à la génération des rapports explicables, à la construction des roadmaps de progression, aux recommandations destinées aux recruteurs, à la génération de questions personnalisées, ainsi qu'aux scénarios de réengagement de candidats. Le choix d'isoler ces traitements dans des services dédiés présente plusieurs avantages : il améliore la lisibilité du code, facilite la réutilisation de fonctionnalités communes, réduit le couplage entre modules et rend l'évolution du système plus maîtrisable.
 
 L'accès aux données est, quant à lui, pris en charge par les repositories et les modèles Sequelize, qui assurent les opérations de lecture, d'écriture, de mise à jour et de suppression dans la base de données MySQL. Cette couche permet d'encapsuler la logique d'accès aux données et de limiter la dépendance directe des services vis-à-vis du schéma relationnel. Elle favorise également une meilleure cohérence dans les requêtes et simplifie la maintenance lorsque certaines structures doivent évoluer.
@@ -295,6 +297,8 @@ En définitive, MySQL dans \textit{HireCue} ne doit pas être considérée comme
 \textit{n8n} intervient comme une couche d'orchestration séparée du backend principal. Dans le cadre du projet, ce choix a été retenu afin d'éviter que toute la logique de scraping, de transformation et de communication avec des services tiers soit mélangée aux routes métier classiques. Cette séparation simplifie les diagnostics, rend les workflows plus faciles à faire évoluer et limite l'impact d'un échec externe sur le cœur applicatif.
 
 Concrètement, \textit{n8n} est mobilisé pour lancer des recherches, recevoir des données extraites, normaliser certains champs, dédoublonner les résultats et transmettre au backend des structures exploitables. Il peut aussi servir de point d'orchestration pour des scénarios de communication ou de suivi d'exécution.
+
+Les échanges entre le backend et \textit{n8n} reposent principalement sur des webhooks et des appels HTTP. Lorsqu'un utilisateur déclenche une action depuis l'interface, le backend prépare les paramètres utiles, par exemple un mot-clé de recherche, une localisation, un identifiant de job ou un statut de campagne, puis appelle le webhook du workflow. \textit{n8n} exécute ensuite les étapes prévues et renvoie au backend un résultat normalisé ou un état d'exécution. Cette boucle permet de garder le backend comme point de contrôle métier, tout en laissant à \textit{n8n} l'orchestration des connecteurs externes.
 
 \begin{figure}[H]
     \centering
@@ -348,6 +352,8 @@ Le calcul n'est donc pas une simple moyenne aveugle. Il suit une logique de pond
 
 Une fois le score calculé, le système produit une explication compréhensible et la conserve dans score\_reports. Le candidat y trouve surtout une lecture pédagogique de son résultat, alors que le recruteur attend une aide plus directe à la décision. Cette différence de restitution ne remet pas en cause le calcul de base ; elle adapte simplement la présentation au besoin utilisateur.
 
+Lorsque l'explication IA est sollicitée, le backend construit un contexte limité aux éléments nécessaires : identifiant de candidature, poste visé, score global, sous-scores disponibles, compétences observées et signaux manquants. Ce contexte est transmis au service de génération sous forme structurée afin d'obtenir une réponse exploitable par le frontend. La réponse retournée est contrôlée avant affichage, puis persistée pour éviter de régénérer le même rapport à chaque consultation.
+
 La réalisation ne s'arrête donc pas au calcul. Elle implique aussi la structuration d'une sortie lisible, capable d'afficher la décomposition du score, les sous-scores mobilisés et des conseils d'amélioration cohérents avec les données observées. L'export PDF du rapport de score renforce cette valeur en permettant de conserver une version stable du résultat pour consultation ou partage.
 
 \subsection{AI Recommendations}
@@ -355,6 +361,8 @@ La réalisation ne s'arrête donc pas au calcul. Elle implique aussi la structur
 Les recommandations côté recruteur suivent une logique clairement \textit{rules-first}. Le système commence par comparer de manière déterministe les informations d'un poste et celles des candidats compatibles. Il met ainsi en avant des \textit{matched skills}, des \textit{missing skills}, un score d'adéquation et, lorsque c'est pertinent, certains signaux de risque.
 
 Le point important est que le LLM ne classe pas les candidats. Le classement reste déterminé par la logique métier afin de conserver un résultat stable, traçable et explicable. L'appel IA intervient ensuite pour enrichir l'explication ou pour reformuler certaines synthèses de manière plus lisible. Cette séparation a été retenue pour éviter qu'une variation de génération modifie la décision de classement.
+
+Sur le plan technique, la requête de recommandation part généralement d'un identifiant d'offre. Le backend récupère les candidats associés ou éligibles, calcule les correspondances de compétences, prépare les écarts et construit un objet de résultat avant toute génération textuelle. Le service IA reçoit seulement le contexte nécessaire pour produire une justification lisible ; le score d'adéquation, le rang et les compétences rapprochées restent calculés par le système.
 
 Selon l'état de l'architecture, cette fonctionnalité s'appuie aussi sur du cache et sur une queue RabbitMQ. Le backend peut donc lancer le traitement, persister le job, laisser un worker effectuer le calcul en arrière-plan, puis permettre au frontend de récupérer le résultat lorsqu'il est prêt. Pour le recruteur, le bénéfice est concret : le tri initial devient plus rapide sans devenir opaque.
 
@@ -368,6 +376,8 @@ La détection des compétences manquantes reste ensuite déterministe. Le systè
 
 La phase d'\textit{Evaluation} se traduit par une validation du JSON retourné, par des mécanismes de fallback et par un contrôle visant à limiter les hallucinations. Enfin, la phase de \textit{Deployment} correspond à l'affichage de la roadmap dans le frontend, à sa persistance dans candidate\_skill\_roadmaps, à sa mise en cache et au suivi du quota de génération.
 
+L'appel au modèle se fait après la comparaison déterministe. Le payload transmis contient le poste cible, les compétences existantes, les compétences manquantes, le niveau estimé et les contraintes de format attendues. La réponse doit revenir sous une structure lisible par l'interface, avec des étapes, des priorités et des recommandations pratiques. Si la structure retournée ne respecte pas le format prévu, le backend peut revenir à une version plus simple fondée sur les écarts déjà détectés.
+
 La réalisation comprend également un point souvent utile dans un contexte de soutenance ou d'exploitation métier : la possibilité de consulter ou de générer un PDF associé à la roadmap. Cette sortie rend la fonctionnalité plus facilement partageable et confirme que la roadmap n'est pas seulement un écran dynamique, mais aussi un livrable exploitable dans le suivi candidat.
 
 \subsection{Roadmap Chatbot RAG}
@@ -375,6 +385,8 @@ La réalisation comprend également un point souvent utile dans un contexte de s
 Le chatbot lié à la roadmap agit comme un assistant candidat basé sur un contexte déjà connu du système : roadmap, compétences, job cible et historique des échanges. Dans \textit{HireCue}, le RAG reste volontairement léger et centré sur un contexte ancré dans les données de la plateforme. L'objectif n'est pas d'ouvrir une conversation générale, mais de fournir des réponses qui restent reliées au parcours déjà calculé.
 
 Le service réutilise donc la roadmap comme socle d'interaction. Il peut aussi tenir compte du poste et du profil pour reformuler une étape, expliquer une recommandation ou préciser un manque de compétence. Des quotas et des mécanismes de fallback restent nécessaires, car la qualité d'une conversation contextuelle dépend autant de la génération que de la maîtrise des cas d'échec ou de surcharge.
+
+Lorsqu'un candidat pose une question, le backend récupère le message, la roadmap sauvegardée et une partie de l'historique de conversation. Ces éléments sont assemblés dans un contexte court afin d'éviter une réponse trop générale. La réponse générée est ensuite enregistrée dans candidate\_roadmap\_chat\_messages, ce qui permet de maintenir une continuité minimale entre les échanges sans charger inutilement tout l'historique.
 
 \subsection{Questions personnalisées}
 
@@ -489,6 +501,8 @@ Après la connexion à MySQL, Power Query intervient comme phase de préparation
 
 Les transformations réalisées peuvent comprendre le traitement des valeurs nulles, la correction des types de données, le formatage des dates, la normalisation des colonnes et le renommage de certains champs afin d'améliorer leur lisibilité dans les rapports. Les données non pertinentes pour l'analyse peuvent être filtrées, tandis que les colonnes nécessaires aux KPIs sont préparées ou vérifiées.
 
+Dans le modèle préparé, des transformations simples mais importantes ont été utilisées. Les champs de date ont été convertis dans un format exploitable pour les axes temporels, les colonnes techniques ont été renommées pour devenir lisibles dans les visuels, les valeurs nulles ont été remplacées ou filtrées lorsqu'elles empêchaient le calcul d'un KPI, et certains champs numériques ont été typés correctement avant la création des mesures. Par exemple, les dates de création de jobs, les événements, les statuts de candidature et les consommations IA devaient être homogénéisés avant d'être utilisés dans les graphiques.
+
 Power Query permet également de créer ou de vérifier les relations entre les tables utilisées dans le modèle. Ce point est essentiel lorsque les indicateurs combinent des informations issues des candidats, des offres, des événements, des logs, des abonnements ou des consommations IA. Cette préparation limite les incohérences dans les dashboards et garantit que les indicateurs ne reposent pas uniquement sur des données brutes, mais sur un modèle analytique structuré.
 
 \subsection{Création des KPIs et mesures DAX}
@@ -496,6 +510,8 @@ Power Query permet également de créer ou de vérifier les relations entre les 
 La construction des dashboards repose ensuite sur la création de KPIs à partir des données MySQL préparées avec Power Query. DAX est utilisé pour définir les mesures analytiques nécessaires aux cartes KPI, aux graphiques, aux entonnoirs et aux comparaisons dynamiques. Ces mesures permettent aux indicateurs de réagir aux filtres, aux périodes et aux dimensions sélectionnées dans Power BI.
 
 Les KPIs retenus ne reposent pas sur des chiffres ajoutés dans le rapport, mais sur les noms et familles d'indicateurs visibles dans les dashboards. Ils sont regroupés selon leur usage principal : pilotage stratégique, suivi IA / LLM, analyse du recrutement et supervision opérationnelle.
+
+Parmi les mesures utilisées, \textit{Total Applications} correspond au volume de candidatures enregistrées, \textit{Active Recruiters} compte les recruteurs actifs dans la base, \textit{Jobs Created} suit le nombre d'offres créées et \textit{Completed Events} isole les événements terminés. Ces mesures restent volontairement simples dans leur principe, mais elles deviennent utiles lorsqu'elles sont combinées avec les filtres Power BI, les périodes, les entreprises, les pays ou les types d'emploi. D'autres mesures, comme les tokens IA ou les coûts par fournisseur, exploitent les tables de consommation afin de rendre l'usage des services IA plus observable.
 
 \begin{table}[H]
 \centering

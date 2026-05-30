@@ -198,7 +198,9 @@ Le choix méthodologique n'a pas été fait de manière abstraite. Il devait res
 
 \subsubsection{Comparaison des méthodologies de développement logiciel}
 
-Pour le développement logiciel, trois approches ont été comparées : Agile Scrum, Kanban et Waterfall. Chacune correspond à une manière différente d'organiser le travail. Dans le cas de \textit{HireCue}, les fonctionnalités traitées pendant le stage, comme le score report, la roadmap, les recommandations, les intégrations externes ou l'intégration web des dashboards Power BI, demandaient des ajustements progressifs. Une organisation trop linéaire aurait été moins adaptée à ce type d'évolution.
+Pour le développement logiciel, trois approches ont été comparées : Agile Scrum\footnote{Ken Schwaber et Jeff Sutherland, \textit{The Scrum Guide}, 2020.}, Kanban\footnote{David J. Anderson, \textit{Kanban: Successful Evolutionary Change for Your Technology Business}, Blue Hole Press, 2010.} et Waterfall\footnote{Winston W. Royce, \textit{Managing the Development of Large Software Systems}, Proceedings of IEEE WESCON, 1970.}. Chacune correspond à une manière différente d'organiser le travail. Dans le cas de \textit{HireCue}, les fonctionnalités traitées pendant le stage, comme le score report, la roadmap, les recommandations, les intégrations externes ou l'intégration web des dashboards Power BI, demandaient des ajustements progressifs. Une organisation trop linéaire aurait été moins adaptée à ce type d'évolution.
+
+Dès les premières semaines du stage, cette comparaison a surtout servi à cadrer la manière de travailler sur une base existante. Les modules n'étaient pas indépendants : une modification du backend pouvait avoir un impact sur l'affichage React, sur la base MySQL ou sur un workflow \textit{n8n}. Le choix retenu devait donc permettre d'avancer par lots fonctionnels, de vérifier rapidement les effets de chaque ajout et de revenir sur certains détails lorsque les données réelles de \textit{HireCue} montraient des cas non prévus.
 
 \begin{table}[H]
 \centering
@@ -220,11 +222,13 @@ Waterfall & Déroulement linéaire, avec succession fixe des phases d'analyse, c
 \end{table}
 \normalsize
 
-À partir de cette comparaison, Scrum a été retenue comme référence principale pour la dimension applicative. Cette approche correspondait mieux au travail réalisé sur \textit{HireCue}, avec un développement itératif, des ajustements réguliers et une amélioration continue des modules frontend et backend.
+À partir de cette comparaison, Scrum a été retenue comme référence principale pour la dimension applicative. Cette approche correspondait mieux au travail réalisé sur \textit{HireCue}, avec un développement itératif, des ajustements réguliers et une amélioration continue des modules frontend et backend. Dans le contexte spécifique du stage, elle a surtout permis de prioriser les fonctionnalités à forte valeur immédiate, puis d'intégrer progressivement les briques plus transverses comme les workflows, la relance des candidats et les dashboards Power BI.
 
 \subsubsection{Comparaison des méthodologies IA / Data Science}
 
-Pour les modules IA, data science et analytique, la comparaison porte surtout sur l'encadrement du besoin métier, la préparation des données, la modélisation, l'évaluation et l'intégration des sorties dans la plateforme. Dans \textit{HireCue}, cette question est centrale, car le scoring explicable, la roadmap, les recommandations, le chatbot RAG, le modèle Power BI et l'expérimentation \textit{AI Workforce Forecasting} ne peuvent pas être traités comme de simples éléments d'interface.
+Pour les modules IA, data science et analytique, la comparaison porte surtout sur l'encadrement du besoin métier, la préparation des données, la modélisation, l'évaluation et l'intégration des sorties dans la plateforme. Les références utilisées sont notamment CRISP-DM\footnote{Pete Chapman et al., \textit{CRISP-DM 1.0: Step-by-step data mining guide}, SPSS, 2000.}, SEMMA\footnote{SAS Institute, \textit{SEMMA Data Mining Methodology}, documentation SAS.} et le processus KDD\footnote{Usama Fayyad, Gregory Piatetsky-Shapiro et Padhraic Smyth, \textit{From Data Mining to Knowledge Discovery in Databases}, AI Magazine, 1996.}. Dans \textit{HireCue}, cette question est centrale, car le scoring explicable, la roadmap, les recommandations, le chatbot RAG, le modèle Power BI et l'expérimentation \textit{AI Workforce Forecasting} ne peuvent pas être traités comme de simples éléments d'interface.
+
+Compte tenu de l'architecture déjà existante, cette comparaison n'avait pas uniquement une portée théorique. Elle a aidé à distinguer les tâches qui relevaient du développement applicatif de celles qui demandaient une lecture orientée données : vérifier les champs disponibles, nettoyer les valeurs, contrôler les sorties générées et interpréter les résultats avant de les présenter aux utilisateurs.
 
 \begin{table}[H]
 \centering
@@ -246,7 +250,7 @@ KDD Process & Processus de découverte de connaissances à partir des données, 
 \end{table}
 \normalsize
 
-CRISP-DM a donc été retenue comme référence pour les modules IA et analytiques. Elle couvre la compréhension métier, l'analyse des données, la modélisation, l'évaluation et le déploiement. Ces étapes correspondent bien aux besoins de \textit{HireCue}, notamment pour le scoring, la roadmap, les recommandations, le chatbot RAG, la préparation des données Power BI et l'expérimentation \textit{AI Workforce Forecasting}.
+CRISP-DM a donc été retenue comme référence pour les modules IA et analytiques. Elle couvre la compréhension métier, l'analyse des données, la modélisation, l'évaluation et le déploiement. Ces étapes correspondent bien aux besoins de \textit{HireCue}, notamment pour le scoring, la roadmap, les recommandations, le chatbot RAG, la préparation des données Power BI et l'expérimentation \textit{AI Workforce Forecasting}. Cette approche a été privilégiée car les résultats produits par les modules IA devaient rester reliés aux données réellement disponibles dans MySQL, et non à une génération isolée du contexte métier.
 
 \subsection{Choix des méthodologies adoptées}
 
@@ -282,6 +286,8 @@ Analyse décisionnelle Power BI et prévision RH & CRISP-DM & Adaptée au traite
 
 La référence à Scrum se justifie par le caractère progressif des évolutions apportées à \textit{HireCue}. Les fonctionnalités n'ont pas été traitées comme un seul bloc, mais comme une série d'améliorations successives : score report, dashboards, roadmap, chatbot, recommandations, notifications, automatisations et intégration web des dashboards Power BI. Cette organisation a facilité les ajustements, la priorisation des tâches à plus forte valeur et la prise en compte des retours au fil du travail.
 
+Dans la pratique du stage, cette logique s'est traduite par des cycles courts d'analyse, d'intégration et de vérification. Une fonctionnalité pouvait d'abord être rendue visible dans l'interface, puis consolidée côté backend, puis enfin reliée à la persistance, au cache ou au suivi des statuts. Cette progression a été particulièrement utile pour les modules qui dépendaient de plusieurs briques à la fois, comme les recommandations IA ou les workflows \textit{n8n}.
+
 Cette logique a surtout aidé à articuler des travaux de nature différente. Certaines tâches relevaient du frontend, d'autres du backend, d'autres encore de l'intégration de services IA, de workflows \textit{n8n} ou de l'affichage des dashboards Power BI dans l'interface React / Node.js via \texttt{iframe}. Une progression itérative était donc plus réaliste qu'une planification strictement linéaire.
 
 \subsubsection{Les rôles Scrum}
@@ -302,6 +308,8 @@ L'équipe de développement transforme ensuite les besoins en fonctionnalités c
 
 Pour les modules d'intelligence artificielle, CRISP-DM apporte un cadre plus approprié. Les traitements mis en place dans \textit{HireCue} ne peuvent pas être jugés seulement sur leur faisabilité technique. Ils doivent aussi être évalués selon la qualité des données exploitées, la pertinence des sorties produites et leur adéquation avec les usages visés.
 
+Dès les premiers tests sur les données de la plateforme, cette exigence est devenue concrète. Certains profils ne disposaient pas de toutes les informations attendues, certaines compétences étaient formulées différemment selon les sources, et les sorties IA devaient être contrôlées avant d'être affichées. CRISP-DM a donc servi de repère pour relier le besoin métier, la préparation des données et l'évaluation des résultats.
+
 Cette exigence apparaît à plusieurs niveaux du projet. Un score explicable n'a d'intérêt que s'il repose sur des données cohérentes et s'il fournit une justification compréhensible. Une roadmap n'est utile que si elle reste réaliste par rapport au profil du candidat et au poste cible. De même, un chatbot contextuel ne peut être intégré que si ses réponses restent alignées avec le contenu de la roadmap et avec les contraintes de la plateforme.
 
 CRISP-DM ne concerne donc pas uniquement les modules IA / LLM. Il encadre aussi la partie analytique Power BI et l'expérimentation Deep Learning \textit{AI Workforce Forecasting}. Dans ce cadre, le \textit{Business Understanding} consiste à comprendre les besoins décisionnels des recruteurs, administrateurs et décideurs. Le \textit{Data Understanding} porte sur l'analyse des données MySQL de \textit{HireCue}. Le \textit{Data Preparation} correspond au nettoyage et à la transformation des données avec Power Query. La phase de \textit{Modeling} ou d'analyse couvre la création des KPIs, des visualisations et du prototype \textit{AI Workforce Forecasting}. Enfin, l'\textit{Evaluation} permet de vérifier la cohérence, la lisibilité et l'utilité des dashboards produits.
@@ -320,9 +328,11 @@ CRISP-DM a été utile pour les modules liés au score report, à la roadmap de 
 
 \section{Langage de modélisation UML}
 
-Dans un projet comme \textit{HireCue}, la modélisation aide à clarifier les besoins et à partager une représentation commune du système. UML, pour \textit{Unified Modeling Language}, est un langage standard de modélisation utilisé en génie logiciel. Il permet de décrire de manière structurée les acteurs, les cas d'utilisation, les classes et les interactions principales entre les composants.
+Dans un projet comme \textit{HireCue}, la modélisation aide à clarifier les besoins et à partager une représentation commune du système. UML, pour \textit{Unified Modeling Language}, est un langage standard de modélisation utilisé en génie logiciel\footnote{Object Management Group, \textit{Unified Modeling Language Specification}; Grady Booch, James Rumbaugh et Ivar Jacobson, \textit{The Unified Modeling Language User Guide}, Addison-Wesley, 1999.}. Il permet de décrire de manière structurée les acteurs, les cas d'utilisation, les classes et les interactions principales entre les composants.
 
 Dans le cadre du stage, UML n'a pas seulement une valeur documentaire. Il facilite la compréhension du fonctionnement global de la plateforme, surtout lorsque plusieurs profils, services et intégrations externes coexistent. Pour \textit{HireCue}, cette représentation aide à distinguer les parcours du candidat, du recruteur et de l'administrateur, tout en structurant les modules liés au score report, à la roadmap, aux recommandations et aux workflows d'automatisation.
+
+Le recours à UML a aussi permis de vérifier que les nouvelles briques ne restaient pas isolées. Les diagrammes ont servi à replacer les modules IA, les workflows \textit{n8n}, la base MySQL et la couche Power BI dans une même lecture du système. Cette étape a été utile avant l'implémentation, car elle rendait visibles les dépendances entre entités, services et parcours utilisateur.
 
 \begin{figure}[H]
 \centering

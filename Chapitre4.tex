@@ -275,6 +275,8 @@ Les résultats observés sur le score explicable montrent que le candidat et le 
 
 Les conseils d'amélioration constituent un autre résultat important. Ils permettent au candidat d'identifier des axes de progression, tandis que le recruteur peut relier le score à des informations plus concrètes sur le profil. Le module reste donc un support de compréhension et d'aide à la décision, sans remplacer l'analyse humaine du dossier.
 
+Lors des premiers tests, la difficulté principale concernait l'hétérogénéité des informations disponibles selon les candidatures. Certains profils disposaient de scores complets, alors que d'autres ne présentaient qu'une partie des sous-scores ou des informations CV. Cette situation a confirmé l'intérêt d'une restitution explicable : le rapport devait rester lisible même lorsque certaines données étaient absentes, sans masquer les limites du résultat affiché.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{\detokenize{ScoreexpCadidate .png}}
@@ -304,6 +306,8 @@ Les recommandations IA côté recruteur affichent les meilleurs candidats associ
 
 Le classement conserve une logique déterministe. Les règles métier et les critères de comparaison structurent l'ordre des profils, tandis que l'IA intervient pour améliorer la formulation de l'explication. Cette séparation est importante, car elle permet de bénéficier d'une restitution plus lisible sans confier la décision de classement au LLM.
 
+Une observation importante pendant les tests concerne la normalisation des compétences. Selon les profils, une même compétence pouvait apparaître avec des écritures différentes ou avec un niveau de détail variable. Le module de recommandation devait donc rester prudent dans l'interprétation des écarts : une compétence absente de l'affichage ne signifie pas toujours une absence réelle dans le parcours du candidat, mais parfois une donnée insuffisamment structurée.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{AIrecomm.png}
@@ -330,6 +334,8 @@ La figure \ref{fig:personalized-questions} montre une fenêtre \textit{Personali
 La Skill Gap Roadmap a permis de détecter les compétences manquantes par rapport à un poste cible, puis de générer un parcours de progression lisible pour le candidat. Le résultat attendu comprend des étapes d'apprentissage, des priorités de progression, des projets pratiques et, lorsque cela est pertinent, des pistes de certification ou de ressources complémentaires.
 
 Cette fonctionnalité transforme l'évaluation en accompagnement. Le candidat ne recoit pas seulement un constat d'écart ; il dispose d'une feuille de route qui l'aide à comprendre comment progresser. La valeur du module dépend toutefois de la qualité de la comparaison entre les compétences du candidat et les exigences du poste.
+
+Dans les essais réalisés, la roadmap était plus convaincante lorsque le poste cible contenait des compétences suffisamment explicites. À l'inverse, les offres trop générales ou les profils incomplets produisaient des recommandations plus prudentes. Cette limite a conduit à considérer la roadmap comme un support de progression, et non comme une prescription automatique du parcours à suivre.
 
 \begin{figure}[H]
     \centering
@@ -359,6 +365,8 @@ Les figures \ref{fig:roadmap-result-1}, \ref{fig:roadmap-result-2} et \ref{fig:r
 Le chatbot RAG produit des réponses contextualisées à partir de la roadmap, des compétences manquantes, du poste cible et de l'historique de discussion. Les observations montrent que cette brique peut aider le candidat à clarifier une étape, reformuler un conseil ou approfondir un point de progression sans quitter le parcours.
 
 Le chatbot doit toutefois être interprété comme un assistant de guidance. Il ne joue pas le rôle d'un conseiller autonome et ne doit pas produire des orientations sans lien avec le contexte disponible. Sa pertinence dépend directement des données récupérées et du cadrage appliqué au prompt.
+
+Lors des premiers échanges testés, les réponses les plus utiles étaient celles qui restaient proches de la roadmap affichée. Lorsque la question du candidat sortait du périmètre du poste ou des compétences manquantes, la réponse risquait de devenir plus générale. Cette observation justifie le choix de limiter le chatbot au contexte de la roadmap et de conserver un cadrage strict de la génération.
 
 \begin{figure}[H]
     \centering
@@ -393,6 +401,8 @@ La figure \ref{fig:inactive-candidate-reminder} montre le bloc \textit{Inactive 
 
 Les \textit{Smart Candidate Risk Alerts} permettent aux recruteurs d'identifier rapidement les candidats présentant un risque potentiel dans le pipeline de recrutement. Le système exploite des indicateurs comportementaux et d'activité afin de faire remonter des signaux comme la baisse d'engagement, l'absence d'activité, l'abandon du processus, une faible probabilité de succès ou un risque de désengagement. Ces alertes restent des supports d'aide à la décision : elles attirent l'attention du recruteur sans remplacer son analyse.
 
+Pendant la validation, cette fonctionnalité a surtout montré son intérêt pour attirer l'attention sur des cas qui peuvent facilement passer inaperçus dans une liste de candidatures. La difficulté reste toutefois l'interprétation du signal : un risque élevé doit être compris comme un point de vigilance, pas comme une conclusion automatique sur le candidat.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{RiskAlert.png}
@@ -414,6 +424,8 @@ La figure \ref{fig:risk-alerts-dashboard} présente l'interface \textit{Risk Ale
 Les workflows \textit{n8n} ont montre un intérêt opérationnel pour plusieurs scénarios reliés à LinkedIn et aux intégrations externes. Le scraping LinkedIn permet de récupérer des profils candidats avant normalisation et déduplication. Le pipeline d'import des offres externes facilite l'intégration de nouvelles opportunités dans \textit{HireCue}, sous réserve d'une validation backend avant insertion en base.
 
 Les résultats du reverse flow LinkedIn montrent qu'une offre ou un contenu peut être préparé côté backend, transmis à \textit{n8n}, puis publié via UniPile. Le suivi des interactions constitue une extension importante de ce flux : commentaires, réactions, mentions J'aime et statistiques d'engagement peuvent être conservés pour une exploitation future. Le workflow CEO Email Outreach Tracking prolonge également le workflow d'envoi d'emails en ajoutant des événements backend, une détection des réponses Gmail, une persistance MySQL et des KPIs visibles dans le dashboard admin. Les workflows d'email sender et d'outreach CEO/founder restent pertinents pour structurer la prospection, mais ils demandent encore une consolidation des statuts, des traces et des conditions d'exécution. Les traces enregistrées côté backend sont essentielles pour suivre les runs, comprendre les échecs et alimenter les dashboards.
+
+Sur le terrain, les workflows \textit{n8n} ont surtout mis en évidence la dépendance aux services tiers. Le chargement d'un run, la récupération des profils, l'envoi Gmail ou l'interaction LinkedIn peuvent varier selon la disponibilité des APIs, les quotas, les sessions externes et la qualité des données retournées. Cette réalité explique pourquoi la traçabilité des statuts et la déduplication sont aussi importantes que le déclenchement du workflow lui-même.
 
 \subsubsection{Résultats du sourcing des candidats}
 
@@ -519,49 +531,13 @@ Les figures \ref{fig:external-jobs-import-1} et \ref{fig:external-jobs-import-2}
 
 Les figures \ref{fig:linkedin-post-publication} et \ref{fig:linkedin-post-statistics} montrent le résultat du flux de publication LinkedIn et du suivi des interactions. La première capture affiche un post publié pour une opportunité \textit{Senior SDET Engineer}, avec une localisation, une description de poste, un lien de candidature et des hashtags liés à \textit{HireCue}, au recrutement et aux offres d'emploi. La deuxième capture présente le dashboard \textit{Post Statistics}, qui suit le nombre de posts LinkedIn, les commentaires, les réactions et l'engagement total. Elle affiche également un tableau de performance par job, une visualisation du volume d'engagement, un ratio d'engagement et une zone d'insights associée au post synchronisé.
 
-\begin{table}[H]
-\centering
-\small
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{4.1cm}|p{5cm}|p{4.3cm}|}
-\hline
-\rowcolor{headerblue}
-\textbf{Fonctionnalité testée} & \textbf{Résultat observé} & \textbf{Apport pour l'utilisateur} \\
-\hline
-Score explicable & Génération d'un score avec explication et sous-scores exploitables. & Améliore la compréhension de l'évaluation pour le candidat et le recruteur. \\
-\hline
-Roadmap de compétences & Production d'un parcours de progression rattaché à une offre cible. & Aide le candidat à identifier ses compétences manquantes. \\
-\hline
-Chatbot RAG contextuel & Interaction possible à partir du contenu de la roadmap et de son historique. & Prolonge l'accompagnement sans sortir du parcours candidat. \\
-\hline
-Recommandations IA & Mise en avant de profils pertinents avec justification. & Aide le recruteur à prioriser son analyse. \\
-\hline
-Questions personnalisées & Questions d'entretien adaptées au poste et au profil. & Rend la préparation d'entretien plus ciblée. \\
-\hline
-Relance automatique des candidats inactifs & Identification des profils inactifs depuis une période proche de 60 jours et envoi d'un email de retour vers la plateforme. & Améliore l'engagement candidat et limite l'abandon du parcours. \\
-\hline
-Smart Candidate Risk Alerts & Détection de signaux de risque avec score, sévérité, type d'alerte et détail contextualisé. & Aide le recruteur à prioriser le suivi des candidats à risque. \\
-\hline
-Workflows n8n & Declenchement ou préparation de flux de sourcing, d'import, de publication LinkedIn, d'email sender et d'outreach. & Renforce l'automatisation de certaines opérations repetitives avec suivi de statuts. \\
-\hline
-Interaction tracking LinkedIn & Recuperation ou préparation du suivi des commentaires, réactions, mentions J'aime et statistiques d'engagement. & Prepare l'exploitation analytique dans les dashboards recruteur ou administrateur. \\
-\hline
-Reverse flow LinkedIn via UniPile & Publication d'un contenu ou d'une offre depuis \textit{HireCue} vers LinkedIn avec statut conservé côté backend. & Donne une base de diffusion externe plus structurée que le scraping navigateur. \\
-\hline
-Outreach CEO / founder & Envoi ou préparation de demandes de connexion et de messages de suivi avec traçabilité des statuts. & Soutient une prospection plus contrôlée et mesurable. \\
-\hline
-CEO Email Outreach Tracking & Enregistrement des emails envoyés, détection des réponses Gmail et restitution des KPIs dans le dashboard admin. & Rend les campagnes d'emailing CEO plus mesurables et exploitables. \\
-\hline
-\end{tabular}
-\normalsize
-\caption{Synthese des résultats expérimentaux observés}
-\end{table}
-
 \subsection{Résultats des dashboards Power BI}
 
 Les dashboards Power BI ont été générés avec succès à partir des données issues de MySQL. Les données opérationnelles de \textit{HireCue} ont pu être exploitées dans un modèle analytique, puis restituées sous forme de cartes KPI, de graphiques, de filtres et de vues de synthèse. Les visualisations se sont affichées sans erreur bloquante et ont permis une lecture plus directe de l'activité de la plateforme.
 
 Ces résultats montrent que la couche décisionnelle complète les modules IA et les workflows automatisés. Elle ne remplace pas les parcours applicatifs, mais elle donne une vision agrégée des données produites par ces parcours. Les KPIs rendent notamment plus lisibles les volumes de recrutement, l'activité IA, les événements, les statuts candidats et certains indicateurs liés à l'exploitation de la plateforme.
+
+La mise en place des dashboards a aussi montré que la qualité des visualisations dépend directement de la qualité des données MySQL. Certains champs de statut, certaines dates ou certains logs doivent être suffisamment cohérents pour que les KPIs gardent du sens. Pour les recruteurs, l'intérêt principal réside dans la lecture rapide du pipeline et des statuts candidats. Pour les administrateurs, les dashboards apportent surtout une vue de contrôle sur l'activité globale, les événements, les consommations IA et les traitements opérationnels.
 
 \subsubsection{Dashboard Executive Overview}
 
@@ -574,6 +550,20 @@ Ces résultats montrent que la couche décisionnelle complète les modules IA et
 
 La figure \ref{fig:result-dashboard-executive-overview} présente le résultat du dashboard \textit{Executive Overview}. Cette vue regroupe les indicateurs stratégiques \textit{Active Companies}, \textit{Active Recruiters}, \textit{Jobs Created}, \textit{Total Applications}, \textit{Active Subscriptions}, \textit{Total AI Tokens}, \textit{Revenue Proxy} et \textit{Selection Rate}. Elle fournit une vision synthétique destinée aux décideurs, afin de suivre l'activité globale de \textit{HireCue}, les tendances de recrutement et l'utilisation des ressources IA.
 
+\setcounter{secnumdepth}{4}
+\paragraph{Activité globale de la plateforme.}
+Les cartes \textit{Active Companies}, \textit{Active Recruiters}, \textit{Jobs Created} et \textit{Total Applications} permettent de mesurer le niveau d'activité général de la plateforme. Dans la capture, ces indicateurs affichent respectivement le nombre d'entreprises actives, de recruteurs actifs, d'offres créées et de candidatures enregistrées. Leur regroupement dans la partie supérieure du dashboard donne une lecture immédiate du volume d'utilisation de \textit{HireCue} et facilite le suivi de la croissance fonctionnelle de la plateforme.
+
+\paragraph{Performance du recrutement.}
+Le \textit{Recruitment Funnel} met en relation les candidatures, les entretiens vidéo invités, les candidats sélectionnés et les entretiens non complétés. Associé au \textit{Selection Rate} et au nombre de candidats sélectionnés, il permet d'évaluer la progression des candidats dans le processus de recrutement. La présence des entretiens non complétés dans l'entonnoir est particulièrement utile pour repérer les pertes de parcours et identifier les étapes qui peuvent nécessiter un suivi opérationnel.
+
+\paragraph{Suivi de l'activité IA.}
+Les indicateurs \textit{Total AI Tokens}, \textit{AI Cost Over Time} et \textit{AI Tokens Consumption by Task} apportent une lecture de l'utilisation des modèles IA et des LLMs. La carte des tokens donne une mesure agrégée de la consommation, tandis que l'évolution du coût IA permet de repérer les périodes de variation. La répartition par tâche montre que certaines opérations, comme la génération de QCM techniques, consomment davantage de tokens que d'autres traitements plus ponctuels.
+
+\paragraph{Vision stratégique et décisionnelle.}
+Les visualisations \textit{Revenue Proxy}, \textit{Subscription Distribution}, \textit{Jobs Growth Over Time} et \textit{Average Score Comparison} complètent la lecture opérationnelle par une vue plus décisionnelle. Elles permettent de suivre l'évolution de la valeur approximative générée, la structure des abonnements, la dynamique de création des jobs et l'écart entre les scores moyens observés. Ces indicateurs aident les responsables à interpréter l'évolution globale de la plateforme sans consulter directement les tables sources.
+\setcounter{secnumdepth}{3}
+
 \subsubsection{Dashboard Product \& Operations Analytics}
 
 \begin{figure}[H]
@@ -584,6 +574,20 @@ La figure \ref{fig:result-dashboard-executive-overview} présente le résultat d
 \end{figure}
 
 La figure \ref{fig:result-dashboard-product-operations} illustre le dashboard \textit{Product \& Operations Analytics}. Cette vue met en avant des indicateurs plus opérationnels, notamment \textit{Average Score With AI}, \textit{LLM Calls}, \textit{Total AI Cost}, \textit{Average Final Score}, \textit{Avg Tokens Per Call}, \textit{Average AI Duration}, \textit{Candidate Pipeline}, \textit{Events Overview}, \textit{Roadmaps Generated} et \textit{Not Completed Interviews}. Elle permet ainsi d'analyser plus finement l'activité produit, les usages IA, les événements et les statuts candidats.
+
+\setcounter{secnumdepth}{4}
+\paragraph{Indicateurs IA et LLM.}
+Les cartes \textit{Average Score With AI}, \textit{LLM Calls}, \textit{Total AI Cost}, \textit{Avg Tokens Per Call} et \textit{Average AI Duration} donnent une vue directe de l'usage opérationnel de l'IA. Elles permettent de suivre à la fois le volume d'appels, la consommation moyenne en tokens, le coût total et la durée moyenne des traitements. Cette lecture est utile pour vérifier que les modules IA restent observables et que leur usage peut être rapproché des fonctionnalités réellement utilisées dans la plateforme.
+
+\paragraph{Analyse du pipeline candidat.}
+Le visuel \textit{Candidate Pipeline by Status}, les cartes \textit{Selected Candidates}, \textit{Average Final Score} et \textit{Selection Rate} servent à suivre l'avancement des candidats dans le processus de recrutement. La capture montre le volume total de candidatures, les invitations aux entretiens vidéo, les candidats sélectionnés et les profils interviewés. Ces indicateurs permettent de relier le suivi quantitatif du pipeline à la qualité moyenne des résultats observés.
+
+\paragraph{Suivi des événements et de l'activité.}
+La zone \textit{Events Overview} distingue les événements complétés, planifiés, ouverts et ceux prévus pour la journée. Les \textit{Recent Activity Logs} affichent des actions récentes avec leur date, leur type et l'utilisateur associé. Ces éléments facilitent le suivi quotidien de la plateforme, car ils donnent à l'équipe opérationnelle une visibilité sur les événements en cours et sur les dernières actions enregistrées dans le système.
+
+\paragraph{Consommation IA et tâches exécutées.}
+Les visualisations \textit{AI Tokens Consumption Over Time}, \textit{AI Tasks Distribution} et \textit{AI Cost by Provider} détaillent la consommation des services IA. La courbe montre les variations de tokens dans le temps, la carte hiérarchique met en évidence les tâches les plus consommatrices et le diagramme par fournisseur compare la répartition des coûts entre les providers affichés. Ces vues complètent les cartes KPI en expliquant d'où proviennent les principales charges liées à l'IA.
+\setcounter{secnumdepth}{3}
 
 \subsubsection{Intégration web des dashboards}
 
@@ -602,6 +606,8 @@ Cette intégration fonctionne comme une passerelle entre la couche décisionnell
 
 La figure \ref{fig:result-ai-workforce-forecasting-interface} montre l'interface du module \textit{AI Workforce Forecasting}. Cette interface permet de lancer l'entraînement du modèle et de consulter les principales prédictions produites à partir des données disponibles. Les indicateurs suivis portent notamment sur les jobs prévus, les candidatures prévues, les tokens IA prévus, le coût IA prédit, le revenu proxy prédit et le meilleur modèle utilisé.
 
+Dans le cadre du stage, cette partie a été traitée comme une expérimentation exploratoire. Le volume historique disponible restait limité, ce qui réduit la capacité des modèles à apprendre des tendances longues ou des variations saisonnières. L'objectif était donc de vérifier la faisabilité d'une prévision RH sur les données \textit{HireCue}, plus que de produire un outil décisionnel définitif.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{AIForeCasting2.png}
@@ -612,6 +618,55 @@ La figure \ref{fig:result-ai-workforce-forecasting-interface} montre l'interface
 La figure \ref{fig:result-ai-workforce-forecasting-predictions} présente les résultats de prédiction du module. L'expérimentation compare deux modèles de séries temporelles, LSTM et GRU, afin d'estimer plusieurs indicateurs : les jobs créés, les candidatures, le coût IA et le revenu proxy. Les courbes permettent de comparer les valeurs réelles avec les valeurs prédites, ce qui donne une première lecture de la capacité des modèles à suivre les tendances observées.
 
 L'évaluation repose sur trois métriques principales. La MAE mesure l'erreur moyenne absolue, la RMSE pénalise davantage les grandes erreurs et la MAPE exprime l'erreur relative en pourcentage. Dans les observations réalisées, LSTM a donné les meilleurs résultats globaux par rapport à GRU. Cette conclusion doit toutefois rester prudente : le module constitue une preuve de concept et nécessite davantage de données historiques, de tests et de validation avant un usage décisionnel complet.
+
+Les résultats obtenus sont encourageants, mais ils restent exploratoires. Davantage d'historique serait nécessaire pour confirmer la stabilité des prédictions, comparer les modèles sur plusieurs périodes et vérifier leur comportement lorsque l'activité de la plateforme varie fortement. Le module doit donc être lu comme une preuve de concept intégrée à l'interface, et non comme un mécanisme de prévision prêt pour une décision opérationnelle complète.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{LSTMvsGRU_Accuracy_Comparison.png}
+    \caption{Comparaison des performances des modèles LSTM et GRU}
+    \label{fig:lstm-gru-comparison}
+\end{figure}
+
+La figure \ref{fig:lstm-gru-comparison} compare les performances des modèles LSTM et GRU selon les métriques MAE, RMSE et MAPE, avec une indication explicite selon laquelle des valeurs plus faibles sont préférables. Sur la MAE, LSTM présente une erreur moyenne absolue plus basse que GRU, ce qui indique une meilleure précision moyenne sur les prédictions observées. Sur la RMSE, LSTM conserve également une valeur plus faible, ce qui traduit une meilleure limitation des erreurs importantes. Enfin, la MAPE affichée pour LSTM est inférieure à celle de GRU, ce qui suggère une meilleure qualité relative des prédictions.
+
+Ces résultats expliquent le choix de LSTM comme modèle de référence dans cette expérimentation. GRU reste un modèle pertinent pour les séries temporelles, mais les résultats visibles dans la comparaison montrent des erreurs plus élevées sur les trois métriques retenues. Cette conclusion doit néanmoins rester limitée au périmètre testé : l'historique de données demeure restreint et une validation plus large serait nécessaire avant d'utiliser ce module comme outil décisionnel complet.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3.7cm}|p{7.3cm}|p{2.5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Fonctionnalité} & \textbf{Résultat obtenu} & \textbf{Statut} \\
+\hline
+Score explicable & Affiché et exploitable par le candidat et le recruteur. & Validé \\
+\hline
+Recommandations IA & Candidats recommandés avec justification et questions personnalisées. & Validé \\
+\hline
+Skill Gap Roadmap & Roadmap générée et consultable par le candidat. & Validé \\
+\hline
+Chatbot RAG & Réponses contextualisées à partir de la roadmap. & Validé / à consolider \\
+\hline
+Risk Alerts & Alertes affichées avec score de risque et détails. & Validé \\
+\hline
+Relance candidats inactifs & Email de relance généré et envoyé. & Validé \\
+\hline
+Workflows n8n & Workflows exécutés avec suivi des statuts. & Validé / à consolider \\
+\hline
+LinkedIn automation & Publication, interaction tracking et outreach LinkedIn testés. & À consolider \\
+\hline
+CEO Email Tracking & Suivi des emails envoyés et des réponses CEO. & Validé / à consolider \\
+\hline
+Power BI & Dashboards intégrés et consultables. & Validé \\
+\hline
+AI Workforce Forecasting & Prototype fonctionnel de prévision RH. & Expérimental \\
+\hline
+\end{tabular}
+\normalsize
+\caption{Synthèse des résultats expérimentaux observés}
+\end{table}
 
 % Exemple : ajouter ici une capture d'écran du rapport de score explicable
 % Exemple : ajouter ici une capture d'écran de la roadmap de compétences

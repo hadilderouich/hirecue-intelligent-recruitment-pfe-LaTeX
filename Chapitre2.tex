@@ -101,9 +101,10 @@ Le backlog produit regroupe les principales fonctionnalités à développer, à 
 
 \small
 \renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
 \setlength{\LTpre}{0pt}
 \setlength{\LTpost}{0pt}
-\begin{longtable}{|p{0.9cm}|p{3.2cm}|p{5.2cm}|p{1.6cm}|p{1.8cm}|p{1.5cm}|}
+\begin{longtable}{|p{0.85cm}|p{2.8cm}|p{4.9cm}|p{1.65cm}|p{1.55cm}|p{1.25cm}|}
 \caption{Backlog produit du projet HireCue} \\
 \hline
 \rowcolor{TableHeaderBlue}
@@ -117,9 +118,9 @@ Le backlog produit regroupe les principales fonctionnalités à développer, à 
 \hline
 \endhead
 
-F01 & Rapport de score explicable & Rendre le score lisible à partir des données de candidature, des sous-scores et des poids métier, avec un résultat exploitable par le candidat et le recruteur. & Haute & Réalisé & Phase 1 \\
+F01 & Rapport de score explicable & Calculer et afficher un score explicable pour le candidat et le recruteur, avec sous-scores, explications et recommandations associées au résultat. & Haute & Réalisé & Phase 1 \\
 \hline
-F02 & AI Recommendations & Proposer au recruteur un classement déterministe des profils, enrichi par des explications sur les compétences rapprochées, les écarts et les signaux utiles à la décision. & Haute & Réalisé & Phase 1 \\
+F02 & Recommandations IA recruteur & Recommander les meilleurs candidats pour une offre, afficher les compétences correspondantes, les écarts de compétences et les justifications utiles à la décision. & Haute & Réalisé & Phase 1 \\
 \hline
 F03 & Skill Gap Roadmap & Identifier de manière structurée les compétences manquantes par rapport à un poste cible, puis générer une feuille de route pédagogique côté candidat. & Haute & Réalisé & Phase 1 \\
 \hline
@@ -153,13 +154,13 @@ F13-bis & Relance admin des candidats inactifs & Ajouter ou documenter un décle
 \hline
 F13-ter & Relance synchrone backend des candidats inactifs & Déclencher depuis le backend une tâche synchrone permettant l'envoi d'emails aux candidats inactifs, en complément du mécanisme de relance admin. & Moyenne & En consolidation & Phase 2 \\
 \hline
-F14 & Smart Candidate Risk Alerts & Afficher dans le dashboard recruteur des alertes utiles à partir des signaux disponibles, comme un faible engagement, des données incomplètes ou des incohérences. & Moyenne & Réalisé & Phase 2 \\
+F14 & Smart Candidate Risk Alerts & Détecter les candidats présentant un risque de désengagement, d'abandon du processus ou de faible probabilité de réussite, puis afficher un score, un niveau de sévérité et une explication côté recruteur. & Moyenne & Réalisé & Phase 2 \\
 \hline
 F15 & Re-Engagement Pool queue & Découpler le calcul des candidats réengageables du flux synchrone afin d'éviter de bloquer le backend sur des traitements lourds. & Haute & Réalisé & Phase 3 \\
 \hline
 F16 & AI Recommendations queue & Rendre la génération des recommandations non bloquante via RabbitMQ et un worker dédié, avec suivi d'état côté interface. & Haute & Réalisé & Phase 3 \\
 \hline
-F17 & Workflow n8n + PhantomBuster & Orchestrer proprement le lancement, le suivi et la récupération des résultats de sourcing externe entre le backend, \textit{n8n} et PhantomBuster. & Haute & Réalisé & Phase 3 \\
+F17 & Workflows n8n & Orchestrer les traitements automatisés liés au sourcing, à l'import d'offres, aux emails, aux statuts de run et aux flux LinkedIn entre le backend, \textit{n8n}, PhantomBuster et les services externes. & Haute & Réalisé & Phase 3 \\
 \hline
 F18 & Gestion des doublons & Detecter et filtrer les doublons lors des imports de candidats et d'offres avant insertion dans la base. & Haute & Réalisé & Phase 3 \\
 \hline
@@ -167,18 +168,23 @@ F19 & Suivi des statuts des workflows & Conserver un état lisible des runs et d
 \hline
 F20 & Pipeline d'import des offres LinkedIn & Extraire des offres externes, les mapper vers joblist, vérifier les doublons via ExternalId ou ExternalLink, puis les insérer en base. & Haute & Réalisé & Phase 2 \\
 \hline
-F20-bis & Reverse flow de publication LinkedIn & Préparer depuis HireCue les données d'une offre, puis utiliser l'API UniPile pour orchestrer, via \textit{n8n} ou le backend, la publication de l'offre vers LinkedIn. Ce choix est retenu pour disposer d'un flux de posting plus propre et plus adapté qu'un scraping navigateur. & Moyenne & En consolidation & Phase 3 \\
+F20-bis & LinkedIn automation : publication et suivi & Automatiser certaines actions LinkedIn, notamment la publication d'offres ou de contenus, le suivi des interactions, des commentaires, des réactions et des statistiques d'engagement via UniPile, \textit{n8n} ou le backend. & Moyenne & En consolidation & Phase 3 \\
 \hline
 F20-ter & Workflow d'envoi de messages LinkedIn aux CEO et founders & Automatiser, via UniPile ou un workflow orchestré avec \textit{n8n}, l'envoi et le suivi de messages LinkedIn destinés aux CEO, founders ou propriétaires identifiés dans les scénarios d'outreach. & Moyenne & En consolidation & Phase 3 \\
 \hline
 F21 & Suivi des quotas IA et cache & Encadrer les appels IA par des quotas, de la persistance et des mécanismes de cache afin de maintenir des traitements maîtrisables en production. & Haute & Réalisé & Phase 3 \\
 \hline
-F22 & Dashboards décisionnels Power BI & Connecter la base MySQL de \textit{HireCue} à Power BI, préparer les données avec Power Query, créer des KPIs et visualisations, puis réaliser les dashboards \textit{Executive Overview} et \textit{Product \& Operations Analytics}. Les rapports sont intégrés dans une application React / Node.js via \texttt{iframe}. & Haute & Réalisé & Phase 4 \\
+F22 & Power BI dashboards & Connecter la base MySQL de \textit{HireCue} à Power BI, nettoyer les données avec Power Query, créer les KPIs et réaliser les dashboards \textit{Executive Overview} et \textit{Product \& Operations Analytics}. Les rapports sont intégrés dans une application React / Node.js via \texttt{iframe}. & Haute & Réalisé & Phase 4 \\
 \hline
-F22-bis & AI Workforce Forecasting & Mettre en place une expérimentation Deep Learning dans l'interface web afin d'explorer la prévision ou l'analyse de tendances liées aux données RH et opérationnelles de \textit{HireCue}. & Moyenne & En consolidation & Phase 4 \\
+F22-bis & AI Workforce Forecasting & Mettre en place une expérimentation Deep Learning pour explorer la prévision de tendances RH et opérationnelles à partir des données de \textit{HireCue}. & Moyenne & En consolidation & Phase 4 \\
 \hline
 \end{longtable}
+\setlength{\tabcolsep}{6pt}
 \normalsize
+
+Ce backlog n'a pas été traité comme une liste figée de fonctionnalités à développer simultanément. Pendant le stage, les tâches ont été priorisées selon la valeur attendue pour \textit{HireCue}, l'état de l'existant et les dépendances techniques entre les modules. Les premières itérations ont donc porté sur les fonctionnalités à haute priorité, notamment le score explicable, les recommandations IA, la roadmap de compétences et le chatbot RAG, car elles amélioraient directement les parcours candidat et recruteur.
+
+Les fonctionnalités d'automatisation ont ensuite été intégrées de manière progressive. Les workflows \textit{n8n}, l'automatisation LinkedIn et les scénarios de scraping ont été traités avec une priorité moyenne, car ils dépendaient de services externes et nécessitaient des étapes de nettoyage, de suivi de statut et de déduplication avant d'être pleinement exploitables. Enfin, certaines briques complémentaires ont été ajoutées pour enrichir le pilotage de la plateforme : Power BI, l'expérimentation \textit{AI Workforce Forecasting}, le suivi des emails et les \textit{Risk Alerts}. Cette organisation reflète la réalité du projet : stabiliser d'abord les fonctionnalités métier centrales, puis élargir progressivement le périmètre vers l'automatisation, l'analyse décisionnelle et la prévision.
 
 \section{Architecture logique et physique globale de l'application}
 
