@@ -9,7 +9,7 @@ Dans ce chapitre, la validation est organisée selon deux lectures complémentai
 
 La validation porte ainsi sur plusieurs dimensions complémentaires : vérification des modules applicatifs, contrôle des parcours candidat, recruteur et administrateur, validation technique des automatisations et évaluation des briques IA mobilisées dans le projet, notamment le score explicable, la roadmap de compétences, le chatbot contextuel et les recommandations côté recruteur. Cette séparation évite de mélanger les critères de validation logicielle avec les critères d'évaluation propres aux services intelligents.
 
-\section{Strategie de validation}
+\section{Stratégie de validation}
 
 La stratégie de validation retenue dans \textit{HireCue} repose sur deux approches complémentaires, appliquées à des périmètres distincts. Scrum concerne les évolutions logicielles et techniques de la plateforme, tandis que CRISP-DM sert de cadre d'évaluation pour les modules IA, LLM et RAG.
 
@@ -19,9 +19,11 @@ La couche décisionnelle Power BI a également été intégrée à cette straté
 
 La validation selon Scrum a été appliquée aux fonctionnalités applicatives développées ou améliorées pendant le stage. Les tests ont été menés de manière incrémentale sur les interfaces frontend, les routes backend, les APIs, les dashboards, les workflows \textit{n8n}, les intégrations LinkedIn et les automatisations techniques. Chaque incrément devait être vérifié après intégration afin de contrôler le comportement attendu, les formats d'échange, la cohérence des statuts, l'affichage côté utilisateur et l'absence de régression sur les parcours existants.
 
+La validation selon Scrum s'appuie sur la planification des sprints définie dans le chapitre 2. Chaque incrément a été vérifié à travers des scénarios de test, des résultats fonctionnels et une validation technique adaptée à la nature des modules développés.
+
 Cette approche convient aux évolutions de \textit{HireCue}, car la plateforme était déjà disponible et les ajouts devaient s'intégrer progressivement dans un socle existant. Les validations Scrum ont donc porté sur la capacité des modules à fonctionner dans les parcours réels : consultation candidat, dashboard recruteur, supervision administrateur, déclenchement de workflows, appels API, stockage MySQL et remontée des états d'exécution.
 
-\subsection{Evaluation selon CRISP-DM}
+\subsection{Évaluation selon CRISP-DM}
 
 L'évaluation selon CRISP-DM a été réservée aux modules IA, LLM et RAG. Dans ce cadre, l'objectif n'était pas seulement de vérifier qu'une interface s'affiche ou qu'un endpoint répond. Il fallait aussi évaluer la qualité des données utilisées, la cohérence des sorties générées, la validité des structures JSON attendues, la pertinence métier des recommandations, le contrôle des hallucinations, ainsi que la robustesse des caches et des fallbacks.
 
@@ -34,15 +36,15 @@ Cette lecture concerne notamment le score explicable, les recommandations IA, la
 \begin{tabular}{|p{3.7cm}|p{5.2cm}|p{5.2cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Axe de validation} & \textbf{Methode appliquée} & \textbf{Objectif} \\
+\textbf{Axe de validation} & \textbf{Méthode appliquée} & \textbf{Objectif} \\
 \hline
-Tests fonctionnels & Verification manuelle et itérative des parcours candidat, recruteur et administrateur après intégration des modules. & Confirmer que les fonctionnalités répondent au besoin métier et restent exploitables dans l'interface. \\
+Tests fonctionnels & Vérification manuelle et itérative des parcours candidat, recruteur et administrateur après intégration des modules. & Confirmer que les fonctionnalités répondent au besoin métier et restent exploitables dans l'interface. \\
 \hline
-Tests IA / LLM & Controle des données d'entrée, de la cohérence des sorties, des formats JSON et des mécanismes de fallback. & Evaluer la fiabilité des modules intelligents avant leur usage dans les parcours applicatifs. \\
+Tests IA / LLM & Contrôle des données d'entrée, de la cohérence des sorties, des formats JSON et des mécanismes de fallback. & Évaluer la fiabilité des modules intelligents avant leur usage dans les parcours applicatifs. \\
 \hline
-Tests workflows n8n & Verification des enchaînements d'automatisation, des statuts de run, du nettoyage et de la transmission des données. & S'assurer que les intégrations externes produisent des sorties réutilisables dans HireCue. \\
+Tests workflows n8n & Vérification des enchaînements d'automatisation, des statuts de run, du nettoyage et de la transmission des données. & S'assurer que les intégrations externes produisent des sorties réutilisables dans HireCue. \\
 \hline
-Tests d'intégration frontend/backend & Controle des appels API, des formats de retour, des statuts et de l'affichage des résultats dans les dashboards. & Garantir la cohérence entre services métier et composants visibles par l'utilisateur. \\
+Tests d'intégration frontend/backend & Contrôle des appels API, des formats de retour, des statuts et de l'affichage des résultats dans les dashboards. & Garantir la cohérence entre services métier et composants visibles par l'utilisateur. \\
 \hline
 Tests décisionnels Power BI & Vérification de la connexion MySQL, des transformations Power Query, des mesures DAX, des visualisations et de l'intégration \texttt{iframe}. & Confirmer que les dashboards et les indicateurs décisionnels reflètent correctement les données exploitées. \\
 \hline
@@ -53,11 +55,11 @@ Tests de performance & Observation qualitative du temps de réponse, du cache, d
 \caption{Axes de validation retenus pour le projet HireCue}
 \end{table}
 
-\section{Scenarios de test}
+\section{Scénarios de test}
 
 Les scénarios de test ont été construits à partir des tâches réellement réalisées dans \textit{HireCue}. Ils ne décrivent donc pas des cas théoriques détachés du projet, mais des parcours directement liés aux modules intégrés ou consolidés pendant le stage. Cette démarche permet de vérifier simultanément la cohérence fonctionnelle, l'intégration technique et la valeur d'usage des fonctionnalités.
 
-\subsection{Scenario candidat}
+\subsection{Scénario candidat}
 
 Dans un premier scénario, le candidat accède à sa candidature à partir de son espace personnel. Il consulte ensuite son rapport de score explicable, visualise le score IA, les sous-scores et les conseils associés, puis poursuit vers la roadmap de compétences rattachée à l'offre visée. À ce stade, il peut identifier les compétences manquantes, lire le guide d'amélioration propose, interagir avec le chatbot contextuel lié à la roadmap et, lorsque la fonctionnalité est disponible dans le parcours, consulter ou télécharger le PDF associé.
 
@@ -72,7 +74,7 @@ Sur le plan méthodologique, ce scénario relève de Scrum pour la validation du
 \begin{tabular}{|p{2.3cm}|p{4.2cm}|p{5.2cm}|p{2.3cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Etape} & \textbf{Action testée} & \textbf{Resultat attendu} & \textbf{Statut} \\
+\textbf{Étape} & \textbf{Action testée} & \textbf{Résultat attendu} & \textbf{Statut} \\
 \hline
 1 & Consultation de la candidature & La candidature et son contexte d'offre sont accessibles depuis l'espace candidat. & Validé \\
 \hline
@@ -88,10 +90,10 @@ Sur le plan méthodologique, ce scénario relève de Scrum pour la validation du
 \hline
 \end{tabular}
 \normalsize
-\caption{Scenario de test du parcours candidat}
+\caption{Scénario de test du parcours candidat}
 \end{table}
 
-\subsection{Scenario recruteur}
+\subsection{Scénario recruteur}
 
 Dans le parcours recruteur, le scénario de validation commence par l'ouverture du dashboard. Le recruteur consulte ensuite les recommandations IA associées à une offre. Le système doit faire apparaître un ensemble restreint de candidats pertinents, en pratique trois profils mis en avant, avec les raisons de la recommandation. À partir de ce point, le recruteur peut consulter les questions personnalisées, vérifier les alertes de risque, inviter un candidat à passer un test complémentaire lorsque l'action est disponible, puis exploiter le \textit{talent pool} pour reengager certains profils par email ou notification.
 
@@ -106,11 +108,11 @@ Sur le plan méthodologique, Scrum permet de valider le dashboard recruteur, les
 \begin{tabular}{|p{2.3cm}|p{4.2cm}|p{5.2cm}|p{2.3cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Etape} & \textbf{Action testée} & \textbf{Resultat attendu} & \textbf{Statut} \\
+\textbf{Étape} & \textbf{Action testée} & \textbf{Résultat attendu} & \textbf{Statut} \\
 \hline
 1 & Ouverture du dashboard recruteur & Les modules de suivi et d'aide à la décision sont accessibles dans une même interface. & Validé \\
 \hline
-2 & Consultation des recommandations IA & Trois candidats pertinents sont proposes avec une justification exploitable. & Validé \\
+2 & Consultation des recommandations IA & Trois candidats pertinents sont proposés avec une justification exploitable. & Validé \\
 \hline
 3 & Lecture des raisons de recommandation & Les compétences rapprochées, les écarts et les signaux utiles sont lisibles. & Validé \\
 \hline
@@ -124,10 +126,10 @@ Sur le plan méthodologique, Scrum permet de valider le dashboard recruteur, les
 \hline
 \end{tabular}
 \normalsize
-\caption{Scenario de test du parcours recruteur}
+\caption{Scénario de test du parcours recruteur}
 \end{table}
 
-\subsection{Scenario administrateur}
+\subsection{Scénario administrateur}
 
 Le scénario administrateur porte sur des fonctions de supervision et d'orchestration. L'administrateur suit l'état de certains traitements, contrôle certaines intégrations et peut intervenir sur des opérations transversales. Dans le périmètre retenu pour le rapport, ce scénario inclut la relance de candidats inactifs depuis une durée voisine de soixante jours, le suivi ou la configuration de certains workflows d'import, ainsi que la vérification des états de traitement remontés par la plateforme.
 
@@ -142,7 +144,7 @@ Sur le plan méthodologique, ce scénario relève principalement de Scrum, car i
 \begin{tabular}{|p{2.3cm}|p{4.2cm}|p{5.2cm}|p{2.3cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Etape} & \textbf{Action testée} & \textbf{Resultat attendu} & \textbf{Statut} \\
+\textbf{Étape} & \textbf{Action testée} & \textbf{Résultat attendu} & \textbf{Statut} \\
 \hline
 1 & Supervision des traitements & Les états des intégrations et des exécutions importantes restent consultables. & Validé \\
 \hline
@@ -154,10 +156,10 @@ Sur le plan méthodologique, ce scénario relève principalement de Scrum, car i
 \hline
 \end{tabular}
 \normalsize
-\caption{Scenario de test du parcours administrateur}
+\caption{Scénario de test du parcours administrateur}
 \end{table}
 
-\subsection{Scenarios des workflows automatisés}
+\subsection{Scénarios des workflows automatisés}
 
 Les workflows automatisés ont également fait l'objet de scénarios de validation, car ils prolongent \textit{HireCue} au-delà des seuls parcours internes. Le premier scénario concerne le sourcing de candidats via \textit{n8n} et PhantomBuster : le recruteur saisit un mot-clé comme \textit{Software Engineer}, \textit{n8n} déclenche PhantomBuster, les profils sont récupérés, nettoyés, dédoublonnés, puis remontés dans le dashboard recruteur. Le deuxième scénario porte sur l'import d'offres externes : l'administrateur définit des paramètres de recherche, les offres sont collectées depuis des sources externes, mappées vers la structure \textit{HireCue}, puis vérifiées avant insertion.
 
@@ -169,7 +171,7 @@ Sur le plan méthodologique, Scrum est mobilisé pour valider la chaîne techniq
 
 Le premier scénario détaillé porte sur le scraping de profils candidats depuis LinkedIn. Le test consiste à lancer une recherche à partir d'un critère saisi par le recruteur, puis à transmettre ce critère à un workflow \textit{n8n}. Ce dernier déclenche PhantomBuster afin de récupérer des profils correspondant au besoin exprimé. Les données obtenues ne sont pas exploitées directement : elles passent par des étapes de normalisation des champs, de vérification des informations disponibles et de filtrage des doublons.
 
-La validation de ce workflow porte donc sur la chaîne complète, depuis le déclenchement jusqu'à l'exploitation dans \textit{HireCue}. Les profils jugés exploitables doivent être renvoyés vers le backend ou exposés dans le dashboard recruteur avec un format cohérent. Ce test confirme que la valeur du workflow ne reside pas uniquement dans la récupération de profils, mais dans la transformation de données LinkedIn hétérogènes en informations utilisables pour le sourcing.
+La validation de ce workflow porte donc sur la chaîne complète, depuis le déclenchement jusqu'à l'exploitation dans \textit{HireCue}. Les profils jugés exploitables doivent être renvoyés vers le backend ou exposés dans le dashboard recruteur avec un format cohérent. Ce test confirme que la valeur du workflow ne réside pas uniquement dans la récupération de profils, mais dans la transformation de données LinkedIn hétérogènes en informations utilisables pour le sourcing.
 
 \subsubsection{Workflow d'import des offres d'emploi externes}
 
@@ -206,26 +208,26 @@ La validation du dashboard admin porte enfin sur l'affichage des statistiques as
 \begin{tabular}{|p{3cm}|p{5.1cm}|p{4.2cm}|p{1.6cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Workflow} & \textbf{Objectif testé} & \textbf{Resultat attendu} & \textbf{Statut} \\
+\textbf{Workflow} & \textbf{Objectif testé} & \textbf{Résultat attendu} & \textbf{Statut} \\
 \hline
-Sourcing candidats via n8n + PhantomBuster & Verifier le lancement du run, l'extraction des profils, la normalisation, la déduplication et la remontée des données vers \textit{HireCue}. & Les candidats sources sont affichés dans le dashboard recruteur avec un format exploitable. & Validé \\
+Sourcing candidats via n8n + PhantomBuster & Vérifier le lancement du run, l'extraction des profils, la normalisation, la déduplication et la remontée des données vers \textit{HireCue}. & Les candidats sources sont affichés dans le dashboard recruteur avec un format exploitable. & Validé \\
 \hline
-Import d'offres externes & Verifier la récupération des offres, leur mapping vers la structure interne, la vérification des doublons et l'insertion contrôlée. & Les offres exploitables sont intégrées dans \textit{HireCue} après contrôle backend. & Validé \\
+Import d'offres externes & Vérifier la récupération des offres, leur mapping vers la structure interne, la vérification des doublons et l'insertion contrôlée. & Les offres exploitables sont intégrées dans \textit{HireCue} après contrôle backend. & Validé \\
 \hline
-Reverse flow vers LinkedIn & Verifier la préparation backend, l'orchestration \textit{n8n} et la publication d'un contenu ou d'une offre via UniPile. & La publication externe est exécutée ou la base d'orchestration reste prête pour consolidation. & À consolider \\
+Reverse flow vers LinkedIn & Vérifier la préparation backend, l'orchestration \textit{n8n} et la publication d'un contenu ou d'une offre via UniPile. & La publication externe est exécutée ou la base d'orchestration reste prête pour consolidation. & À consolider \\
 \hline
-Interaction tracking LinkedIn & Verifier la récupération des commentaires, réactions, mentions J'aime et statistiques d'engagement après publication. & Les données d'engagement sont conservées ou préparées pour un dashboard recruteur ou administrateur. & À consolider \\
+Interaction tracking LinkedIn & Vérifier la récupération des commentaires, réactions, mentions J'aime et statistiques d'engagement après publication. & Les données d'engagement sont conservées ou préparées pour un dashboard recruteur ou administrateur. & À consolider \\
 \hline
-Outreach CEO / propriétaires & Verifier l'envoi des demandes de connexion, le suivi d'acceptation et l'envoi du message final via UniPile. & La prospection LinkedIn est structurée avec une traçabilité des statuts backend. & À consolider \\
+Outreach CEO / propriétaires & Vérifier l'envoi des demandes de connexion, le suivi d'acceptation et l'envoi du message final via UniPile. & La prospection LinkedIn est structurée avec une traçabilité des statuts backend. & À consolider \\
 \hline
-CEO Email Outreach Tracking & Verifier l'extraction des leads CEO, l'envoi d'emails, la détection des réponses et la remontée des événements vers le dashboard admin. & Les emails envoyés et les réponses détectées sont enregistrés en backend, stockés dans MySQL et visibles dans le dashboard admin avec les KPIs associés. & À consolider \\
+CEO Email Outreach Tracking & Vérifier l'extraction des leads CEO, l'envoi d'emails, la détection des réponses et la remontée des événements vers le dashboard admin. & Les emails envoyés et les réponses détectées sont enregistrés en backend, stockés dans MySQL et visibles dans le dashboard admin avec les KPIs associés. & À consolider \\
 \hline
 \end{tabular}
 \normalsize
 \caption{Validation des workflows automatisés}
 \end{table}
 
-\subsection{Scenario décisionnel Power BI}
+\subsection{Scénario décisionnel Power BI}
 
 Le scénario décisionnel Power BI valide l'exploitation des données analytiques de \textit{HireCue} depuis l'interface web. Il commence par la connexion de l'utilisateur à l'application, puis par l'accès au dashboard \textit{Executive Overview}. Cette première étape permet de vérifier les KPIs stratégiques, notamment les indicateurs liés aux entreprises actives, aux recruteurs, aux offres, aux candidatures, aux abonnements, à l'usage de l'IA et au taux de sélection.
 
@@ -263,13 +265,13 @@ AI Workforce Forecasting & Validé \\
 \caption{Validation du scénario décisionnel Power BI}
 \end{table}
 
-\section{Resultats expérimentaux}
+\section{Résultats expérimentaux}
 
 Les résultats expérimentaux observés sur \textit{HireCue} montrent d'abord la capacité de la plateforme à produire un score explicable et à associer ce score à une explication lisible. Ils montrent également la génération d'une roadmap de compétences, l'exploitation d'un chatbot contextuel lié à cette roadmap, la production de recommandations côté recruteur, l'affichage de questions personnalisées et le déclenchement ou la préparation de plusieurs workflows \textit{n8n} rattachés au sourcing, à l'import ou à l'outreach.
 
 Ces résultats ne doivent pas être interprétés comme des preuves d'industrialisation complète de toutes les briques observées. Ils montrent plutôt qu'une base fonctionnelle et technique a été mise en place, qu'elle a permis d'améliorer la lisibilité de plusieurs parcours et qu'elle constitue un support défendable pour l'évolution future de la plateforme.
 
-\subsection{Resultats du score explicable}
+\subsection{Résultats du score explicable}
 
 Les résultats observés sur le score explicable montrent que le candidat et le recruteur disposent d'une lecture plus complète de l'évaluation. L'interface peut afficher un score global, des sous-scores et une explication associée au résultat. Cette restitution rend le score plus compréhensible, car elle ne présente pas uniquement une valeur numérique, mais aussi les éléments qui contribuent à son interprétation.
 
@@ -300,9 +302,9 @@ Lors des premiers tests, la difficulté principale concernait l'hétérogénéit
 
 Les figures \ref{fig:score-explicable-candidat-1}, \ref{fig:score-explicable-candidat-2} et \ref{fig:score-explicable-candidat-3} montrent le résultat obtenu côté candidat. L'interface affiche un score global de candidature pour le poste \textit{Senior Sdet Engineer}, une fenêtre explicative \textit{Why this score?}, puis une décomposition par catégories comme \textit{Coding}, \textit{Personality}, \textit{Psychotechnical}, \textit{Technical} et \textit{CV Score}. Les captures rendent également visibles les recommandations d'amélioration, les statuts tels que \textit{Needs Work}, \textit{Not available} ou \textit{On Track}, ainsi que les compétences manquantes présentées dans la zone \textit{Evidence}. Cette restitution confirme que le score n'est pas affiché seul, mais accompagné d'éléments interprétables pour guider le candidat.
 
-\subsection{Resultats des recommandations IA}
+\subsection{Résultats des recommandations IA}
 
-Les recommandations IA côté recruteur affichent les meilleurs candidats associés à une offre, avec un score de compatibilite, les compétences correspondantes, les compétences manquantes et une justification de la recommandation. Le résultat est ainsi plus exploitable qu'une simple liste de candidatures, car il met en avant les raisons qui rapprochent un profil d'un poste donné.
+Les recommandations IA côté recruteur affichent les meilleurs candidats associés à une offre, avec un score de compatibilité, les compétences correspondantes, les compétences manquantes et une justification de la recommandation. Le résultat est ainsi plus exploitable qu'une simple liste de candidatures, car il met en avant les raisons qui rapprochent un profil d'un poste donné.
 
 Le classement conserve une logique déterministe. Les règles métier et les critères de comparaison structurent l'ordre des profils, tandis que l'IA intervient pour améliorer la formulation de l'explication. Cette séparation est importante, car elle permet de bénéficier d'une restitution plus lisible sans confier la décision de classement au LLM.
 
@@ -329,11 +331,11 @@ Cette fonctionnalité complète le moteur de recommandations IA. Une fois les ca
 
 La figure \ref{fig:personalized-questions} montre une fenêtre \textit{Personalized Questions} associée au candidat Hiba Elwafi. Le menu \textit{Focus} permet de choisir plusieurs axes d'évaluation, notamment \textit{General screening}, \textit{Technical depth}, \textit{Missing skills}, \textit{Experience validation} et \textit{Communication}. Les questions affichées sont structurées par blocs, comme \textit{Experience Deep Dive} et \textit{Behavioral / Team Fit}, avec une justification \textit{Why} indiquant le lien entre la question et le rôle. Les boutons \textit{Copy all} et \textit{Regenerate} montrent que le recruteur peut réutiliser ou régénérer ces questions selon le besoin d'entretien.
 
-\subsection{Resultats de la Skill Gap Roadmap}
+\subsection{Résultats de la Skill Gap Roadmap}
 
 La Skill Gap Roadmap a permis de détecter les compétences manquantes par rapport à un poste cible, puis de générer un parcours de progression lisible pour le candidat. Le résultat attendu comprend des étapes d'apprentissage, des priorités de progression, des projets pratiques et, lorsque cela est pertinent, des pistes de certification ou de ressources complémentaires.
 
-Cette fonctionnalité transforme l'évaluation en accompagnement. Le candidat ne recoit pas seulement un constat d'écart ; il dispose d'une feuille de route qui l'aide à comprendre comment progresser. La valeur du module dépend toutefois de la qualité de la comparaison entre les compétences du candidat et les exigences du poste.
+Cette fonctionnalité transforme l'évaluation en accompagnement. Le candidat ne reçoit pas seulement un constat d'écart ; il dispose d'une feuille de route qui l'aide à comprendre comment progresser. La valeur du module dépend toutefois de la qualité de la comparaison entre les compétences du candidat et les exigences du poste.
 
 Dans les essais réalisés, la roadmap était plus convaincante lorsque le poste cible contenait des compétences suffisamment explicites. À l'inverse, les offres trop générales ou les profils incomplets produisaient des recommandations plus prudentes. Cette limite a conduit à considérer la roadmap comme un support de progression, et non comme une prescription automatique du parcours à suivre.
 
@@ -360,7 +362,7 @@ Dans les essais réalisés, la roadmap était plus convaincante lorsque le poste
 
 Les figures \ref{fig:roadmap-result-1}, \ref{fig:roadmap-result-2} et \ref{fig:roadmap-result-3} illustrent la génération de la roadmap et sa restitution au candidat. La première capture montre le profil candidat, le poste cible et l'analyse des écarts, avec SQL identifié comme compétence manquante prioritaire pour le poste affiché. La deuxième capture détaille le plan \textit{Personalized Learning Roadmap}, avec des étapes de progression comme \textit{Learn Basics}, \textit{Practice} et \textit{Ready to Add}, ainsi que des liens de certification, de test et de projet portfolio. La troisième capture montre l'export PDF de la roadmap, contenant un résumé exécutif, les compétences manquantes et une présentation structurée de la progression. Ces résultats montrent que l'écart de compétences est transformé en parcours d'amélioration consultable et exportable.
 
-\subsection{Resultats du chatbot RAG}
+\subsection{Résultats du chatbot RAG}
 
 Le chatbot RAG produit des réponses contextualisées à partir de la roadmap, des compétences manquantes, du poste cible et de l'historique de discussion. Les observations montrent que cette brique peut aider le candidat à clarifier une étape, reformuler un conseil ou approfondir un point de progression sans quitter le parcours.
 
@@ -419,7 +421,27 @@ Pendant la validation, cette fonctionnalité a surtout montré son intérêt pou
 
 La figure \ref{fig:risk-alerts-dashboard} présente l'interface \textit{Risk Alerts}. Elle contient une barre de recherche, des filtres par job, sévérité, type de risque et statut, ainsi qu'un bouton de génération de résumés IA. Les lignes affichent le candidat, le rôle, les paramètres d'alerte, un niveau de sévérité \textit{HIGH}, un type de risque \textit{Drop-off}, un score de risque et la dernière activité observée. La figure \ref{fig:risk-alert-details} montre le panneau de détail associé à une alerte : le candidat Hiba Elwafi, un \textit{Overall Success Score}, une alerte \textit{Drop-off}, la date du dernier signal, la dernière activité et une recommandation indiquant qu'une décision recruteur reste nécessaire, sans rejet automatique.
 
-\subsection{Resultats des workflows n8n}
+\subsection{Résultats du réengagement des candidats}
+
+Le module de réengagement des candidats a pour objectif d'améliorer le suivi des candidats inactifs ou faiblement engagés au sein de la plateforme \textit{HireCue}. Cette fonctionnalité permet d'identifier les profils nécessitant une action de relance, notamment les candidats qui n'ont pas poursuivi leur parcours, qui n'ont pas complété certaines étapes ou qui sont restés sans interaction pendant une période prolongée. Elle s'inscrit dans une logique de valorisation du vivier candidat, car un profil déjà présent dans la plateforme peut rester pertinent pour une offre ou pour une future opportunité, même lorsque son activité récente est faible.
+
+À travers cette interface, le recruteur dispose d'une vue claire sur les candidats à réengager, les raisons potentielles de leur inactivité ainsi que les actions possibles pour relancer la communication.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Reengagement.png}
+    \caption{Interface de suivi du réengagement des candidats}
+    \label{fig:reengagement-candidats}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Reengagement2.png}
+    \caption{Détails des actions de réengagement candidat}
+    \label{fig:reengagement-candidats-details}
+\end{figure}
+
+\subsection{Résultats des workflows n8n}
 
 Les workflows \textit{n8n} ont montre un intérêt opérationnel pour plusieurs scénarios reliés à LinkedIn et aux intégrations externes. Le scraping LinkedIn permet de récupérer des profils candidats avant normalisation et déduplication. Le pipeline d'import des offres externes facilite l'intégration de nouvelles opportunités dans \textit{HireCue}, sous réserve d'une validation backend avant insertion en base.
 
@@ -673,7 +695,88 @@ AI Workforce Forecasting & Prototype fonctionnel de prévision RH. & Expériment
 % Exemple : ajouter ici une capture d'écran du module de recommandations IA
 % Exemple : ajouter ici une capture d'écran d'un workflow n8n ou de son résultat dans le dashboard
 
-\section{Evaluation des performances}
+\section{Tests techniques et validation fonctionnelle}
+
+Afin de garantir la fiabilité des fonctionnalités intégrées à \textit{HireCue}, plusieurs campagnes de tests techniques et fonctionnels ont été réalisées. Ces validations ont porté sur l'ensemble de l'architecture, depuis les interfaces utilisateur jusqu'aux services backend, aux workflows automatisés, aux modules d'intelligence artificielle et à la couche décisionnelle.
+
+\subsection{Validation du backend et des API}
+
+Les tests backend ont permis de vérifier le bon fonctionnement des contrôleurs, des services métier et des accès à la base de données MySQL.
+
+Les principaux endpoints développés ou améliorés durant le projet ont été validés à travers différents scénarios d'utilisation, notamment ceux liés au score explicable, aux recommandations IA, à la roadmap de compétences, au chatbot RAG, aux questions personnalisées, au réengagement des candidats et aux imports de données externes.
+
+Les vérifications ont porté sur :
+
+\begin{itemize}
+\item la validité des paramètres reçus ;
+\item la cohérence des réponses JSON retournées ;
+\item la gestion des erreurs et des cas limites ;
+\item la persistance correcte des données dans MySQL.
+\end{itemize}
+
+\subsection{Validation des workflows n8n}
+
+Les workflows automatisés ont été testés sur l'ensemble de leur cycle d'exécution.
+
+Chaque workflow a été validé depuis son déclenchement jusqu'à l'intégration finale des données dans la plateforme. Les contrôles ont notamment concerné la récupération des données externes, les opérations de transformation, la déduplication ainsi que la transmission vers le backend.
+
+Une attention particulière a été portée à la gestion des erreurs afin d'assurer la robustesse des traitements automatisés.
+
+\begin{itemize}
+\item Validation des webhooks et déclencheurs ;
+\item Contrôle des appels aux APIs externes ;
+\item Vérification des mécanismes de normalisation ;
+\item Contrôle de la déduplication des données ;
+\item Vérification des statuts d'exécution et des logs.
+\end{itemize}
+
+\subsection{Validation des modules d'intelligence artificielle}
+
+Les fonctionnalités basées sur l'intelligence artificielle ont été évaluées à partir de scénarios représentatifs des cas d'usage réels de la plateforme.
+
+L'objectif principal était de vérifier la cohérence des réponses générées par rapport aux données sources disponibles.
+
+Les validations ont concerné :
+
+\begin{itemize}
+\item les explications du score explicable ;
+\item les recommandations intelligentes ;
+\item les roadmaps de compétences ;
+\item le chatbot RAG ;
+\item les questions personnalisées destinées aux recruteurs.
+\end{itemize}
+
+Une attention particulière a été portée à la stabilité des formats JSON, aux mécanismes de cache ainsi qu'aux procédures de fallback utilisées lorsque les services IA ne retournent pas de réponse exploitable.
+
+\subsection{Validation de la couche décisionnelle Power BI}
+
+Les tableaux de bord Power BI ont été validés en comparant les indicateurs affichés avec les données présentes dans la base MySQL.
+
+Cette étape a permis de vérifier la cohérence des transformations réalisées dans Power Query ainsi que l'exactitude des mesures calculées à l'aide de DAX.
+
+Les contrôles ont porté sur :
+
+\begin{itemize}
+\item la cohérence des indicateurs et KPIs ;
+\item le fonctionnement des filtres et segmentations ;
+\item la navigation entre les différentes vues ;
+\item l'intégration des dashboards dans l'application via \texttt{iframe}.
+\end{itemize}
+
+\subsection{Bilan de validation}
+
+L'ensemble des tests réalisés confirme la bonne intégration des fonctionnalités développées au sein de la plateforme \textit{HireCue}. Les modules IA, les workflows automatisés, les services backend et les dashboards décisionnels fonctionnent de manière cohérente avec l'architecture existante.
+
+Ces validations ont également permis d'identifier plusieurs points nécessitant une surveillance continue, notamment la qualité des données externes, la disponibilité des services tiers, la stabilité des sorties IA et l'actualisation des indicateurs décisionnels.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{images/BilanGlobale.png}
+    \caption{Bilan global de la validation des fonctionnalités de la plateforme HireCue}
+    \label{fig:bilan_validation}
+\end{figure}
+
+\section{Évaluation des performances}
 
 L'évaluation des performances est présentée ici de manière qualitative, en restant fidèle aux observations possibles dans le périmètre du projet. Les parcours mis en place montrent une amélioration de la fluidité perçue lorsque les modules s'appuient sur des mécanismes de cache et sur une séparation entre traitements synchrones et traitements plus lourds. Dans le cas du score explicable et de la roadmap, le cache a permis de limiter la régénération de résultats coûteux. Pour les recommandations et certains jobs de réengagement, l'usage de RabbitMQ a réduit le risque de bloquer le backend sur des traitements longs.
 
@@ -706,9 +809,9 @@ La qualité des visualisations a été évaluée à travers leur lisibilité, le
 \begin{tabular}{|p{3.6cm}|p{5.4cm}|p{4.4cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Element évalué} & \textbf{Observation} & \textbf{Impact} \\
+\textbf{Élément évalué} & \textbf{Observation} & \textbf{Impact} \\
 \hline
-Score explicable & Le temps de réponse percu reste meilleur lorsque le rapport est déjà persiste et réutilisable. & Rend la consultation plus stable et limite les recalculs inutiles. \\
+Score explicable & Le temps de réponse perçu reste meilleur lorsque le rapport est déjà persisté et réutilisable. & Rend la consultation plus stable et limite les recalculs inutiles. \\
 \hline
 Roadmap & La mise en cache et la persistance évitent une régénération systématique du contenu. & Améliore la fluidité du parcours candidat. \\
 \hline
@@ -728,10 +831,10 @@ Re-Engagement Pool & Le calcul asynchrone permet d'éviter des traitements bloqu
 \hline
 \end{tabular}
 \normalsize
-\caption{Evaluation qualitative des performances}
+\caption{Évaluation qualitative des performances}
 \end{table}
 
-\section{Evaluation des modules IA selon CRISP-DM}
+\section{Évaluation des modules IA selon CRISP-DM}
 
 L'évaluation des modules IA peut être lue à travers les étapes de CRISP-DM. Du point de vue du \textit{Business Understanding}, les modules retenus répondent globalement à un besoin réel du recrutement : expliquer un score, accompagner un candidat dans sa progression, aider le recruteur à prioriser des profils ou à préparer un entretien. Sur le plan du \textit{Data Understanding}, la valeur de ces modules dépend directement de la qualité des données disponibles, qu'il s'agisse des scores, des informations du CV, des compétences attendues pour un poste ou de l'historique de candidature.
 
@@ -739,29 +842,29 @@ La phase de \textit{Data Preparation} apparaît dans les opérations de normalis
 
 Le score explicable montre un bon alignement avec cette logique, car il combiné un calcul métier et une explication plus lisible. Les recommandations IA montrent une amélioration du tri initial, à condition de rester \textit{rules-first}. La roadmap constitue une base solide d'accompagnement candidat, tandis que le chatbot RAG apporte une couche de dialogue utile, mais plus sensible à la qualité du contexte et des sorties. Enfin, les questions personnalisées prolongent utilement l'analyse vers l'entretien, sous réserve d'un cadrage strict du format et du contenu.
 
-\subsection{Evaluation du score explicable}
+\subsection{Évaluation du score explicable}
 
 Le score explicable s'inscrit dans une logique \textit{rules-first}. Le calcul repose sur des règles métier, des sous-scores et des données déjà présentés dans la plateforme. Cette approche rend le résultat plus déterministe, plus transparent et plus facilement auditable qu'un score produit uniquement par un modèle generatif. L'IA intervient surtout pour rendre l'explication plus lisible et pour aider l'utilisateur à comprendre les composantes du résultat.
 
-L'évaluation de ce module montre donc un équilibre entre automatisation et contrôle humain. Le système améliore la compréhension de l'évaluation, mais il ne doit pas remplacer le jugement du recruteur. Le score reste un indicateur d'aide à la décision, non une vérité definitive sur le candidat.
+L'évaluation de ce module montre donc un équilibre entre automatisation et contrôle humain. Le système améliore la compréhension de l'évaluation, mais il ne doit pas remplacer le jugement du recruteur. Le score reste un indicateur d'aide à la décision, non une vérité définitive sur le candidat.
 
-\subsection{Evaluation des recommandations IA}
+\subsection{Évaluation des recommandations IA}
 
-Les recommandations IA suivent également une logique encadrée par des règles. Le ranking des candidats est base sur des critères métier, notamment la compatibilite avec l'offre, les compétences rapprochées, les compétences manquantes et certains signaux utiles à la décision. Le LLM n'intervient pas pour decider du classement final.
+Les recommandations IA suivent également une logique encadrée par des règles. Le ranking des candidats est basé sur des critères métier, notamment la compatibilité avec l'offre, les compétences rapprochées, les compétences manquantes et certains signaux utiles à la décision. Le LLM n'intervient pas pour décider du classement final.
 
 Son rôle consiste plutôt à reformuler ou enrichir les explications retournées au recruteur. Cette séparation limite les variations non contrôlées et rend le résultat plus défendable. Dans une lecture CRISP-DM, la phase d'évaluation consiste donc à vérifier à la fois la pertinence du classement déterministe et la qualité de l'explication produite.
 
-\subsection{Evaluation de la roadmap IA}
+\subsection{Évaluation de la roadmap IA}
 
 La roadmap IA repose sur une distinction importante entre détection et génération. Les compétences manquantes sont identifiées de manière déterministe à partir de la comparaison entre le profil candidat et le poste cible. L'IA intervient ensuite pour organiser ces écarts sous forme d'étapes d'apprentissage, de conseils et de progression structurée.
 
 La validation JSON est essentielle pour rendre cette sortie exploitable par le frontend. Le cache évite de régénérer inutilement une roadmap lorsque le contexte n'a pas changé, tandis que le fallback déterministe garantit une issue minimale lorsque la génération ne respecte pas le format attendu. Cette combinaison renforce la robustesse du module et son alignement avec les exigences d'un parcours candidat stable.
 
-\subsection{Evaluation du chatbot RAG}
+\subsection{Évaluation du chatbot RAG}
 
 Le chatbot RAG utilise un contexte récupéré depuis la roadmap, le poste cible, les compétences observées et l'historique de conversation. Son évaluation porte donc moins sur une capacité générale de dialogue que sur sa capacité à rester ancré dans les informations disponibles dans \textit{HireCue}. Lorsque le contexte est riche et bien structuré, les réponses peuvent guider le candidat de manière utile.
 
-Ses limites doivent toutefois être clairement reconnues. Le chatbot dépend fortement de la qualité du contexte transmis. Si les données sont faibles, incomplètes ou mal structurées, les réponses risquent de devenir génériques. Un contrôle du périmètre reste donc nécessaire afin d'éviter que le chatbot ne soit percu comme un conseiller autonome ou comme une source d'information indépendante des données du parcours.
+Ses limites doivent toutefois être clairement reconnues. Le chatbot dépend fortement de la qualité du contexte transmis. Si les données sont faibles, incomplètes ou mal structurées, les réponses risquent de devenir génériques. Un contrôle du périmètre reste donc nécessaire afin d'éviter que le chatbot ne soit perçu comme un conseiller autonome ou comme une source d'information indépendante des données du parcours.
 
 \subsection{Évaluation de l'expérimentation AI Workforce Forecasting}
 
@@ -778,23 +881,23 @@ La phase de \textit{Modeling} compare deux architectures Deep Learning adaptées
 \begin{tabular}{|p{3.2cm}|p{3.7cm}|p{4.1cm}|p{3.2cm}|}
 \hline
 \rowcolor{headerblue}
-\textbf{Module IA} & \textbf{Critere d'évaluation} & \textbf{Resultat constaté} & \textbf{Point de vigilance} \\
+\textbf{Module IA} & \textbf{Critère d'évaluation} & \textbf{Résultat constaté} & \textbf{Point de vigilance} \\
 \hline
 Score explicable & Cohérence métier, lisibilité, sous-scores, restitution exploitable & Le module a permis de rendre l'évaluation plus interprétable avec une logique rules-first. & Risque de sur-interpréter un score sans validation humaine. \\
 \hline
-Recommandations IA & Pertinence des profils, justification, intégration dashboard & Le module montre une amélioration du tri initial, avec un ranking déterministe et une explication enrichie. & Le LLM ne doit pas decider du classement final. \\
+Recommandations IA & Pertinence des profils, justification, intégration dashboard & Le module montre une amélioration du tri initial, avec un ranking déterministe et une explication enrichie. & Le LLM ne doit pas décider du classement final. \\
 \hline
-Roadmap & Adequation candidat-offre, clart\'e pédagogique, validation JSON, PDF associé & La roadmap constitue une base crédible d'accompagnement avec cache et fallback. & Qualite dépendante des données d'entrée et de leur normalisation. \\
+Roadmap & Adéquation candidat-offre, clart\'e pédagogique, validation JSON, PDF associé & La roadmap constitue une base crédible d'accompagnement avec cache et fallback. & Qualité dépendante des données d'entrée et de leur normalisation. \\
 \hline
-Chatbot RAG & Contextualisation, cohérence des réponses, continuit\'e du dialogue & Le chatbot prolonge utilement la roadmap lorsque le contexte est suffisant. & Reponses génériques possibles si le contexte est faible. \\
+Chatbot RAG & Contextualisation, cohérence des réponses, continuit\'e du dialogue & Le chatbot prolonge utilement la roadmap lorsque le contexte est suffisant. & Réponses génériques possibles si le contexte est faible. \\
 \hline
-Questions personnalisées & Utilite pour l'entretien, format exploitable, precision & Les questions générées rendent la préparation d'entretien plus ciblée. & Necessite de contraindre le format et d'éviter les hallucinations. \\
+Questions personnalisées & Utilité pour l'entretien, format exploitable, précision & Les questions générées rendent la préparation d'entretien plus ciblée. & Nécessite de contraindre le format et d'éviter les hallucinations. \\
 \hline
 AI Workforce Forecasting & Prévision de séries temporelles, comparaison LSTM/GRU, métriques MAE, RMSE et MAPE & L'expérimentation montre un potentiel prédictif, avec de meilleurs résultats observés pour LSTM. & Historique encore limité et résultats à interpréter comme une preuve de concept. \\
 \hline
 \end{tabular}
 \normalsize
-\caption{Evaluation des modules IA selon une lecture CRISP-DM}
+\caption{Évaluation des modules IA selon une lecture CRISP-DM}
 \end{table}
 
 \section{Analyse critique et limites}
@@ -811,7 +914,7 @@ Pour les modules IA, la difficulté principale reste le contrôle des sorties LL
 
 Les limites IA concernent donc à la fois le contenu et le format. Des hallucinations restent possibles lorsque le prompt est insuffisamment contraint ou lorsque le contexte fourni est incomplet. La validation JSON devient obligatoire pour les modules qui attendent une sortie structurée, notamment la roadmap, les recommandations ou certaines questions personnalisées. Le fallback déterministe n'est pas seulement une sécurité technique ; il constitue une condition de robustesse fonctionnelle. Dans le cas du RAG, la dépendance au contexte est encore plus visible : si les données de roadmap, de poste ou d'historique sont pauvres, la réponse peut devenir trop générale pour être réellement utile.
 
-Enfin, le scoring doit être interprété avec prudence. Meme lorsqu'il est déterministe et explicable, un score peut induire un biais d'interprétation s'il est lu comme une vérité absolue. Le rôle du système est d'eclairer la décision, de structurer les signaux disponibles et de rendre les critères plus lisibles. Le recruteur doit rester dans la boucle afin de confronter le score aux informations qualitatives, au contexte du poste et aux éléments qui ne sont pas toujours capturables par les données.
+Enfin, le scoring doit être interprété avec prudence. Même lorsqu'il est déterministe et explicable, un score peut induire un biais d'interprétation s'il est lu comme une vérité absolue. Le rôle du système est d'éclairer la décision, de structurer les signaux disponibles et de rendre les critères plus lisibles. Le recruteur doit rester dans la boucle afin de confronter le score aux informations qualitatives, au contexte du poste et aux éléments qui ne sont pas toujours capturables par les données.
 
 Il faut aussi souligner la dépendance aux quotas IA et le besoin d'un monitoring plus avancé. Le cache, la persistance et les files asynchrones ont permis de mieux encadrer les traitements, mais une exploitation plus large en production demanderait un suivi plus fin des consommations, des erreurs, des temps de traitement et des échecs des intégrations.
 

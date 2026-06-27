@@ -1,0 +1,144 @@
+% !TeX root = main.tex
+\chapter{Extraits techniques du projet HireCue}
+
+Cette annexe regroupe des exemples techniques simplifiés et anonymisés afin d'illustrer les types de données et de traitements manipulés pendant le stage. Les extraits ne reprennent pas de données réelles d'utilisateurs, de clés d'API, d'identifiants sensibles ou de contenus confidentiels. Ils servent uniquement à clarifier la structure des échanges entre le frontend, le backend, les services IA, les workflows \textit{n8n} et les outils décisionnels.
+
+\section{Exemple de payload API anonymisé}
+
+L'exemple suivant illustre un payload simplifié pouvant être transmis au backend pour construire ou consulter un rapport de score explicable. Les identifiants sont fictifs et les valeurs sont données à titre d'exemple.
+
+\begin{verbatim}
+{
+  "candidateUid": "candidate_anon_001",
+  "jobId": "job_anon_046",
+  "viewer": "candidate",
+  "scores": {
+    "coding": 72,
+    "technical": 68,
+    "personality": 81,
+    "psychotechnical": null
+  },
+  "skills": {
+    "matched": ["Angular", "Testing"],
+    "missing": ["SQL"]
+  }
+}
+\end{verbatim}
+
+\section{Exemple de workflow n8n}
+
+Le tableau suivant présente un exemple synthétique de workflow \textit{n8n} lié au sourcing ou à l'import de données externes. Il reprend les étapes logiques observées dans les automatisations, sans détailler les URLs, jetons ou paramètres réels.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4cm}|p{9.5cm}|}
+\hline
+\rowcolor{TableHeaderBlue}
+\textbf{Étape} & \textbf{Rôle dans le workflow} \\
+\hline
+Webhook Trigger & Recevoir la demande du backend ou de l'interface administrateur. \\
+\hline
+Préparation des paramètres & Construire les mots-clés, la localisation, la source cible et les options de recherche. \\
+\hline
+Appel externe & Lancer PhantomBuster, UniPile ou une API externe selon le scénario. \\
+\hline
+Normalisation & Harmoniser les champs reçus : nom, email, poste, entreprise, URL externe et statut. \\
+\hline
+Déduplication & Écarter les profils ou les offres déjà présents dans le backend ou dans le support intermédiaire. \\
+\hline
+Appel backend & Transmettre un payload propre à l'API \textit{HireCue} pour stockage ou mise à jour. \\
+\hline
+Mise à jour du statut & Marquer le run comme terminé, partiellement terminé ou échoué afin de faciliter le suivi. \\
+\hline
+\end{tabular}
+\normalsize
+\caption{Exemple simplifié de workflow n8n}
+\end{table}
+
+\section{Exemple de mesure DAX Power BI}
+
+Les mesures DAX ci-dessous illustrent le type de calcul utilisé pour produire des cartes KPI dans les dashboards. Les noms de tables sont simplifiés afin de rester génériques.
+
+\begin{verbatim}
+Total Applications =
+COUNTROWS(candidate_job)
+
+Active Recruiters =
+CALCULATE(
+    DISTINCTCOUNT(users[id]),
+    users[role] = "recruiter",
+    users[status] = "active"
+)
+
+Completed Events =
+CALCULATE(
+    COUNTROWS(events),
+    events[status] = "completed"
+)
+\end{verbatim}
+
+\section{Exemple de transformation Power Query}
+
+L'extrait suivant montre une transformation Power Query simplifiée : connexion à une source MySQL anonymisée, typage de colonnes, renommage de champs et filtrage des lignes incomplètes.
+
+\begin{verbatim}
+let
+    Source = MySQL.Database("server_anonymized", "hirecue"),
+    Jobs = Source{[Schema="hirecue", Item="joblist"]}[Data],
+    ChangedTypes = Table.TransformColumnTypes(
+        Jobs,
+        {{"id", Int64.Type}, {"createdAt", type datetime}}
+    ),
+    RenamedColumns = Table.RenameColumns(
+        ChangedTypes,
+        {{"createdAt", "Job Created At"}}
+    ),
+    FilteredRows = Table.SelectRows(
+        RenamedColumns,
+        each [title] <> null
+    )
+in
+    FilteredRows
+\end{verbatim}
+
+\section{Exemple de réponse générée par un module IA}
+
+L'exemple suivant représente une sortie structurée attendue d'un module IA. Le contenu reste volontairement court afin d'illustrer la logique de validation JSON et de restitution côté frontend.
+
+\begin{verbatim}
+{
+  "summary": "Le candidat présente une base solide pour le poste.",
+  "strengths": [
+    "Tests automatisés",
+    "Communication",
+    "Expérience frontend"
+  ],
+  "improvements": [
+    "Renforcer SQL",
+    "Pratiquer les scénarios QA avancés"
+  ],
+  "recommendation": "Planifier un entretien technique ciblé."
+}
+\end{verbatim}
+
+\section{Exemple de tracking email CEO}
+
+Cet extrait illustre un événement de suivi d'email envoyé dans un scénario d'outreach CEO. L'objectif est de conserver une trace exploitable pour les statistiques, sans exposer l'identité réelle du contact.
+
+\begin{verbatim}
+{
+  "leadId": "lead_anon_012",
+  "email": "contact@example.com",
+  "campaign": "ceo_outreach",
+  "event": "replied",
+  "provider": "gmail",
+  "occurredAt": "YYYY-MM-DDTHH:MM:SSZ",
+  "metadata": {
+    "company": "company_anonymized",
+    "role": "CEO",
+    "messageId": "msg_anon_778"
+  }
+}
+\end{verbatim}

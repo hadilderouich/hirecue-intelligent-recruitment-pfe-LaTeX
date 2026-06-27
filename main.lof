@@ -1,72 +1,76 @@
+\babel@toc {french}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Logo de Teligencia Labs}}{2}{figure.1.1}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Secteurs d'activité de l'entreprise d'accueil}}{3}{figure.1.2}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Organigramme fonctionnel de l'entreprise d'accueil}}{4}{figure.1.3}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Logo de la plateforme HireCue}}{5}{figure.1.4}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Logo de la plateforme TanitJobs}}{6}{figure.1.5}%
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Logo de la plateforme Keejob}}{6}{figure.1.6}%
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Cycle de vie de la méthodologie Scrum}}{17}{figure.1.7}%
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Cycle de vie de la méthodologie CRISP-DM}}{19}{figure.1.8}%
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Logo UML}}{20}{figure.1.9}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Logo de Teligencia Labs}}{1}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Organigramme fonctionnel de l'entreprise d'accueil}}{3}{figure.1.2}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Logo de la plateforme HireCue}}{4}{figure.1.3}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Logo de la plateforme TanitJobs}}{5}{figure.1.4}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Logo de la plateforme Keejob}}{5}{figure.1.5}%
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Cycle de vie de la méthodologie Scrum}}{16}{figure.1.6}%
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Cycle de vie de la méthodologie CRISP-DM}}{17}{figure.1.7}%
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Logo UML}}{18}{figure.1.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Besoins fonctionnels de la plateforme HireCue}}{24}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Besoins non fonctionnels de la plateforme HireCue}}{25}{figure.2.2}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Besoins fonctionnels de la plateforme HireCue}}{22}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Besoins non fonctionnels de la plateforme HireCue}}{23}{figure.2.2}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Architecture physique de l'application HireCue}}{32}{figure.2.3}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Architecture logique de l'application HireCue}}{33}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagramme de cas d'utilisation global de la plateforme HireCue}}{35}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Diagramme des classes d'analyse global}}{36}{figure.2.6}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Diagramme de cas d'utilisation global des workflows n8n de HireCue}}{37}{figure.2.7}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Architecture des données et flux d'information de la plateforme HireCue}}{34}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Diagramme de cas d'utilisation global de la plateforme HireCue}}{35}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Diagramme des classes d'analyse global}}{36}{figure.2.7}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Diagramme de cas d'utilisation global des workflows n8n de HireCue}}{37}{figure.2.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture globale du système HireCue}}{44}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagramme de classes de la plateforme HireCue}}{45}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Diagramme de cas d'utilisation global de HireCue}}{46}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Diagramme de cas d'utilisation raffiné de HireCue}}{47}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Diagramme de cas d'utilisation n8n de publication et suivi des posts HireCue}}{48}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Diagramme de cas d'utilisation n8n de publication des offres d'emploi sur LinkedIn}}{49}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Diagramme de cas d'utilisation n8n d'automatisation des messages LinkedIn}}{50}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Diagramme de séquence de génération de roadmap}}{51}{figure.3.8}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Diagramme de séquence des recommandations IA}}{52}{figure.3.9}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Diagramme de séquence du score explicable}}{53}{figure.3.10}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Diagramme d'activité du processus HireCue}}{54}{figure.3.11}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Architecture backend de la plateforme HireCue}}{60}{figure.3.12}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Architecture de la base de données de HireCue}}{62}{figure.3.13}%
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Logo de n8n, outil d'orchestration des workflows}}{63}{figure.3.14}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Logo de PhantomBuster utilisé pour l'extraction de données externes}}{63}{figure.3.15}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Logo de UniPile utilisé pour les intégrations LinkedIn}}{64}{figure.3.16}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Connexion de Power BI à la base de données MySQL de HireCue}}{72}{figure.3.17}%
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Dashboard Executive Overview de HireCue}}{75}{figure.3.18}%
-\contentsline {figure}{\numberline {3.19}{\ignorespaces Dashboard Product \& Operations Analytics de HireCue}}{76}{figure.3.19}%
-\contentsline {figure}{\numberline {3.20}{\ignorespaces Architecture d'intégration des dashboards Power BI dans l'application React / Node.js}}{77}{figure.3.20}%
-\contentsline {figure}{\numberline {3.21}{\ignorespaces Vue générale du module AI Workforce Forecasting}}{78}{figure.3.21}%
-\contentsline {figure}{\numberline {3.22}{\ignorespaces Résultats de prédiction du module AI Workforce Forecasting}}{78}{figure.3.22}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture globale du système HireCue}}{43}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagramme de classes de la plateforme HireCue}}{44}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Diagramme de cas d'utilisation global de HireCue}}{45}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Diagramme de cas d'utilisation raffiné de HireCue}}{46}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Diagramme de cas d'utilisation n8n de publication et suivi des posts HireCue}}{47}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Diagramme de cas d'utilisation n8n de publication des offres d'emploi sur LinkedIn}}{48}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Diagramme de cas d'utilisation n8n d'automatisation des messages LinkedIn}}{49}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Diagramme de séquence de génération de roadmap}}{50}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Diagramme de séquence des recommandations IA}}{51}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Diagramme de séquence du score explicable}}{52}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Architecture backend de la plateforme HireCue}}{57}{figure.3.11}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Architecture de la base de données de HireCue}}{58}{figure.3.12}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Logo de n8n, outil d'orchestration des workflows}}{59}{figure.3.13}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Logo de PhantomBuster utilisé pour l'extraction de données externes}}{59}{figure.3.14}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Logo de UniPile utilisé pour les intégrations LinkedIn}}{60}{figure.3.15}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Connexion de Power BI à la base de données MySQL de HireCue}}{67}{figure.3.16}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Dashboard Executive Overview de HireCue}}{70}{figure.3.17}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Dashboard Product \& Operations Analytics de HireCue}}{71}{figure.3.18}%
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Vue générale du module AI Workforce Forecasting}}{72}{figure.3.19}%
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Résultats de prédiction du module AI Workforce Forecasting}}{72}{figure.3.20}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Résultat du rapport de score explicable côté candidat}}{95}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Détail des sous-scores du rapport candidat}}{96}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Explications et recommandations associées au score candidat}}{96}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Résultat des recommandations IA côté recruteur}}{97}{figure.4.4}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Questions personnalisées générées automatiquement pour les candidats recommandés}}{98}{figure.4.5}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Résultat de génération de la Skill Gap Roadmap}}{99}{figure.4.6}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Détail des étapes de progression de la roadmap}}{100}{figure.4.7}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Suivi et visualisation de la progression candidat}}{100}{figure.4.8}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Résultat du chatbot RAG associé à la roadmap}}{101}{figure.4.9}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Interface d'envoi des relances aux candidats inactifs}}{102}{figure.4.10}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Email généré automatiquement pour les candidats inactifs}}{102}{figure.4.11}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Interface de détection des risques candidats}}{103}{figure.4.12}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Détail d'une analyse de risque générée par l'IA}}{104}{figure.4.13}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Résultat du workflow de sourcing des candidats}}{105}{figure.4.14}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Liste ou détail des candidats sourcés}}{105}{figure.4.15}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Validation des données de candidats importés}}{106}{figure.4.16}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Résultats : exemples d’e-mails envoyés aux CEOs}}{106}{figure.4.17}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Résultat du workflow d'envoi d'emails aux CEOs}}{107}{figure.4.18}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Suivi et tracking des emails CEO dans HireCue}}{107}{figure.4.19}%
-\contentsline {figure}{\numberline {4.20}{\ignorespaces Résultat du workflow LinkedIn Outreach CEO}}{108}{figure.4.20}%
-\contentsline {figure}{\numberline {4.21}{\ignorespaces Suivi des statuts du workflow LinkedIn CEO}}{108}{figure.4.21}%
-\contentsline {figure}{\numberline {4.22}{\ignorespaces Résultat du workflow d'import des offres externes}}{109}{figure.4.22}%
-\contentsline {figure}{\numberline {4.23}{\ignorespaces Validation des offres externes importées dans HireCue}}{109}{figure.4.23}%
-\contentsline {figure}{\numberline {4.24}{\ignorespaces Résultat de publication LinkedIn d'un contenu HireCue}}{110}{figure.4.24}%
-\contentsline {figure}{\numberline {4.25}{\ignorespaces Statistiques et suivi des interactions LinkedIn}}{111}{figure.4.25}%
-\contentsline {figure}{\numberline {4.26}{\ignorespaces Résultat du dashboard Executive Overview}}{112}{figure.4.26}%
-\contentsline {figure}{\numberline {4.27}{\ignorespaces Résultat du dashboard Product \& Operations Analytics}}{113}{figure.4.27}%
-\contentsline {figure}{\numberline {4.28}{\ignorespaces Interface du module AI Workforce Forecasting}}{115}{figure.4.28}%
-\contentsline {figure}{\numberline {4.29}{\ignorespaces Résultats de prédiction AI Workforce Forecasting}}{116}{figure.4.29}%
-\contentsline {figure}{\numberline {4.30}{\ignorespaces Comparaison des performances des modèles LSTM et GRU}}{117}{figure.4.30}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Résultat du rapport de score explicable côté candidat}}{89}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Détail des sous-scores du rapport candidat}}{90}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Explications et recommandations associées au score candidat}}{90}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Résultat des recommandations IA côté recruteur}}{91}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Questions personnalisées générées automatiquement pour les candidats recommandés}}{92}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Résultat de génération de la Skill Gap Roadmap}}{93}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Détail des étapes de progression de la roadmap}}{94}{figure.4.7}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Suivi et visualisation de la progression candidat}}{94}{figure.4.8}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Résultat du chatbot RAG associé à la roadmap}}{95}{figure.4.9}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Interface d'envoi des relances aux candidats inactifs}}{96}{figure.4.10}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Email généré automatiquement pour les candidats inactifs}}{96}{figure.4.11}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Interface de détection des risques candidats}}{97}{figure.4.12}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Détail d'une analyse de risque générée par l'IA}}{98}{figure.4.13}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Interface de suivi du réengagement des candidats}}{99}{figure.4.14}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Détails des actions de réengagement candidat}}{99}{figure.4.15}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Résultat du workflow de sourcing des candidats}}{100}{figure.4.16}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Liste ou détail des candidats sourcés}}{101}{figure.4.17}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Validation des données de candidats importés}}{101}{figure.4.18}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Résultats : exemples d’e-mails envoyés aux CEOs}}{102}{figure.4.19}%
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Résultat du workflow d'envoi d'emails aux CEOs}}{102}{figure.4.20}%
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Suivi et tracking des emails CEO dans HireCue}}{103}{figure.4.21}%
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Résultat du workflow LinkedIn Outreach CEO}}{104}{figure.4.22}%
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Suivi des statuts du workflow LinkedIn CEO}}{104}{figure.4.23}%
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Résultat du workflow d'import des offres externes}}{105}{figure.4.24}%
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Validation des offres externes importées dans HireCue}}{105}{figure.4.25}%
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Résultat de publication LinkedIn d'un contenu HireCue}}{106}{figure.4.26}%
+\contentsline {figure}{\numberline {4.27}{\ignorespaces Statistiques et suivi des interactions LinkedIn}}{107}{figure.4.27}%
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Résultat du dashboard Executive Overview}}{108}{figure.4.28}%
+\contentsline {figure}{\numberline {4.29}{\ignorespaces Résultat du dashboard Product \& Operations Analytics}}{109}{figure.4.29}%
+\contentsline {figure}{\numberline {4.30}{\ignorespaces Interface du module AI Workforce Forecasting}}{111}{figure.4.30}%
+\contentsline {figure}{\numberline {4.31}{\ignorespaces Résultats de prédiction AI Workforce Forecasting}}{112}{figure.4.31}%
+\contentsline {figure}{\numberline {4.32}{\ignorespaces Comparaison des performances des modèles LSTM et GRU}}{113}{figure.4.32}%
+\contentsline {figure}{\numberline {4.33}{\ignorespaces Bilan global de la validation des fonctionnalités de la plateforme HireCue}}{116}{figure.4.33}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Synthèse générale des contributions réalisées dans HireCue}}{128}{figure.5.1}%

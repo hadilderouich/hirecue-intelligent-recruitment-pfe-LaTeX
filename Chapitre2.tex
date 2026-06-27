@@ -20,7 +20,7 @@ Dans un système d'information, un acteur désigne toute entité humaine ou tech
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline
 \rowcolor{TableHeaderBlue}
-\textbf{Acteur} & \textbf{Role principal} \\
+\textbf{Acteur} & \textbf{Rôle principal} \\
 \hline
 Candidat & Consulte les offres, suit ses candidatures, accède au rapport de score, visualise la roadmap de compétences et interagit avec le chatbot associé à sa progression. \\
 \hline
@@ -186,21 +186,86 @@ Ce backlog n'a pas été traité comme une liste figée de fonctionnalités à d
 
 Les fonctionnalités d'automatisation ont ensuite été intégrées de manière progressive. Les workflows \textit{n8n}, l'automatisation LinkedIn et les scénarios de scraping ont été traités avec une priorité moyenne, car ils dépendaient de services externes et nécessitaient des étapes de nettoyage, de suivi de statut et de déduplication avant d'être pleinement exploitables. Enfin, certaines briques complémentaires ont été ajoutées pour enrichir le pilotage de la plateforme : Power BI, l'expérimentation \textit{AI Workforce Forecasting}, le suivi des emails et les \textit{Risk Alerts}. Cette organisation reflète la réalité du projet : stabiliser d'abord les fonctionnalités métier centrales, puis élargir progressivement le périmètre vers l'automatisation, l'analyse décisionnelle et la prévision.
 
-\section{Architecture logique et physique globale de l'application}
+\subsection{Planification des sprints}
+
+Afin d'organiser la réalisation du projet selon une logique incrémentale, les travaux ont été structurés en plusieurs sprints. Cette planification a permis de répartir les fonctionnalités selon leur priorité, leur complexité technique et leur dépendance avec les modules existants de la plateforme \textit{HireCue}. Les sprints n'ont pas été utilisés comme structure principale du rapport, mais comme outil de pilotage du développement et de suivi de l'avancement.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|p{1.6cm}|p{3.2cm}|p{5.4cm}|p{4.3cm}|}
+\hline
+\rowcolor{TableHeaderBlue}
+\textbf{Sprint} & \textbf{Objectif principal} & \textbf{Fonctionnalités concernées} & \textbf{Résultat attendu} \\
+\hline
+Sprint 1 & Analyse de l'existant et cadrage du projet & Étude de \textit{HireCue}, analyse des besoins, compréhension de l'architecture existante, identification des modules à améliorer & Vision claire du périmètre du projet et des contributions à réaliser \\
+\hline
+Sprint 2 & Mise en place des modules d'aide à la décision IA & Score explicable, recommandations IA côté recruteur, questions personnalisées & Amélioration de l'explicabilité des décisions et de l'aide au recruteur \\
+\hline
+Sprint 3 & Développement de l'accompagnement candidat & Skill Gap Roadmap, chatbot RAG, Candidate Engagement \& Motivation Insights & Mise en place d'un accompagnement personnalisé et interactif pour les candidats \\
+\hline
+Sprint 4 & Automatisation des processus métier & Workflows \textit{n8n}, sourcing LinkedIn, import des offres externes, CEO outreach, reverse flow LinkedIn & Réduction des tâches manuelles et amélioration de l'intégration avec les services externes \\
+\hline
+Sprint 5 & Intégration décisionnelle et expérimentation prédictive & Dashboards Power BI, intégration web, \textit{AI Workforce Forecasting} & Transformation des données \textit{HireCue} en indicateurs décisionnels et exploration de la prédiction RH \\
+\hline
+Sprint 6 & Tests, validation et documentation & Tests fonctionnels, validation des workflows, validation des sorties IA, captures, rédaction du rapport & Stabilisation de la solution et préparation de la livraison finale \\
+\hline
+\end{tabular}
+\setlength{\tabcolsep}{6pt}
+\normalsize
+\caption{Planification des sprints du projet HireCue}
+\end{table}
+
+Cette planification a servi de support au suivi du projet tout au long du stage. Les résultats de chaque sprint ont ensuite été validés à travers des scénarios fonctionnels, des tests techniques et des captures d'écran présentés dans le chapitre consacré à la validation et à l'évaluation de la solution.
+
+\subsection{Chronologie de réalisation du projet}
+
+La chronologie suivante présente une progression logique du travail mené pendant le stage, sans associer les livrables à des dates précises. Elle permet de montrer que les fonctionnalités n'ont pas été traitées comme un ensemble unique, mais comme une succession d'itérations liées à la compréhension de l'existant, à l'intégration des modules IA, à l'automatisation des workflows et à la validation des résultats.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{TableHeaderBlue}
+\textbf{Période} & \textbf{Travaux réalisés} \\
+\hline
+Début du stage & Prise en main de l'architecture \textit{HireCue} existante, analyse des repositories, des parcours candidat et recruteur, et identification des modules IA déjà présents. \\
+\hline
+Premières itérations & Développement et consolidation du score explicable, des sous-scores, des explications associées et de leur restitution dans les interfaces candidat et recruteur. \\
+\hline
+Itérations IA principales & Développement des recommandations IA recruteur, des questions personnalisées, de la Skill Gap Roadmap et de l'intégration du chatbot RAG lié à la roadmap. \\
+\hline
+Itérations d'automatisation & Mise en place des workflows \textit{n8n}, intégration de PhantomBuster et UniPile, développement du sourcing candidat, de l'import d'offres et des premiers flux LinkedIn. \\
+\hline
+Itérations outreach et tracking & Développement du CEO Outreach LinkedIn, du CEO Email Tracking, du suivi des statuts, de la détection des réponses et du reverse flow LinkedIn avec suivi des interactions. \\
+\hline
+Itérations décisionnelles & Réalisation des dashboards Power BI à partir de MySQL, préparation des données avec Power Query, création des KPIs et intégration web des rapports. \\
+\hline
+Phase expérimentale et validation & Développement du module \textit{AI Workforce Forecasting}, comparaison exploratoire LSTM / GRU, validation fonctionnelle des parcours et consolidation des résultats observés. \\
+\hline
+\end{tabular}
+\normalsize
+\caption{Chronologie logique de réalisation du projet HireCue}
+\end{table}
+
+\section{Architecture globale de l'application}
 
 L'architecture globale permet de comprendre la manière dont les composants techniques de \textit{HireCue} sont organisés et coordonnés. Elle met en évidence les relations entre l'interface utilisateur, la logique métier, les services IA, la base de données, les outils d'automatisation et la couche décisionnelle mobilisés dans le projet. Cette lecture est importante, car une partie essentielle du stage a consisté à faire évoluer des briques déjà existantes sans rompre l'équilibre d'ensemble de la plateforme.
 
 \subsection{Architecture physique de l'application}
 
-L'architecture physique de \textit{HireCue} repose sur une organisation distribuée dans laquelle plusieurs briques coopèrent par des échanges API. L'utilisateur accède d'abord à la plateforme depuis un poste client, au moyen d'un navigateur web. L'interface visible est prise en charge par un frontend React, qui assure les parcours du candidat, du recruteur et de l'administrateur.
+L'architecture physique de \textit{HireCue} repose sur une organisation distribuée où plusieurs composants communiquent via des APIs. Les utilisateurs accèdent à la plateforme à travers une interface web développée avec React \cite{react_docs}, tandis que la logique métier est centralisée dans un backend Node.js et Express \cite{node_docs}.
 
-Ce frontend communique avec un backend principal développé en Node.js et Express. Ce backend centralise la logique métier, l'accès aux données, la coordination des appels et le pilotage de plusieurs traitements applicatifs. La persistance repose sur MySQL, tandis que Sequelize joue le rôle d'ORM pour structurer les accès à la base et faciliter la manipulation des données métier.
+La gestion des données s'appuie sur MySQL \cite{mysql_docs}, avec Sequelize comme ORM pour faciliter les accès à la base de données. Les fonctionnalités d'intelligence artificielle sont déployées sous forme de services Python indépendants, notamment à l'aide de Flask \cite{flask_docs}, afin d'isoler les traitements spécialisés tels que le score explicable, les recommandations, la roadmap de compétences et le chatbot.
 
-Lorsque certains traitements dépassent le périmètre applicatif classique, le backend s'appuie sur des services IA développés en Python, notamment sur une logique de services de type Flask lorsque cela est nécessaire pour isoler les traitements intelligents. Cette séparation est importante dans \textit{HireCue}, car des modules comme le score explicable, la roadmap, les recommandations ou le chatbot demandent des appels spécifiques et un encadrement technique distinct.
+L'architecture intègre également \textit{n8n} \cite{n8n_docs} pour l'automatisation de certains processus, RabbitMQ pour le traitement asynchrone des tâches et Docker pour la conteneurisation des services. Enfin, des services externes tels que LinkedIn, PhantomBuster \cite{phantombuster_docs} et Power BI \cite{powerbi_docs} complètent l'écosystème, permettant respectivement le sourcing, l'automatisation et l'analyse décisionnelle.
 
-Par ailleurs, plusieurs automatisations sont prises en charge par \textit{n8n}, en particulier pour l'import d'offres externes, certains flux de sourcing et d'autres traitements transverses. Les traitements plus lourds ou non immédiats peuvent être découplés du flux principal à l'aide de RabbitMQ, qui permet de gérer des files de messages et des exécutions asynchrones. Docker intervient également comme support de conteneurisation afin de stabiliser l'environnement d'exécution de certaines briques et de faciliter leur déploiement.
+Cette organisation assure une séparation claire des responsabilités tout en garantissant la cohérence des échanges entre les différents composants de la plateforme.
 
-Enfin, l'architecture physique intègre aussi des services externes, notamment LinkedIn et PhantomBuster, mobilisés dans certains scénarios de sourcing ou d'intégration. Elle est complétée par Power BI, qui se connecte à MySQL pour construire des rapports décisionnels ensuite affichés dans l'interface web via une intégration \texttt{iframe}. L'ensemble de ces composants échange principalement via des APIs REST ou des connecteurs dédiés, ce qui permet de conserver une séparation nette des responsabilités tout en maintenant une communication cohérente entre les briques de la plateforme.
 
 \begin{figure}[H]
 \centering
@@ -210,25 +275,42 @@ Enfin, l'architecture physique intègre aussi des services externes, notamment L
 
 \subsection{Architecture logique de l'application}
 
-Sur le plan logique, \textit{HireCue} peut être décomposée en plusieurs couches complémentaires. La \textbf{couche présentation} regroupe les interfaces React destinées au candidat, au recruteur et à l'administrateur. Elle porte les tableaux de bord, les parcours de consultation, les formulaires et l'affichage des résultats issus des traitements applicatifs.
+L'architecture logique de \textit{HireCue} est organisée en plusieurs couches complémentaires. La \textbf{couche présentation}, développée avec React, regroupe les interfaces destinées aux candidats, recruteurs et administrateurs.
 
-La \textbf{couche métier} est prise en charge par le backend Node.js / Express. Elle concentre les règles de gestion, les routes applicatives, la coordination des parcours et la communication avec les autres briques du système. C'est à ce niveau que s'articulent, par exemple, la consultation du score report, la gestion des recommandations, l'accès aux roadmaps ou le suivi des notifications et du réengagement.
+La \textbf{couche métier}, implémentée avec Node.js et Express, centralise les règles de gestion, les parcours utilisateurs et la coordination des différents services de la plateforme. Les fonctionnalités d'intelligence artificielle sont regroupées dans une \textbf{couche IA}, responsable de la génération des scores explicables, recommandations, roadmaps de compétences et assistants conversationnels.
 
-La \textbf{couche services IA / LLM} rassemble les traitements utilisés pour expliquer les scores, générer les roadmaps, produire des recommandations ou assister l'entretien. Dans \textit{HireCue}, cette couche n'est pas isolée du besoin métier ; elle vient en appui de parcours déjà existants et doit rester cohérente avec les contraintes fonctionnelles de la plateforme.
+La \textbf{couche données}, basée sur MySQL, assure la persistance des informations liées aux utilisateurs, candidatures, évaluations et historiques. Une \textbf{couche décisionnelle}, construite avec Power BI, exploite ces données pour produire des indicateurs et tableaux de bord dédiés au suivi de l'activité.
 
-La \textbf{couche données} repose sur MySQL et assure la persistance des utilisateurs, des candidatures, des scores, des roadmaps, des notifications, des historiques de chat et des journaux utiles au suivi. Elle constitue le support central de la traçabilité et de la réutilisation des informations déjà calculées.
+Enfin, une \textbf{couche d'orchestration} s'appuie sur \textit{n8n} et RabbitMQ pour automatiser certains processus et gérer les traitements asynchrones, tandis qu'une \textbf{couche d'intégration externe} assure les échanges avec des services tels que LinkedIn et PhantomBuster. L'ensemble s'appuie aussi sur une couche transversale de gestion des accès et de l'authentification. La plateforme \textit{HireCue} disposait déjà d'un système d'authentification et de gestion des rôles avant le début du stage. Dans le cadre de ce projet, les travaux réalisés se sont appuyés sur cette base existante afin d'intégrer de nouvelles fonctionnalités IA, des workflows d'automatisation et une couche décisionnelle, sans modifier le module d'authentification principal.
 
-La \textbf{couche décisionnelle} s'appuie sur Power BI pour transformer les données MySQL en KPIs et visualisations, puis les exposer dans une interface web à travers une intégration \texttt{iframe}. Elle complète la lecture opérationnelle de \textit{HireCue} en ajoutant des dashboards destinés au suivi stratégique et au pilotage de l'activité.
-
-La \textbf{couche orchestration et automatisation} est principalement assurée par \textit{n8n} et par certains mécanismes asynchrones comme RabbitMQ. Elle intervient lorsqu'un traitement doit être déclenché en dehors du flux immédiat de l'utilisateur, par exemple pour certaines recommandations, intégrations ou exécutions de workflows.
-
-La \textbf{couche intégration externe} couvre les interactions avec LinkedIn, PhantomBuster et d'autres sources externes mobilisées pour le sourcing ou l'import d'offres. Enfin, une \textbf{couche sécurité et authentification} traverse l'ensemble de l'application afin d'encadrer l'accès aux ressources, de gérer les rôles et de maintenir un usage cohérent des différents services selon le profil utilisateur.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{Architecture_logique}
 \caption{Architecture logique de l'application HireCue}
 \end{figure}
+
+\subsection{Architecture des données et flux d'information}
+
+L’architecture des données de \textit{HireCue} repose sur une base centralisée permettant de collecter, stocker et exploiter les informations nécessaires aux différents modules de recrutement, d’intelligence artificielle et d’analyse décisionnelle.
+
+Les données internes proviennent principalement de la plateforme elle-même et concernent les utilisateurs, les offres d’emploi, les candidatures, les CV, les résultats d’évaluation ainsi que les scores et recommandations générés. Ces informations constituent le socle métier utilisé par les différents services applicatifs.
+
+MySQL joue le rôle de base de données principale. Il assure la persistance des données opérationnelles, des historiques, des résultats calculés ainsi que des informations utilisées par les modules IA. Cette centralisation permet au backend de reconstruire le contexte nécessaire avant l’exécution d’un traitement ou l’appel d’un service intelligent.
+
+Parallèlement, des données externes sont intégrées à travers plusieurs workflows automatisés. Elles comprennent notamment les profils candidats récupérés depuis LinkedIn, les offres d’emploi importées depuis des plateformes tierces ainsi que les données liées aux campagnes d’outreach. Ces informations sont collectées, normalisées et dédupliquées avant leur intégration dans l’écosystème \textit{HireCue}.
+
+Les workflows \textit{n8n} assurent l’orchestration entre les sources externes, les services tiers et le backend. Dans certains cas, \textit{NocoDB} peut être utilisé comme espace intermédiaire pour stocker ou historiser certaines données issues des workflows.
+
+Enfin, les données consolidées alimentent les modules d’intelligence artificielle (recommandations, roadmap de compétences, chatbot RAG) ainsi que la couche décisionnelle Power BI. Cette dernière transforme les données opérationnelles en indicateurs, tableaux de bord et visualisations destinés aux décideurs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{images/Architecture des données et flux d’information.png}
+\caption{Architecture des données et flux d'information de la plateforme HireCue}
+\label{fig:data_architecture_hirecue}
+\end{figure}
+
 
 \section{Diagrammes UML}
 
@@ -246,11 +328,11 @@ Le diagramme de cas d'utilisation global montre les principales interactions ent
 
 \subsection{Diagramme des classes d'analyse global}
 
-Le diagramme des classes d'analyse donne une lecture plus précise de la structure métier de \textit{HireCue}. Il montre d'abord que la classe User constitue le point de départ de plusieurs parcours, avec les informations de profil, de rôle, de rattachement à l'entreprise et de quotas IA. La classe Company encadre le contexte organisationnel, tandis que Job représente les offres publiées ou suivies dans la plateforme. Au centre du diagramme, la classe CandidateJob joue un rôle pivot : elle relie le candidat au poste, porte plusieurs scores comme Ptscore, Tscore, Pscore, Cscore et supporte des usages comme le score explicable, la roadmap, les recommandations, les alertes et le réengagement.
+Le diagramme des classes d'analyse met en évidence la structure métier de \textit{HireCue}. La classe \texttt{User} constitue le point d'entrée principal et interagit avec les entités \texttt{Company}, \texttt{Job} et \texttt{CandidateJob}. Cette dernière occupe une position centrale en reliant les candidats aux offres et en regroupant les informations nécessaires aux évaluations, aux scores et au suivi du recrutement.
 
-Autour de ce noyau, le diagramme fait apparaître des classes spécialisées qui prolongent le suivi du recrutement. CvInfo et FinalScoring participent à la construction du score. ScoreReport, CandidateSkillRoadmap et CandidateRoadmapChatMessage structurent la persistance du rapport explicable, de la roadmap et de l'historique de chat. AIRecommendationsCache, CandidateEngagementInsight, Notification, CandidateSettings, ReengagementLog et LLMConsumption montrent que la plateforme ne stocke pas seulement des profils et des offres, mais aussi des sorties dérivées, des traces de consommation IA, des préférences et des journaux utiles au pilotage.
+Autour de ce noyau, plusieurs classes spécialisées interviennent dans la gestion des fonctionnalités avancées de la plateforme. Les entités \texttt{CvInfo}, \texttt{FinalScoring} et \texttt{ScoreReport} participent à l'analyse et à l'explication des résultats, tandis que \texttt{CandidateSkillRoadmap} et \texttt{CandidateRoadmapChatMessage} assurent le suivi des roadmaps et des échanges associés.
 
-Le diagramme aide ainsi à comprendre pourquoi les modules de \textit{HireCue} restent étroitement reliés entre eux. Les recommandations ne sont pas détachables des candidatures et des jobs, la roadmap ne peut pas être lue sans les compétences du candidat et du poste, et les alertes ou le réengagement réutilisent des informations déjà présentes dans la plateforme. Cette représentation apporte donc une vision plus solide de la conception métier en montrant comment les classes structurent les parcours candidat, recruteur et administrateur à partir d'une même base de données et de plusieurs caches ou sorties analytiques.
+Le diagramme intègre également des composants liés aux recommandations, aux notifications, au réengagement des candidats et au suivi de la consommation des services IA. Cette représentation illustre ainsi les relations entre les différentes fonctionnalités de \textit{HireCue} et montre comment elles s'appuient sur une base de données commune pour assurer la cohérence des parcours candidat, recruteur et administrateur.
 
 \IfFileExists{diagramme_classe.png}{
 \begin{figure}[H]
@@ -266,13 +348,14 @@ Le diagramme aide ainsi à comprendre pourquoi les modules de \textit{HireCue} r
 \end{figure}
 }
 
-\subsection{Diagramme de cas d'utilisation global des workflows n8n}
+\subsection{Diagramme de cas d'utilisation global des workflows \textit{n8n}}
 
-Le diagramme de cas d'utilisation global des workflows \textit{n8n} présente la manière dont \textit{HireCue} s'ouvre vers LinkedIn tout en conservant le backend comme point de contrôle métier. Il met en relation plusieurs acteurs et services : le recruteur, l'administrateur, le candidat, le lead LinkedIn, le backend \textit{HireCue}, \textit{n8n}, UniPile, MySQL et les services d'IA. Cette représentation montre que l'automatisation n'est pas limitée à un simple déclenchement externe. Elle couvre l'orchestration des traitements, la préparation des données, l'appel aux services LinkedIn, le suivi des statuts et la restitution des indicateurs dans les tableaux de bord.
+Le diagramme de cas d'utilisation des workflows \textit{n8n} illustre le rôle de l'automatisation dans l'écosystème \textit{HireCue}. Il met en relation les principaux acteurs et services de la plateforme, notamment les recruteurs, administrateurs, candidats, le backend \textit{HireCue}, \textit{n8n}, UniPile, LinkedIn, les services IA et la base de données MySQL.
 
-Le premier ensemble de cas d'utilisation concerne la publication de contenus de l'entreprise sur LinkedIn. Le diagramme fait apparaître la création ou la préparation du post, la publication via UniPile, puis le suivi des commentaires, des réactions et des statistiques d'engagement. Le second ensemble porte sur la publication des offres d'emploi : le recruteur sélectionne une offre interne, le backend valide son éligibilité, \textit{n8n} prépare le payload LinkedIn et l'action de publication est déléguée à UniPile. Les réactions des candidats, les commentaires et les performances du post peuvent ensuite être suivis afin d'alimenter le reporting. Le troisième ensemble illustre l'automatisation de la prise de contact avec des CEO, founders ou owners. Les leads sont recherchés, normalisés, stockés, puis traités par un enchaînement comprenant la note de connexion, la demande LinkedIn, la détection de l'acceptation et l'envoi d'un message de suivi.
+Les workflows couvrent plusieurs processus métier. Ils permettent notamment la publication de contenus et d'offres d'emploi sur LinkedIn, le suivi des interactions générées (réactions, commentaires et statistiques d'engagement) ainsi que l'automatisation des campagnes de prospection. Dans ce dernier cas, les leads sont collectés, enrichis puis intégrés dans des séquences automatisées de prise de contact et de suivi.
 
-Cette vue globale met donc en évidence le rôle central de \textit{n8n} comme couche d'orchestration entre les actions du recruteur ou de l'administrateur, les règles du backend, les services UniPile et LinkedIn, les traitements IA et la base MySQL. Elle montre également l'importance de la traçabilité : les publications, les interactions, les KPI d'outreach et les statistiques d'engagement sont conservés afin d'être exploités ultérieurement dans un dashboard recruteur ou administrateur.
+Ce diagramme met en évidence le rôle central de \textit{n8n} comme couche d'orchestration entre les utilisateurs, le backend et les services externes. Il souligne également l'importance de la traçabilité des actions et des indicateurs, qui alimentent ensuite les tableaux de bord de suivi et d'analyse de la plateforme.
+
 
 \begin{figure}[H]
 \centering
@@ -399,15 +482,14 @@ Le projet \textit{HireCue} s'appuie sur un ensemble de technologies complémenta
 
 \subsection{Explication du choix des technologies}
 
-Les technologies principales de \textit{HireCue} n'ont pas été sélectionnées depuis zéro dans le cadre de ce PFE. La plateforme existait déjà, était déjà hébergée et reposait sur un socle technique stabilisé. Le frontend était construit avec React.js, le backend principal avec Node.js et Express, et la persistance des données était assurée par MySQL avec Sequelize comme couche ORM. Certains traitements IA/ML étaient, quant à eux, isolés dans des projets ou microservices Python, avec Flask pour exposer certains services intelligents sous forme d'API.
+Les technologies utilisées dans \textit{HireCue} n'ont pas été choisies dans le cadre de ce projet, mais héritées d'une plateforme déjà existante et opérationnelle. Le frontend repose sur React.js, le backend sur Node.js et Express, tandis que la persistance des données est assurée par MySQL avec Sequelize comme ORM. Les traitements d'intelligence artificielle sont déployés sous forme de services Python indépendants, notamment à l'aide de Flask.
 
-Dans ce contexte, le travail réalisé a surtout consisté à exploiter et à faire évoluer cette architecture existante. Les efforts ont porté sur l'intégration et l'amélioration de modules IA, d'agents LLM, de workflows \textit{n8n}, d'automatisations LinkedIn, de services IA/ML répartis sur plusieurs briques techniques et d'une couche décisionnelle Power BI. Cette orientation est cohérente avec la nature du stage : il ne s'agissait pas de reconstruire \textit{HireCue}, mais d'ajouter des fonctionnalités avancées, de renforcer les parcours existants et de connecter la plateforme à des services externes comme PhantomBuster, UniPile, Gmail, LinkedIn et Power BI.
+Le travail réalisé durant ce PFE a consisté à enrichir cette architecture par l'intégration de modules IA, d'agents LLM, de workflows \textit{n8n}, d'automatisations LinkedIn et d'une couche décisionnelle basée sur Power BI. L'objectif n'était pas de reconstruire la plateforme, mais d'étendre ses fonctionnalités tout en conservant sa cohérence technique.
 
-L'ajout de Power BI est cohérent avec \textit{HireCue}, car la plateforme dispose déjà de données structurées dans MySQL. Power Query facilite leur nettoyage, la correction des types, le filtrage et la préparation des modèles analytiques. DAX permet ensuite de construire des mesures et des KPIs adaptés au suivi RH et opérationnel. L'intégration via \texttt{iframe} permet d'exposer les dashboards dans l'interface web sans reconstruire toutes les visualisations directement dans React. Cette extension ne remplace pas les modules IA ni les workflows \textit{n8n} ; elle les complète par une lecture décisionnelle des données.
+L'intégration de Power BI permet de valoriser les données stockées dans MySQL grâce à la création de KPIs et de tableaux de bord décisionnels. Son intégration via \texttt{iframe} facilite l'affichage des rapports dans l'interface web sans développement supplémentaire côté frontend.
 
-L'architecture existante présente plusieurs avantages. La séparation entre frontend, backend, services IA et workflows automatisés rend le système plus maintenable et limite le couplage entre les responsabilités. Le backend Node.js / Express conserve la logique métier principale et l'accès aux données, tandis que les microservices Python et Flask permettent d'isoler des traitements IA plus lourds ou plus spécialisés. De leur côté, les workflows \textit{n8n} peuvent être ajoutés ou modifiés sans fragiliser directement le backend principal, ce qui facilite l'évolutivité et l'intégration d'outils externes.
+Cette architecture présente l'avantage de séparer clairement les responsabilités entre l'interface utilisateur, la logique métier, les services IA, les automatisations et l'analyse décisionnelle. Elle favorise ainsi la maintenabilité, l'évolutivité et l'intégration de nouveaux services tout en préservant la stabilité de la plateforme.
 
-Pour cette raison, une comparaison classique entre plusieurs frameworks frontend ou entre plusieurs technologies backend ne serait pas vraiment pertinente dans ce rapport. Le socle technique était déjà fixé par la plateforme \textit{HireCue} existante. L'analyse doit donc porter davantage sur la manière dont cette architecture a été exploitée, étendue et améliorée pour supporter les modules IA, les automatisations de sourcing, les intégrations LinkedIn, les workflows d'emailing et les tableaux de bord de suivi.
 
 \subsection{Environnement matériel}
 

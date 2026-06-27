@@ -4,11 +4,11 @@
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-Ce projet de fin d'études s'inscrit dans l'évolution actuelle des pratiques de recrutement. La numérisation des processus et l'usage croissant de l'intelligence artificielle modifient la manière dont les entreprises publient leurs offres, suivent les candidatures et évaluent les profils. Lorsque le volume de candidatures devient important, le travail ne se limite plus à recevoir des CV. Il faut aussi organiser des informations hétérogènes, réduire une partie du tri manuel et garder une lecture fiable avant la prise de décision.
+Ce projet de fin d’études s’inscrit dans l’évolution des pratiques de recrutement, marquées par la numérisation et l’usage croissant de l’intelligence artificielle. Face à un nombre important de candidatures, les entreprises doivent non seulement collecter les CV, mais aussi organiser les données et faciliter leur analyse.
 
-Une plateforme de recrutement doit donc aller au-delà d'une vitrine d'offres ou d'un simple espace de dépôt de CV. Elle doit structurer les données, faciliter le parcours candidat et aider le recruteur à interpréter les résultats. Les retours produits doivent rester lisibles, car un score ou une recommandation n'a de valeur que s'il peut être compris et exploité dans un processus réel.
+Une plateforme de recrutement ne doit donc pas se limiter à publier des offres. Elle doit structurer les informations, simplifier le parcours candidat et fournir des résultats clairs et exploitables pour les recruteurs.
 
-Le travail réalisé sur \textit{HireCue} part de cette réalité. Le stage n'a pas consisté à créer une application isolée, mais à faire évoluer une plateforme déjà en service. Les améliorations devaient renforcer l'explicabilité, l'automatisation et la personnalisation des parcours, tout en restant compatibles avec le socle applicatif existant. Ce premier chapitre présente le cadre du stage, le contexte métier, les limites observées dans l'existant et la démarche suivie pour faire évoluer la plateforme.
+Dans ce contexte, le stage réalisé sur HireCue avait pour objectif de faire évoluer une plateforme existante en renforçant l’automatisation, l’explicabilité et la personnalisation des parcours. Ce chapitre présente le cadre du stage, le contexte du projet ainsi que la démarche adoptée.
 
 \section{Présentation de l'organisme d'accueil}
 
@@ -49,17 +49,18 @@ Teligencia Labs est spécialisée dans la cybersécurité et intervient dans des
 
 Elle propose également des services liés aux produits logiciels et matériels, comme les tests d'intrusion, l'analyse de vulnérabilités et l'audit de sécurité. À cela s'ajoutent l'accompagnement réglementaire, notamment autour des Common Criteria, de la Radio Equipment Directive et des normes IoT, ainsi que la sécurisation des objets connectés. Ce positionnement donne à Teligencia Labs une expertise utile pour des projets qui demandent à la fois de la rigueur technique et une bonne compréhension des usages.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{Secteur}
-\caption{Secteurs d'activité de l'entreprise d'accueil}
-\end{figure}
+
 
 \subsection{Organigramme de l'entreprise d'accueil}
 
-L'organisation de l'entreprise repose sur plusieurs pôles complémentaires. La direction générale assure l'orientation stratégique des projets. Le pôle développement prend en charge la mise en œuvre applicative et les intégrations techniques. Le pôle IA \& Data intervient sur l'exploitation des données, les traitements intelligents et la production de sorties analytiques. Le pôle produit veille à l'alignement entre la solution construite et le besoin métier. Le pôle recrutement et relation client garde le lien avec les usages du terrain et les attentes des utilisateurs finaux.
 
-Cette organisation a facilité le travail mené sur \textit{HireCue}. Les évolutions techniques ne pouvaient pas être pensées séparément des usages recruteur et candidat. Pendant le stage, il a donc fallu tenir compte à la fois des contraintes applicatives, de la lisibilité des résultats et de la cohérence avec les pratiques réelles du recrutement.
+
+L’entreprise est dirigée par un Directeur Général qui définit les orientations stratégiques. Son organisation repose sur trois entités principales : la Direction Technique, la Direction des Opérations et l’Administration et RH.
+
+Les activités techniques couvrent plusieurs domaines, notamment la cybersécurité, le développement logiciel, l’IA/LLM ainsi que le DevOps et Cloud. Cette structure favorise la collaboration entre les différentes expertises pour mener à bien les projets de l’entreprise.
+
+Dans le cadre du projet HireCue, cette organisation a facilité la coordination entre les équipes et la mise en œuvre des évolutions de la plateforme.
+
 
 \begin{figure}[H]
 \centering
@@ -70,12 +71,9 @@ Cette organisation a facilité le travail mené sur \textit{HireCue}. Les évolu
 \section{Présentation du projet}
 
 \textit{HireCue} est une plateforme SaaS de recrutement intelligente. Elle regroupe plusieurs étapes du processus de recrutement, notamment la gestion des offres, le suivi des candidatures et certains mécanismes d'évaluation. Le travail réalisé pendant le stage ne partait donc pas d'une page blanche. Il s'agissait plutôt d'intervenir sur un existant pour rendre les résultats plus lisibles et améliorer certains parcours déjà présents dans la plateforme.
+Le stage s'est concentré sur plusieurs briques précises de \textit{HireCue} : le rapport de score explicable, la roadmap de compétences, le chatbot associé, les recommandations recruteur et certaines intégrations externes. Ces travaux répondaient à des besoins de lisibilité, d'accompagnement et d'automatisation.
 
-L'étude des repositories montre une architecture construite autour d'un frontend React, d'un backend Node.js et Express, d'une base MySQL gérée via Sequelize, ainsi que de services IA développés en Python. Des mécanismes de cache, des traitements asynchrones et des workflows n8n complètent cet ensemble. Cette organisation répond à un besoin concret : ajouter des fonctionnalités intelligentes sans fragiliser la plateforme principale ni rendre les parcours trop lourds pour les utilisateurs.
-
-Le stage s'est concentré sur plusieurs briques précises de \textit{HireCue} : le rapport de score explicable, la roadmap de compétences, le chatbot associé, les recommandations recruteur, la génération de questions personnalisées, les invitations à des tests complémentaires, le réengagement candidat, la relance de profils inactifs et certaines intégrations externes. Ces travaux répondaient à des besoins de lisibilité, d'accompagnement et d'automatisation, avec une contrainte constante : rester compatibles avec le fonctionnement déjà en place.
-
-Le projet ne se limite pas aux modules IA ni aux automatisations \textit{n8n}. Il comprend aussi une extension analytique basée sur Power BI, conçue comme une couche décisionnelle complémentaire à la plateforme. Cette couche exploite les données issues de la base MySQL afin de produire des indicateurs, des visualisations et des tableaux de bord utiles au suivi du recrutement et de l'activité opérationnelle. Deux dashboards ont été intégrés dans ce cadre : \textit{Executive Overview}, orienté vers une vue synthétique pour les décideurs, et \textit{Product \& Operations Analytics}, destiné au suivi des workflows et des indicateurs opérationnels.
+Le projet comprend aussi une extension analytique basée sur Power BI, conçue comme une couche décisionnelle complémentaire à la plateforme. Cette couche exploite les données issues de la base MySQL afin de produire des indicateurs, des visualisations et des tableaux de bord utiles au suivi du recrutement et de l'activité opérationnelle.
 
 \subsection{Objectifs du projet}
 
@@ -83,7 +81,7 @@ L'objectif du projet était de faire évoluer une plateforme de recrutement déj
 
 Du côté candidat, le travail visait à améliorer le suivi à travers un score explicable, une roadmap de compétences, un support PDF lié à cette roadmap et un chatbot contextuel capable d'en faciliter la lecture. Du côté recruteur, il s'agissait de renforcer l'aide à la décision avec des recommandations IA, des questions personnalisées d'entretien, des alertes de risque, des invitations à des tests et des outils de réengagement. Sur le plan technique, le projet demandait aussi une meilleure orchestration des workflows \textit{n8n}, l'intégration de données externes issues notamment de LinkedIn, la préparation de certains flux de publication d'offres et une traçabilité plus fiable des traitements IA.
 
-Un objectif complémentaire a consisté à mettre en place une couche décisionnelle basée sur Power BI afin de visualiser les indicateurs clés de recrutement, suivre l'activité opérationnelle de la plateforme et fournir aux décideurs une lecture synthétique des données \textit{HireCue}. Cette partie repose sur la connexion de la base MySQL à Power BI, la préparation des données avec Power Query, la définition de KPIs, la création de visualisations et l'intégration web des dashboards dans une application React / Node.js via une balise \texttt{iframe}.
+Un objectif complémentaire a consisté à mettre en place une couche décisionnelle basée sur Power BI afin de visualiser les indicateurs clés de recrutement, suivre l'activité opérationnelle de la plateforme et fournir aux décideurs une lecture synthétique des données \textit{HireCue}.
 
 \begin{figure}[H]
 \centering
@@ -146,7 +144,7 @@ Une première limite concerne l'interprétation des scores et des évaluations. 
 
 Une deuxième limite touche l'accompagnement du candidat. Les plateformes traditionnelles indiquent souvent l'état d'une candidature, mais expliquent rarement les écarts de compétences ou les pistes de progression. Dans le projet traité, cette dimension a été considérée comme essentielle, ce qui justifie l'intégration d'une roadmap de compétences et d'un chatbot contextuel associé.
 
-Enfin, l'automatisation reste souvent partielle. Les relances, le réengagement de candidats déjà identifiés, la personnalisation des entretiens et l'exploitation d'intégrations externes demandent encore beaucoup d'interventions manuelles. Ce constat ne remet pas en cause l'intérêt des plateformes existantes. Il montre plutôt l'espace disponible pour une solution comme \textit{HireCue}, dont l'objectif est d'assister plus directement le pilotage du recrutement.
+Ce constat ne remet pas en cause l'intérêt des plateformes existantes. Il montre plutôt l'espace disponible pour une solution comme \textit{HireCue}, dont l'objectif est d'assister plus directement le pilotage du recrutement.
 
 \section{Problématique}
 
@@ -162,11 +160,12 @@ La problématique centrale du projet peut être formulée comme suit : comment f
 
 La solution retenue pendant le stage a consisté à enrichir \textit{HireCue} avec des fonctionnalités d'analyse, d'assistance et d'automatisation construites autour du socle existant. Les mécanismes métier déjà présents n'ont pas été remplacés. Ils ont été complétés par des services destinés à rendre les résultats plus clairs et les parcours plus fluides.
 
-Le travail s'est organisé autour de quatre axes. Le premier concerne l'explicabilité et les modules IA / LLM, avec l'amélioration du rapport de score, la mise en avant de la répartition des résultats, des sous-scores et de conseils d'amélioration. Le deuxième regroupe l'accompagnement candidat et les recommandations recruteur, à travers la génération d'une roadmap de compétences, la consultation ou la génération d'un PDF associé, l'ajout d'un chatbot RAG, les recommandations de candidats, les questions personnalisées pour l'entretien, les alertes de risque, l'invitation à passer un test et la relance de profils déjà identifiés. Le troisième axe couvre l'automatisation \textit{n8n}, le scraping LinkedIn et les intégrations externes, notamment pour l'import d'offres, le sourcing de profils, certains flux de publication sortants et des automatisations de prospection.
+Le travail s'est organisé autour de quatre axes. Le premier concerne l'explicabilité et les modules IA / LLM, avec l'amélioration du rapport de score, la mise en avant de la répartition des résultats, des sous-scores et de conseils d'amélioration. Le deuxième regroupe l'accompagnement candidat et les recommandations recruteur, à travers la génération d'une roadmap de compétences et les recommandations de candidats. Le troisième axe couvre l'automatisation \textit{n8n}, le scraping LinkedIn et les intégrations externes.
 
-Le quatrième axe correspond au module décisionnel Power BI et à l'expérimentation \textit{AI Workforce Forecasting}. Power BI se connecte à la base MySQL de \textit{HireCue}, puis les données sont préparées, nettoyées et transformées avec Power Query. Les KPIs et visualisations sont organisés dans deux dashboards, \textit{Executive Overview} et \textit{Product \& Operations Analytics}, ensuite intégrés dans une application React / Node.js via une balise \texttt{iframe}. L'expérimentation \textit{AI Workforce Forecasting} a été ajoutée comme preuve de concept analytique autour de la prévision RH. Cette partie ne remplace pas les modules IA / LLM ni les workflows existants ; elle constitue une extension décisionnelle importante de la plateforme.
+Le quatrième axe correspond au module décisionnel Power BI et à l'expérimentation \textit{AI Workforce Forecasting}.
+Les visualisations sont organisées dans deux dashboards, \textit{Executive Overview} et \textit{Product \& Operations Analytics}, puis intégrées dans une application web. L'expérimentation \textit{AI Workforce Forecasting} a été ajoutée comme preuve de concept analytique autour de la prévision RH. Cette partie ne remplace pas les modules IA / LLM ni les workflows existants ; elle constitue une extension décisionnelle importante de la plateforme.
 
-Ce volet opérationnel comprend aussi le réengagement de candidats, la gestion de certaines notifications, le suivi de quotas IA, l'usage du cache pour limiter les recalculs coûteux et l'intégration de workflows \textit{n8n} pour l'import d'offres externes, le sourcing LinkedIn, certains flux de publication sortants vers LinkedIn et des automatisations de prospection. La relance admin des candidats inactifs depuis environ soixante jours s'inscrit également dans ce périmètre, avec un niveau de maturité à présenter selon l'état réel de la fonctionnalité. Ce volet est important, car une fonctionnalité convaincante en démonstration peut devenir difficile à maintenir si elle est coûteuse, peu traçable ou mal intégrée. Les choix retenus cherchent donc à rendre la plateforme plus utile en contexte réel, tout en gardant la maîtrise des traitements engagés.
+Ce volet est important, car une fonctionnalité convaincante en démonstration peut devenir difficile à maintenir si elle est coûteuse, peu traçable ou mal intégrée. Les choix retenus cherchent donc à rendre la plateforme plus utile en contexte réel, tout en gardant la maîtrise des traitements engagés.
 
 \section{Méthodologie}
 
@@ -174,7 +173,7 @@ La démarche adoptée repose sur une progression itérative, mieux adaptée à l
 
 Une approche progressive a permis de comprendre l'existant avant d'y ajouter de nouvelles briques, de limiter les régressions et de vérifier les intégrations au fur et à mesure. Elle correspondait aussi à la nature hybride du travail mené, entre développement logiciel, services IA, workflows d'automatisation et analyse décisionnelle.
 
-La partie Power BI liée à l'analyse des données, au nettoyage, à la transformation, à la création des KPIs et à l'expérimentation \textit{AI Workforce Forecasting} s'inscrit dans une logique proche de CRISP-DM. Elle repose en effet sur la compréhension du besoin métier, la compréhension des données MySQL, leur préparation, l'analyse et l'évaluation des résultats. En revanche, l'intégration des dashboards Power BI dans l'interface React / Node.js via \texttt{iframe} relève plutôt de Scrum, car elle concerne le développement applicatif, les interfaces, les tests progressifs et la validation incrémentale.
+La partie Power BI liée à l'analyse des données, au nettoyage, à la transformation, à la création des KPIs et à l'expérimentation \textit{AI Workforce Forecasting} s'inscrit dans une logique proche de CRISP-DM. Elle repose en effet sur la compréhension du besoin métier, la compréhension des données MySQL, leur préparation, l'analyse et l'évaluation des résultats. En revanche, l'intégration des dashboards Power BI dans l'interface web relève plutôt de Scrum, car elle concerne le développement applicatif, les interfaces, les tests progressifs et la validation incrémentale.
 
 \subsection{Phase d'analyse}
 
@@ -198,7 +197,7 @@ Le choix méthodologique n'a pas été fait de manière abstraite. Il devait res
 
 \subsubsection{Comparaison des méthodologies de développement logiciel}
 
-Pour le développement logiciel, trois approches ont été comparées : Agile Scrum\footnote{Ken Schwaber et Jeff Sutherland, \textit{The Scrum Guide}, 2020.}, Kanban\footnote{David J. Anderson, \textit{Kanban: Successful Evolutionary Change for Your Technology Business}, Blue Hole Press, 2010.} et Waterfall\footnote{Winston W. Royce, \textit{Managing the Development of Large Software Systems}, Proceedings of IEEE WESCON, 1970.}. Chacune correspond à une manière différente d'organiser le travail. Dans le cas de \textit{HireCue}, les fonctionnalités traitées pendant le stage, comme le score report, la roadmap, les recommandations, les intégrations externes ou l'intégration web des dashboards Power BI, demandaient des ajustements progressifs. Une organisation trop linéaire aurait été moins adaptée à ce type d'évolution.
+Pour le développement logiciel, trois approches ont été comparées : Agile Scrum \cite{scrumguide}, Kanban \cite{anderson_kanban} et Waterfall \cite{royce_waterfall}. Chacune correspond à une manière différente d'organiser le travail. Dans le cas de \textit{HireCue}, les fonctionnalités traitées pendant le stage, comme le score report, la roadmap, les recommandations, les intégrations externes ou l'intégration web des dashboards Power BI, demandaient des ajustements progressifs. Une organisation trop linéaire aurait été moins adaptée à ce type d'évolution.
 
 Dès les premières semaines du stage, cette comparaison a surtout servi à cadrer la manière de travailler sur une base existante. Les modules n'étaient pas indépendants : une modification du backend pouvait avoir un impact sur l'affichage React, sur la base MySQL ou sur un workflow \textit{n8n}. Le choix retenu devait donc permettre d'avancer par lots fonctionnels, de vérifier rapidement les effets de chaque ajout et de revenir sur certains détails lorsque les données réelles de \textit{HireCue} montraient des cas non prévus.
 
@@ -226,7 +225,7 @@ Waterfall & Déroulement linéaire, avec succession fixe des phases d'analyse, c
 
 \subsubsection{Comparaison des méthodologies IA / Data Science}
 
-Pour les modules IA, data science et analytique, la comparaison porte surtout sur l'encadrement du besoin métier, la préparation des données, la modélisation, l'évaluation et l'intégration des sorties dans la plateforme. Les références utilisées sont notamment CRISP-DM\footnote{Pete Chapman et al., \textit{CRISP-DM 1.0: Step-by-step data mining guide}, SPSS, 2000.}, SEMMA\footnote{SAS Institute, \textit{SEMMA Data Mining Methodology}, documentation SAS.} et le processus KDD\footnote{Usama Fayyad, Gregory Piatetsky-Shapiro et Padhraic Smyth, \textit{From Data Mining to Knowledge Discovery in Databases}, AI Magazine, 1996.}. Dans \textit{HireCue}, cette question est centrale, car le scoring explicable, la roadmap, les recommandations, le chatbot RAG, le modèle Power BI et l'expérimentation \textit{AI Workforce Forecasting} ne peuvent pas être traités comme de simples éléments d'interface.
+Pour les modules IA, data science et analytique, la comparaison porte surtout sur l'encadrement du besoin métier, la préparation des données, la modélisation, l'évaluation et l'intégration des sorties dans la plateforme. Les références utilisées sont notamment CRISP-DM \cite{crispdm}, SEMMA \cite{sas_semma} et le processus KDD \cite{fayyad_kdd}. Dans \textit{HireCue}, cette question est centrale, car le scoring explicable, la roadmap, les recommandations, le chatbot RAG, le modèle Power BI et l'expérimentation \textit{AI Workforce Forecasting} ne peuvent pas être traités comme de simples éléments d'interface.
 
 Compte tenu de l'architecture déjà existante, cette comparaison n'avait pas uniquement une portée théorique. Elle a aidé à distinguer les tâches qui relevaient du développement applicatif de celles qui demandaient une lecture orientée données : vérifier les champs disponibles, nettoyer les valeurs, contrôler les sorties générées et interpréter les résultats avant de les présenter aux utilisateurs.
 
@@ -256,9 +255,9 @@ CRISP-DM a donc été retenue comme référence pour les modules IA et analytiqu
 
 Le projet combine deux dimensions qui ne suivent pas exactement les mêmes pratiques. La première relève du développement logiciel de la plateforme, avec des besoins de planification, d'intégration et de validation progressive. Elle couvre notamment le frontend, le backend, l'intégration React / Node.js, les automatisations \textit{n8n}, les workflows, les dashboards web et l'intégration \texttt{iframe} des rapports Power BI. La seconde concerne les modules IA, LLM et analytiques, qui demandent davantage de vigilance sur les données d'entrée, la qualité des sorties, les formats retournés et la pertinence métier des résultats.
 
-Deux références méthodologiques ont donc été retenues. La partie applicative s'appuie sur Agile Scrum, plus adaptée à l'analyse, à la planification et au développement logiciel d'une plateforme comme \textit{HireCue}. Cette approche aide à découper les travaux en priorités successives, à suivre l'avancement des tâches, à organiser les livrables et à ajuster les choix selon les contraintes constatées sur le frontend, le backend, les workflows externes, l'intégration React / Node.js et l'affichage des dashboards Power BI via \texttt{iframe}.
+Deux références méthodologiques ont donc été retenues. La partie applicative s'appuie sur Agile Scrum, plus adaptée à l'analyse, à la planification et au développement logiciel d'une plateforme comme \textit{HireCue}. Cette approche aide à découper les travaux en priorités successives, à suivre l'avancement des tâches, à organiser les livrables et à ajuster les choix selon les contraintes constatées sur le frontend, le backend, les workflows externes, l'intégration web et l'affichage des dashboards Power BI.
 
-Les modules IA et analytiques sont, quant à eux, encadrés par une logique proche de CRISP-DM. Cette référence est utile lorsque le projet doit relier un besoin métier clair, des données d'entrée hétérogènes, une génération contrôlée, une analyse de données et une validation de sortie. Dans \textit{HireCue}, cette articulation concerne directement le score explicable, la roadmap de compétences, les recommandations IA, le chatbot RAG, le traitement des données Power BI, Power Query, la définition des KPIs et l'expérimentation Deep Learning \textit{AI Workforce Forecasting}.
+Les modules IA et analytiques sont, quant à eux, encadrés par une logique proche de CRISP-DM. Cette référence est utile lorsque le projet doit relier un besoin métier clair, des données d'entrée hétérogènes, une génération contrôlée, une analyse de données et une validation de sortie.
 
 Le choix combiné de Scrum et de CRISP-DM ne relève pas d'une juxtaposition théorique. Il permet de traiter les deux rythmes du projet : d'un côté, une planification logicielle avec priorisation, suivi et coordination des tâches ; de l'autre, une démarche plus rigoureuse pour les modules IA, où la qualité des données, la validation des formats et la maîtrise des sorties deviennent déterminantes. Cette articulation prépare la planification du projet, avec des phases de travail lisibles et des livrables progressifs.
 
@@ -288,7 +287,13 @@ La référence à Scrum se justifie par le caractère progressif des évolutions
 
 Dans la pratique du stage, cette logique s'est traduite par des cycles courts d'analyse, d'intégration et de vérification. Une fonctionnalité pouvait d'abord être rendue visible dans l'interface, puis consolidée côté backend, puis enfin reliée à la persistance, au cache ou au suivi des statuts. Cette progression a été particulièrement utile pour les modules qui dépendaient de plusieurs briques à la fois, comme les recommandations IA ou les workflows \textit{n8n}.
 
-Cette logique a surtout aidé à articuler des travaux de nature différente. Certaines tâches relevaient du frontend, d'autres du backend, d'autres encore de l'intégration de services IA, de workflows \textit{n8n} ou de l'affichage des dashboards Power BI dans l'interface React / Node.js via \texttt{iframe}. Une progression itérative était donc plus réaliste qu'une planification strictement linéaire.
+Cette logique a surtout aidé à articuler des travaux de nature différente. Certaines tâches relevaient du frontend, d'autres du backend, d'autres encore de l'intégration de services IA, de workflows \textit{n8n} ou de l'affichage des dashboards Power BI dans l'interface web. Une progression itérative était donc plus réaliste qu'une planification strictement linéaire.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{scrum}
+\caption{Cycle de vie de la méthodologie Scrum}
+\end{figure}
 
 \subsubsection{Les rôles Scrum}
 
@@ -298,27 +303,17 @@ Le \textit{Scrum Master} veille au bon déroulement du cadre de travail, aide à
 
 L'équipe de développement transforme ensuite les besoins en fonctionnalités concrètes. Dans le cas présent, cette collaboration était importante, car les évolutions touchaient à la fois aux interfaces, aux services métier, aux intégrations externes et aux modules intelligents.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{scrum}
-\caption{Cycle de vie de la méthodologie Scrum}
-\end{figure}
+
 
 \subsection{Méthodologie CRISP-DM pour les modules IA}
 
-Pour les modules d'intelligence artificielle, CRISP-DM apporte un cadre plus approprié. Les traitements mis en place dans \textit{HireCue} ne peuvent pas être jugés seulement sur leur faisabilité technique. Ils doivent aussi être évalués selon la qualité des données exploitées, la pertinence des sorties produites et leur adéquation avec les usages visés.
+Pour les modules d’intelligence artificielle, la méthodologie CRISP-DM a fourni un cadre adapté permettant d’aligner les besoins métier avec l’exploitation des données et l’évaluation des résultats. Dans HireCue, la qualité des recommandations, des scores et des contenus générés dépend directement de la cohérence des données utilisées et de leur interprétation par les utilisateurs.
 
-Dès les premiers tests sur les données de la plateforme, cette exigence est devenue concrète. Certains profils ne disposaient pas de toutes les informations attendues, certaines compétences étaient formulées différemment selon les sources, et les sorties IA devaient être contrôlées avant d'être affichées. CRISP-DM a donc servi de repère pour relier le besoin métier, la préparation des données et l'évaluation des résultats.
+Cette approche a été appliquée aux différents composants IA de la plateforme, notamment le score report, la roadmap de compétences, le chatbot contextuel, les recommandations recruteur et les questions personnalisées. Elle a également guidé les travaux d’analyse décisionnelle sous Power BI ainsi que l’expérimentation AI Workforce Forecasting.
 
-Cette exigence apparaît à plusieurs niveaux du projet. Un score explicable n'a d'intérêt que s'il repose sur des données cohérentes et s'il fournit une justification compréhensible. Une roadmap n'est utile que si elle reste réaliste par rapport au profil du candidat et au poste cible. De même, un chatbot contextuel ne peut être intégré que si ses réponses restent alignées avec le contenu de la roadmap et avec les contraintes de la plateforme.
+Les étapes de CRISP-DM ont structuré la démarche suivie : compréhension des besoins métier (Business Understanding), analyse des données disponibles (Data Understanding), préparation et transformation des données (Data Preparation), conception des modèles et indicateurs (Modeling), validation des résultats obtenus (Evaluation) et intégration des solutions dans la plateforme (Deployment).
 
-CRISP-DM ne concerne donc pas uniquement les modules IA / LLM. Il encadre aussi la partie analytique Power BI et l'expérimentation Deep Learning \textit{AI Workforce Forecasting}. Dans ce cadre, le \textit{Business Understanding} consiste à comprendre les besoins décisionnels des recruteurs, administrateurs et décideurs. Le \textit{Data Understanding} porte sur l'analyse des données MySQL de \textit{HireCue}. Le \textit{Data Preparation} correspond au nettoyage et à la transformation des données avec Power Query. La phase de \textit{Modeling} ou d'analyse couvre la création des KPIs, des visualisations et du prototype \textit{AI Workforce Forecasting}. Enfin, l'\textit{Evaluation} permet de vérifier la cohérence, la lisibilité et l'utilité des dashboards produits.
-
-Les étapes de CRISP-DM encadrent cette logique. La phase de \textit{Business Understanding} sert à clarifier le besoin réel, par exemple expliquer un score ou assister un candidat dans sa progression. La phase de \textit{Data Understanding} porte sur les informations disponibles : CV, scores, résultats d'évaluation, données de poste ou historiques de candidature. La phase de \textit{Data Preparation} vise ensuite à structurer ces données pour qu'elles alimentent correctement les services intelligents.
-
-La phase de \textit{Modeling} correspond à l'utilisation ou à l'orchestration des modèles mobilisés pour générer les sorties attendues. La phase d'\textit{Evaluation} sert à vérifier la cohérence des contenus produits, leur format et leur utilité métier. Enfin, la phase de \textit{Deployment} concerne l'intégration de ces services dans \textit{HireCue}, avec les contraintes de cache, de quotas, de persistance et de robustesse propres à un environnement applicatif.
-
-CRISP-DM a été utile pour les modules liés au score report, à la roadmap de compétences, au chatbot associé, aux recommandations recruteur, aux questions personnalisées, au traitement analytique Power BI et à l'expérimentation \textit{AI Workforce Forecasting}. Ce cadre aide à justifier les choix retenus et à encadrer l'usage de l'IA et de l'analyse décisionnelle comme des services intégrés à la plateforme, plutôt que comme des démonstrations technologiques isolées.
+L’utilisation de cette méthodologie a permis de garantir que les fonctionnalités d’IA et d’analyse décisionnelle répondent à des besoins concrets tout en restant cohérentes, explicables et intégrées à l’environnement HireCue.
 
 \begin{figure}[H]
 \centering
@@ -328,7 +323,7 @@ CRISP-DM a été utile pour les modules liés au score report, à la roadmap de 
 
 \section{Langage de modélisation UML}
 
-Dans un projet comme \textit{HireCue}, la modélisation aide à clarifier les besoins et à partager une représentation commune du système. UML, pour \textit{Unified Modeling Language}, est un langage standard de modélisation utilisé en génie logiciel\footnote{Object Management Group, \textit{Unified Modeling Language Specification}; Grady Booch, James Rumbaugh et Ivar Jacobson, \textit{The Unified Modeling Language User Guide}, Addison-Wesley, 1999.}. Il permet de décrire de manière structurée les acteurs, les cas d'utilisation, les classes et les interactions principales entre les composants.
+Dans un projet comme \textit{HireCue}, la modélisation aide à clarifier les besoins et à partager une représentation commune du système. UML, pour \textit{Unified Modeling Language}, est un langage standard de modélisation utilisé en génie logiciel \cite{omg_uml,booch_uml}. Il permet de décrire de manière structurée les acteurs, les cas d'utilisation, les classes et les interactions principales entre les composants.
 
 Dans le cadre du stage, UML n'a pas seulement une valeur documentaire. Il facilite la compréhension du fonctionnement global de la plateforme, surtout lorsque plusieurs profils, services et intégrations externes coexistent. Pour \textit{HireCue}, cette représentation aide à distinguer les parcours du candidat, du recruteur et de l'administrateur, tout en structurant les modules liés au score report, à la roadmap, aux recommandations et aux workflows d'automatisation.
 

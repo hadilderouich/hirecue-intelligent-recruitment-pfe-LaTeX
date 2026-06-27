@@ -1,0 +1,165 @@
+% !TeX root = main.tex
+\chapter{Conclusion générale et perspectives}
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce dernier chapitre revient sur les apports du projet \textit{HireCue} et sur les pistes d'évolution qui prolongent le travail réalisé. Il ne reprend pas l'ensemble des développements présentés dans les chapitres précédents, mais en propose une lecture synthétique, en distinguant les fonctionnalités stabilisées, les chantiers encore en cours et les perspectives futures.
+
+Le stage s'est déroulé dans un contexte où la plateforme existait déjà. L'objectif n'était donc pas de construire une nouvelle solution de recrutement, mais d'enrichir un système réel par des modules d'intelligence artificielle, des workflows d'automatisation et une couche décisionnelle. Cette contrainte a orienté les choix techniques : chaque ajout devait rester cohérent avec les parcours candidat, recruteur et administrateur.
+
+La conclusion met ainsi en évidence trois dimensions complémentaires du projet : l'amélioration de l'analyse des candidatures, l'automatisation de certaines opérations et la valorisation des données par la Business Intelligence.
+
+\section{Contribution personnelle dans le projet}
+
+Le stage s'est déroulé dans le cadre de l'évolution de la plateforme \textit{HireCue}, déjà opérationnelle avant le début du projet. Ma contribution a principalement consisté à concevoir, intégrer et améliorer plusieurs fonctionnalités liées à l'intelligence artificielle, à l'automatisation des processus et à l'analyse décisionnelle.
+
+Sur le volet IA, les travaux réalisés ont porté sur le score explicable, les recommandations intelligentes, les questions personnalisées, la \textit{Skill Gap Roadmap} ainsi que le chatbot RAG associé. Ces fonctionnalités visent à améliorer l'interprétation des résultats et à accompagner les utilisateurs dans leurs prises de décision.
+
+Sur le volet automatisation, plusieurs workflows \textit{n8n} ont été développés ou enrichis afin d'automatiser le sourcing LinkedIn, l'import d'offres externes, le réengagement des candidats et les campagnes d'outreach. Ces workflows permettent d'intégrer efficacement des données externes tout en conservant les règles métier de la plateforme.
+
+Enfin, une couche décisionnelle basée sur \textit{Power BI} a été intégrée afin de transformer les données opérationnelles en indicateurs de pilotage. Deux tableaux de bord ont été réalisés : \textit{Executive Overview} et \textit{Product \& Operations Analytics}. Une expérimentation autour du \textit{AI Workforce Forecasting} a également été menée afin d'explorer les capacités prédictives appliquées aux données de recrutement.
+
+Au-delà du développement, une part importante du travail a concerné les tests, la validation fonctionnelle et la documentation des différentes évolutions réalisées.
+
+
+\section{Bilan général du projet}
+
+Le projet \textit{HireCue} a permis de faire évoluer une plateforme SaaS de recrutement vers une solution plus explicable, plus automatisée et plus orientée décision. Les travaux réalisés ont porté sur des fonctionnalités concrètes, directement liées aux besoins des candidats, des recruteurs et des responsables de la plateforme.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Bilanhirecue.png}
+    \caption{Synthèse générale des contributions réalisées dans HireCue}
+    \label{fig:bilan-hirecue}
+\end{figure}
+
+Le premier apport concerne la lisibilité des résultats. Les scores, les recommandations et les alertes ne sont plus seulement affichés comme des valeurs isolées. Ils sont accompagnés d'explications, de sous-scores, de signaux métier et de contenus utiles à la décision. Cette approche améliore la confiance dans l'outil, tout en rappelant que l'IA reste un support d'analyse.
+
+Le deuxième apport concerne la continuité des parcours. La plateforme ne s'arrête pas à l'évaluation d'un candidat. Elle peut proposer une roadmap de compétences, générer des questions d'entretien, aider le recruteur à réengager des profils et structurer certains échanges avec des sources externes. Cette continuité donne plus de valeur aux données déjà présentes dans \textit{HireCue}.
+
+Le troisième apport concerne le pilotage. Les dashboards Power BI et l'expérimentation \textit{AI Workforce Forecasting} donnent une lecture plus globale de l'activité. Ils permettent de passer d'une logique purement opérationnelle à une analyse plus synthétique des usages, des volumes, des coûts et des tendances.
+
+\subsection{Apports liés à l'intelligence artificielle}
+
+Les modules IA ont d'abord renforcé l'explicabilité. Le score explicable permet au candidat et au recruteur de comprendre les facteurs qui influencent l'évaluation, au lieu de consulter uniquement une note globale. Les recommandations IA côté recruteur complètent cette lecture en mettant en avant des profils pertinents pour une offre, avec des raisons liées aux compétences rapprochées, aux écarts observés et au score d'adéquation.
+
+La génération de questions personnalisées a prolongé cette aide vers la préparation de l'entretien. Le recruteur dispose ainsi de questions mieux adaptées au poste et au profil analysé, ce qui rend l'échange plus ciblé. Cette fonctionnalité montre que l'IA peut être utile au-delà du tri initial des candidatures.
+
+La \textit{Skill Gap Roadmap} et le chatbot RAG ont apporté une dimension plus pédagogique au parcours candidat. La roadmap transforme les écarts de compétences en pistes de progression, tandis que le chatbot permet de dialoguer autour de ce contenu. Les \textit{Risk Alerts}, de leur côté, signalent des situations à surveiller, comme un faible engagement ou un risque d'abandon du processus. Ces alertes restent une aide à la décision et ne remplacent pas l'analyse du recruteur.
+
+\subsection{Apports liés à l'automatisation}
+
+L'automatisation a principalement visé à réduire les tâches répétitives et à mieux connecter \textit{HireCue} à son environnement externe. Le \textit{Candidate Sourcing} via LinkedIn et PhantomBuster permet de récupérer des profils, puis de les nettoyer et de les dédoublonner avant leur exploitation. L'\textit{External Jobs Import} suit la même logique pour les offres externes, en préparant leur intégration dans la structure interne de la plateforme.
+
+Les travaux autour de la \textit{LinkedIn Automation} ont préparé des flux de publication, de suivi d'engagement et de diffusion. Leur niveau de maturité reste lié aux contraintes des services tiers, mais ils constituent une base importante pour automatiser la circulation des offres et des contenus.
+
+Les workflows \textit{CEO Outreach Email} et \textit{CEO Outreach LinkedIn} ont ajouté une dimension de prospection. Ils permettent de structurer la récupération de leads, la préparation des messages et le suivi des actions. Enfin, la relance des candidats inactifs améliore l'exploitation du vivier existant en aidant les recruteurs à maintenir une relation active avec des profils déjà présents dans la plateforme.
+
+\subsection{Apports liés à la Business Intelligence}
+
+La couche Business Intelligence a permis de valoriser les données opérationnelles stockées dans MySQL. Les dashboards Power BI ne remplacent pas les écrans métier, mais ils offrent une lecture plus globale de l'activité. Ils aident à observer les utilisateurs, les candidats, les recruteurs, les offres, les coûts IA et les tendances d'usage.
+
+Le dashboard \textit{Executive Overview} s'adresse surtout aux décideurs. Il fournit une vue synthétique de l'activité globale et de certains indicateurs économiques. Le dashboard \textit{Product \& Operations Analytics} se concentre davantage sur les processus : applications, tests, interviews, roadmaps, recommandations IA et événements opérationnels.
+
+L'expérimentation \textit{AI Workforce Forecasting} complète cette logique par une ouverture prédictive. Elle reste exploratoire, mais elle montre que les données de \textit{HireCue} peuvent servir à anticiper certaines tendances RH et opérationnelles lorsque l'historique disponible devient suffisant.
+
+\section{Apport de la couche décisionnelle}
+
+L'ajout de Power BI répond à une limite des données opérationnelles seules. Une base MySQL est adaptée à l'exécution des parcours applicatifs, mais elle ne donne pas immédiatement une vue synthétique des volumes, des tendances et des coûts. Les données y sont souvent dispersées entre utilisateurs, offres, candidatures, scores, roadmaps, recommandations et événements.
+
+La couche décisionnelle permet de transformer ces données en indicateurs lisibles. La chaîne mise en place repose sur une logique simple : MySQL fournit les données, Power BI les prépare et les modélise, Power BI Service permet leur publication, puis l'application React / Node.js les affiche via \texttt{iframe}. Cette intégration rend les rapports consultables dans l'environnement applicatif sans reconstruire les visualisations côté frontend.
+
+Power Query intervient dans la préparation des données. Il permet de nettoyer les champs, d'harmoniser les types et de préparer un modèle analytique plus stable. DAX est ensuite utilisé pour construire les mesures et les KPIs. Cette étape donne une valeur nouvelle aux données déjà collectées par la plateforme.
+
+Les bénéfices sont visibles à plusieurs niveaux. Les décideurs disposent d'une vue d'ensemble sur l'adoption, l'activité et les coûts IA. Les administrateurs peuvent suivre les traitements, les volumes et les indicateurs opérationnels. Les responsables produit peuvent mieux comprendre les usages réels des modules, notamment les roadmaps, les recommandations et les workflows.
+
+Cette couche reste distincte des modules LLM. L'IA génère des explications, des recommandations ou des contenus contextualisés. Power BI agrège et visualise l'activité. Les deux approches se complètent, mais elles ne répondent pas au même besoin.
+
+\section{Apports techniques et métier}
+
+Sur le plan technique, le projet a renforcé l'intégration entre plusieurs briques hétérogènes : frontend React, backend Node.js / Express, base MySQL, services IA, workflows \textit{n8n}, services externes et dashboards Power BI. Cette diversité a imposé une attention particulière aux formats de données, aux statuts de traitement, au cache, aux quotas IA et à la séparation entre traitements synchrones et asynchrones.
+
+Le projet a également permis de consolider une démarche de validation plus complète. Chaque fonctionnalité devait être vérifiée dans son parcours réel : affichage côté utilisateur, réponse API, persistance en base, cohérence des sorties IA et exploitation éventuelle dans les dashboards. Cette approche a rendu les évolutions plus fiables qu'un simple prototype isolé.
+
+Sur le plan métier, les apports se situent dans la lisibilité du recrutement. Le candidat obtient des retours plus compréhensibles sur son score et ses axes de progression. Le recruteur dispose d'éléments plus structurés pour comparer les profils, préparer un entretien ou relancer un candidat. Les administrateurs et décideurs peuvent, de leur côté, suivre l'activité globale grâce aux indicateurs décisionnels.
+
+Ces apports restent liés à une idée centrale : la technologie doit assister le processus de recrutement sans retirer la responsabilité humaine. Les scores, recommandations, alertes et prévisions sont utiles lorsqu'ils expliquent les données et facilitent l'analyse, mais ils ne doivent pas être interprétés comme des verdicts automatiques.
+
+\section{Limites du travail réalisé}
+
+Certaines limites sont liées à la nature même des intégrations externes. Les workflows reposant sur LinkedIn, PhantomBuster, UniPile ou Gmail dépendent de services tiers, de leurs quotas, de leurs changements d'API et de la qualité variable des données retournées. Même lorsque les scénarios sont fonctionnels, leur stabilisation en production demande un suivi continu des erreurs, des statuts et des cas limites.
+
+Les modules IA présentent également des limites. Leur valeur dépend de la qualité des données disponibles, du contexte transmis au modèle et du contrôle des formats générés. Les mécanismes de cache, de validation JSON et de fallback réduisent les risques, mais une supervision humaine reste nécessaire pour interpréter correctement les scores, les recommandations, les alertes et les contenus produits.
+
+Enfin, la couche décisionnelle dépend de la cohérence des données sources. Les dashboards Power BI sont pertinents lorsque les champs MySQL, les dates, les statuts et les logs sont suffisamment propres. De même, \textit{AI Workforce Forecasting} reste une expérimentation exploratoire : les premiers résultats montrent un potentiel, mais davantage d'historique et de validation seraient nécessaires avant une utilisation décisionnelle complète.
+
+\section{Travaux en cours}
+
+Certaines fonctionnalités restent en cours de finalisation au moment de la rédaction. Elles sont déjà alignées avec les besoins du projet, mais demandent encore une stabilisation technique, un accès API ou une meilleure traçabilité avant une exploitation complète.
+
+\subsection{Augmentation de l'engagement de la communauté HireCue}
+
+Ce chantier vise à renforcer la visibilité de \textit{HireCue} sur LinkedIn. L'objectif est de suivre les publications, les réactions, les commentaires et les statistiques d'engagement afin de mieux comprendre la manière dont la communauté interagit avec la plateforme.
+
+Cette évolution peut aider à mesurer l'impact des contenus publiés et à relier la communication externe à l'activité réelle observée dans \textit{HireCue}. Elle demande toutefois une historisation propre des interactions et une synchronisation fiable avec les workflows d'orchestration.
+
+\subsection{Publication automatique des offres d'emploi sur LinkedIn}
+
+La publication automatique des offres internes dans la section officielle « Offre d'emploi » de LinkedIn constitue une évolution importante. Elle permettrait de réduire les saisies manuelles, de limiter les erreurs et d'assurer une meilleure cohérence entre les offres disponibles dans \textit{HireCue} et celles diffusées à l'extérieur.
+
+Le flux peut être préparé côté backend puis transmis à un workflow \textit{n8n}. Cependant, son industrialisation dépend de l'accès à la \textit{LinkedIn Talent Solutions API}. Sans cet accès, la publication officielle ne peut pas être présentée comme totalement stabilisée.
+
+\subsection{Réponse automatique aux commentaires LinkedIn par IA}
+
+La réponse automatique aux commentaires LinkedIn vise à analyser les interactions reçues, détecter leur intention et préparer une réponse adaptée. Un LLM pourrait distinguer une demande d'information, une réaction positive, une objection ou un commentaire sensible.
+
+Cette automatisation doit rester encadrée. Les réponses simples peuvent être proposées automatiquement, mais les cas sensibles doivent être transmis à une validation humaine. Cette règle évite de confier à l'IA des échanges qui nécessitent une interprétation prudente.
+
+\subsection{Migration des données externes vers NocoDB}
+
+La migration vers NocoDB vise à créer une couche de stockage dédiée aux workflows \textit{n8n}. Les données issues du sourcing, des campagnes, des interactions LinkedIn ou des actions d'outreach sont souvent plus hétérogènes que les données métier centrales.
+
+NocoDB peut servir de zone intermédiaire pour historiser les actions, suivre les campagnes, stocker les candidats sourcés et conserver les traces d'exécution. Cette séparation évite d'alourdir directement MySQL avec des données encore en qualification. Elle facilite aussi le contrôle avant une éventuelle insertion dans la base principale de \textit{HireCue}.
+
+\section{Perspectives futures}
+
+Les perspectives identifiées prolongent le travail réalisé sans changer la logique du projet. Elles visent à renforcer l'intelligence de la plateforme, améliorer l'exploitation des données et automatiser davantage certaines tâches, tout en conservant un contrôle humain sur les décisions sensibles.
+
+\subsection{Perspectives en intelligence artificielle}
+
+Le \textit{fine-tuning} de modèles LLM pourrait améliorer la cohérence des explications, des roadmaps et des questions d'entretien. Un modèle ajusté sur des cas de recrutement réels produirait des sorties plus proches du vocabulaire métier de \textit{HireCue}, à condition de respecter les contraintes d'anonymisation et de gouvernance des données.
+
+Une autre perspective concerne les systèmes \textit{Multi-Agent AI}. Plusieurs agents spécialisés pourraient collaborer pour analyser un profil, comparer une offre, vérifier les risques et produire une synthèse. Cette approche serait utile pour enrichir les recommandations, mais elle demanderait un contrôle strict des coûts, des conflits de sortie et des validations.
+
+L'explicabilité avancée reste également un axe important. Les utilisateurs doivent comprendre les raisons d'un score, d'une alerte ou d'une recommandation. Les futures évolutions pourraient donc intégrer des visualisations plus précises, des justifications mieux tracées et des comparaisons plus lisibles entre critères.
+
+\subsection{Perspectives en Business Intelligence}
+
+La couche Power BI pourrait évoluer vers une architecture analytique plus structurée. La mise en place d'un \textit{Data Warehouse} permettrait de séparer clairement les données transactionnelles des données destinées à l'analyse. Un processus ETL renforcerait la qualité et la stabilité des indicateurs.
+
+Un \textit{Data Lake} pourrait aussi être envisagé pour conserver des données plus variées : logs, événements, historiques d'interaction, résultats de workflows et sorties IA. Cette évolution serait utile si les volumes augmentent, mais elle nécessiterait des règles précises de gouvernance.
+
+L'actualisation temps réel ou quasi temps réel représente une autre piste. Elle serait particulièrement utile pour suivre les coûts IA, l'état des workflows ou les pics d'activité, à condition de préserver les performances de la plateforme.
+
+\subsection{Perspectives pour le Workforce Forecasting}
+
+L'expérimentation \textit{AI Workforce Forecasting} peut être enrichie par des modèles plus adaptés aux séries temporelles et aux données structurées. Les Transformers pourraient être étudiés lorsque les historiques deviennent plus riches. Prophet pourrait aider à modéliser des tendances et des saisonnalités plus interprétables.
+
+XGBoost représente une piste complémentaire pour exploiter des variables issues des offres, des candidats, des entreprises et des périodes d'activité. L'objectif ne serait pas seulement de produire une prédiction, mais de fournir un résultat utile à la planification RH et compréhensible par les décideurs.
+
+\subsection{Perspectives en automatisation}
+
+Les workflows actuels pourraient évoluer vers des automatisations plus intelligentes. Des agents IA autonomes pourraient surveiller certains signaux, proposer des actions et préparer des campagnes, tout en laissant la validation finale aux utilisateurs lorsque l'action a un impact métier.
+
+Les workflows décisionnels intelligents pourraient combiner règles métier, données Power BI, sorties IA et validation humaine. Cette approche serait utile pour le réengagement, la diffusion d'offres, le suivi LinkedIn et la préparation des entretiens.
+
+L'automatisation avancée du recrutement devra toutefois conserver des garde-fous : journalisation, limites d'envoi, contrôle des contenus générés, suivi des statuts et possibilité de reprise manuelle. Ces conditions sont nécessaires pour garder une automatisation utile et acceptable.
+
+\section{Synthèse générale}
+
+Le chapitre montre que \textit{HireCue} a évolué selon une logique cohérente : rendre les résultats plus lisibles, mieux accompagner les candidats, aider les recruteurs à décider et donner aux responsables une vue plus claire de l'activité. Les modules IA, les workflows d'automatisation et la couche Power BI n'ont pas été traités comme des éléments séparés, mais comme des extensions complémentaires du même processus de recrutement.
+
+Le projet a également mis en évidence une exigence importante : l'innovation doit rester maîtrisée. Les scores, les recommandations, les alertes et les prévisions gagnent en valeur lorsqu'ils sont expliqués, tracés et replacés dans une décision humaine. De la même manière, les automatisations ne deviennent réellement utiles que lorsqu'elles sont suivies, contrôlées et reliées aux besoins métier.
+
+En conclusion, \textit{HireCue} dispose désormais d'une base plus riche pour poursuivre son évolution. Les travaux réalisés renforcent l'expérience candidat, l'aide à la décision recruteur et le pilotage de la plateforme. Les perspectives proposées ouvrent la voie à une solution encore plus analytique, plus prédictive et plus automatisée, tout en conservant l'équilibre nécessaire entre assistance intelligente et maîtrise humaine.

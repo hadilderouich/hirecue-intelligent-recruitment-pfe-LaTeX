@@ -7,15 +7,15 @@ Ce chapitre décrit le passage entre les besoins formalisés dans les parties pr
 
 Dans le cadre du stage chez Teligencia Labs, l'accent a surtout porté sur des briques qui devaient apporter une valeur immédiate au recrutement : score explicable, recommandations côté recruteur, roadmap de compétences, chatbot contextuel, questions personnalisées et workflows d'automatisation. La lecture qui suit revient d'abord sur l'architecture générale et sur la modélisation UML, puis sur la conception fonctionnelle, la conception technique et l'implémentation des fonctionnalités effectivement rattachées au projet.
 
+Pour clarifier l'organisation du chapitre, les premières sections décrivent les choix de conception : architecture, modèles UML, rôle fonctionnel des modules et principes techniques retenus. Les sections suivantes présentent ensuite la réalisation concrète, l'intégration décisionnelle et les workflows automatisés, avant de revenir sur les difficultés rencontrées.
+
 \section{Architecture globale du système}
 
-\textit{HireCue} repose sur une architecture distribuée dans laquelle le frontend React, le backend Node.js / Express, la base MySQL, les services IA et les workflows externes coopèrent sans se confondre. Le frontend porte les parcours visibles du candidat, du recruteur et de l'administrateur. Il transmet les actions utilisateur au backend via des APIs REST, puis restitue les résultats sous forme de dashboards, de rapports, de roadmaps ou de listes de candidatures exploitables.
+\textit{HireCue} repose sur une architecture distribuée dans laquelle le frontend React \cite{react_docs}, le backend Node.js / Express \cite{node_docs}, la base MySQL \cite{mysql_docs}, les services IA et les workflows externes coopèrent sans se confondre. Le frontend porte les parcours visibles du candidat, du recruteur et de l'administrateur. Il transmet les actions utilisateur au backend via des APIs REST, puis restitue les résultats sous forme de dashboards, de rapports, de roadmaps ou de listes de candidatures exploitables.
 
-Le backend centralise ensuite la logique métier. Il orchestre les appels aux services applicatifs, interroge la base, gère les quotas et coordonne plusieurs traitements qui ne doivent pas être bloqués par une unique requête synchrone. Lorsqu'un flux externe est nécessaire, le backend peut transmettre la demande à \textit{n8n}. Ce dernier joue alors le rôle d'orchestrateur pour les imports, les enchaînements de nettoyage, les interactions avec PhantomBuster et certains flux de communication. Les données consolidées reviennent ensuite vers MySQL, puis peuvent être exploitées par les modules métier ou par les services IA.
+Le backend centralise ensuite la logique métier. Il orchestre les appels aux services applicatifs, interroge la base, gère les quotas et coordonne plusieurs traitements qui ne doivent pas être bloqués par une unique requête synchrone. Lorsqu'un flux externe est nécessaire, le backend peut transmettre la demande à \textit{n8n} \cite{n8n_docs}. Ce dernier joue alors le rôle d'orchestrateur pour les imports, les enchaînements de nettoyage, les interactions avec PhantomBuster \cite{phantombuster_docs} et certains flux de communication. Les données consolidées reviennent ensuite vers MySQL, puis peuvent être exploitées par les modules métier ou par les services IA.
 
 Les services IA sont intégrés de manière ciblée. Ils interviennent pour produire une explication, une roadmap, une reformulation ou un contenu structuré, mais ils ne remplacent pas les calculs métier déterministes. Dans la pratique, le flux peut donc se lire ainsi : le frontend React sollicite le backend API, le backend active si besoin un workflow \textit{n8n}, ce workflow dialogue avec PhantomBuster ou avec d'autres services externes, les données sont validées et stockées dans MySQL, puis les modules IA viennent enrichir certains résultats déjà construits.
-
-Le diagramme suivant résume cette organisation en quatre couches. Il met surtout en évidence les acteurs, les parcours frontend, les services backend et l'infrastructure de données et d'IA. Les workflows \textit{n8n} et les intégrations externes n'y sont pas tous détaillés, mais ils prolongent cette architecture en dehors du cœur applicatif lorsque le projet doit sourcer, importer ou automatiser des traitements transverses.
 
 \begin{figure}[H]
     \centering
@@ -32,9 +32,7 @@ La modélisation UML a servi de support pour clarifier l'organisation du systèm
 
 Le diagramme de classes montre que le noyau de \textit{HireCue} reste structuré autour de quelques entités pivot. La table User porte les informations de profil, de rôle, de rattachement à l'entreprise et de quotas IA. La table Job décrit les offres, tandis que CandidateJob joue un rôle central en reliant candidat, poste, résultats de tests et état de la candidature. C'est d'ailleurs autour de cette entité que se greffent le score explicable, la roadmap, certaines alertes de risque, les recommandations et le réengagement.
 
-Le diagramme fait aussi apparaître des structures plus spécialisées, comme CvInfo, FinalScoring, ScoreReport, CandidateSkillRoadmap, CandidateRoadmapChatMessage, AIRecommendationsCache, LLMConsumption, CandidateEngagementInsight, Notification ou encore ReengagementLog. Cette organisation confirme que les modules réalisés pendant le stage ne sont pas des briques ajoutées à côté du système. Ils réutilisent les données métier existantes, puis les prolongent par de la persistance, du cache ou des journaux de traitement.
-
-Le diagramme montre également une distinction importante pour la suite du rapport : certaines entités relèvent du métier pur, d'autres correspondent déjà à des sorties dérivées ou à des caches. Cette séparation aide à comprendre pourquoi les choix d'implémentation ont privilégié des calculs déterministes pour la détection des écarts ou le classement, puis une couche IA plus contrôlée pour l'explication ou la génération pédagogique.
+Cette organisation confirme que les modules réalisés pendant le stage ne sont pas des briques ajoutées à côté du système. Ils réutilisent les données métier existantes, puis les prolongent par de la persistance, du cache ou des journaux de traitement.
 
 \begin{figure}[H]
     \centering
@@ -153,21 +151,10 @@ Une fois le score consolidé, une explication structurée est générée, puis s
     \label{fig:sequence-score-explicable}
 \end{figure}
 
-\subsection{Diagramme d'activité}
 
-Le diagramme d'activité porte ici sur le processus de génération de la roadmap. Le démarrage se fait par le chargement des données du candidat, suivi du calcul des \textit{skill gaps}. Une première décision vérifie ensuite la disponibilité du quota. Si le quota est dépassé, le système n'essaie pas de produire un résultat partiel et retourne explicitement un message d'arrêt.
-
-Si le quota reste disponible, le processus vérifie l'existence d'une roadmap en cache. Une réponse déjà calculée peut alors être renvoyée directement. Dans le cas contraire, le service IA est appelé. Le diagramme montre ensuite une seconde décision sur la validité du JSON retourné. Une sortie validée est sauvegardée, tandis qu'une sortie invalide entraîne l'utilisation d'un fallback déterministe. L'intérêt de cette représentation est de rendre visible la logique métier du module : contrôle de quota, réutilisation du cache, génération encadrée et issue de secours en cas d'échec.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{\detokenize{diagramme d’activité.png}}
-    \caption{Diagramme d'activité du processus HireCue}
-    \label{fig:diagramme-activite-hirecue}
-\end{figure}
 \section{Conception fonctionnelle}
 
-La conception fonctionnelle de \textit{HireCue} s'appuie sur des usages réels du recrutement numérique. Chaque module a été rattaché à un besoin concret, soit pour mieux expliquer un résultat, soit pour assister le recruteur sans lui retirer la décision, soit pour rendre certaines opérations répétitives plus fluides.
+La conception fonctionnelle de \textit{HireCue} décrit le rôle attendu de chaque module dans les parcours utilisateur, sans détailler encore son implémentation. Chaque brique a été rattachée à un besoin concret, soit pour mieux expliquer un résultat, soit pour assister le recruteur sans lui retirer la décision, soit pour rendre certaines opérations répétitives plus fluides.
 
 \subsection{Gestion des candidats}
 
@@ -177,27 +164,26 @@ Cette centralisation est importante pour les deux principaux profils utilisateur
 
 \subsection{Rapport de score explicable}
 
-Le rapport de score explicable répond à un besoin simple en apparence, mais central pour le projet : un résultat numérique seul n'est pas suffisant pour guider un candidat ou aider un recruteur. Le module a donc pour objectif de fournir une lecture plus interprétable du score, en expliquant les composantes qui influencent le résultat et en distinguant ce qui relève du niveau technique, des tests, du profil ou d'autres dimensions prises en compte par le système.
+Le rapport de score explicable répond à un besoin essentiel : permettre aux candidats et aux recruteurs de comprendre la signification d'un score. Un résultat numérique seul ne suffit pas ; il doit être accompagné d'une explication claire sur les éléments qui ont influencé son calcul.
 
-Fonctionnellement, cette brique sert à relier l'évaluation à une restitution défendable. Elle prend place à un moment sensible du processus de recrutement, celui où un utilisateur veut comprendre ce qu'un score signifie réellement et sur quels éléments il repose. Dans \textit{HireCue}, cette explicabilité joue aussi un rôle de confiance, car elle rend le parcours moins opaque.
+Cette fonctionnalité vise à rendre le processus d'évaluation plus transparent en présentant les différentes composantes du score, telles que les compétences, les résultats des tests ou d'autres critères pris en compte par la plateforme. Elle contribue ainsi à renforcer la confiance des utilisateurs dans les résultats obtenus.
 
-La restitution attendue ne se limite donc pas à l'affichage d'une note globale. Elle doit faire apparaître une répartition détaillée du résultat, des sous-scores lisibles et des explications suffisamment claires pour distinguer les points forts, les insuffisances éventuelles et les marges d'amélioration. Dans le parcours candidat, cette logique peut être prolongée par des conseils de progression. Dans le parcours recruteur, elle apporte surtout une lecture plus claire pour appuyer la décision sans se substituer au jugement humain.
+La restitution ne se limite pas à une note globale. Elle met en évidence les sous-scores, les points forts, les axes d'amélioration et les recommandations éventuelles. Pour le candidat, elle constitue un retour constructif sur son profil, tandis que pour le recruteur, elle fournit une aide à la décision plus claire et plus facilement interprétable.
 
 \subsection{Recommandations IA côté recruteur}
 
-Ce module a été pensé pour réduire le temps consacré au tri initial tout en laissant au recruteur la maîtrise de la décision. L'objectif fonctionnel n'est donc pas de produire un verdict automatique, mais de présenter des profils rapprochés d'un poste avec des indicateurs plus utiles qu'une simple liste de candidatures. Le recruteur peut ainsi visualiser un score d'adéquation, des compétences rapprochées, des écarts à surveiller et une explication associée.
+Ce module a pour objectif d'aider les recruteurs à identifier rapidement les candidats les plus pertinents pour une offre, tout en conservant la maîtrise de la décision finale. Il ne remplace pas l'évaluation humaine, mais fournit des indicateurs utiles tels qu'un score d'adéquation, les compétences correspondantes, les écarts identifiés et une explication associée.
 
-Dans \textit{HireCue}, cette fonctionnalité prend surtout de la valeur lorsqu'elle est reliée aux autres briques du système. Une recommandation ne reste pas isolée : elle peut renvoyer vers le score détaillé, vers les signaux de risque, vers des questions personnalisées ou vers un scénario de réengagement.
+Dans \textit{HireCue}, les recommandations sont intégrées aux autres fonctionnalités de la plateforme. Elles peuvent être complétées par l'accès au score explicable, aux questions personnalisées ou aux mécanismes de réengagement des candidats.
 
-Dans le cadre du projet, le format cible correspond à une mise en avant d'un nombre restreint de candidats pertinents, typiquement trois profils recommandés pour une offre. Cette limitation permet de conserver un résultat lisible dans le dashboard recruteur et d'associer à chaque recommandation une justification exploitable. Lorsque le parcours le permet, ces recommandations peuvent aussi déboucher sur des actions concrètes, comme l'invitation du candidat à passer un test complémentaire ou l'ouverture d'un module de questions personnalisées.
-
+Afin de garantir une présentation claire, le système met en avant un nombre limité de profils recommandés, généralement les trois candidats les plus adaptés à une offre. Chaque recommandation est accompagnée d'une justification permettant au recruteur de comprendre les raisons de sa sélection et de poursuivre le processus de recrutement à travers des actions adaptées.
 \subsection{Skill Gap Roadmap}
 
-La roadmap de compétences a été introduite pour répondre à un manque fréquent dans les plateformes de recrutement : le candidat connaît l'issue de son évaluation, mais il ne sait pas toujours comment progresser. Le rôle de ce module est de transformer un écart entre profil et poste en un parcours de progression plus concret. L'utilisateur concerné est d'abord le candidat, mais le résultat peut aussi aider l'équipe produit ou le recruteur à mieux comprendre la logique des recommandations affichées.
+La roadmap de compétences a été conçue pour aider les candidats à comprendre comment progresser après une évaluation. Au-delà d'un simple résultat, elle transforme les écarts identifiés entre un profil et un poste en un plan d'amélioration structuré.
 
-La valeur métier de cette fonctionnalité tient à son positionnement. Elle déplace \textit{HireCue} d'une logique purement évaluative vers une logique d'accompagnement. Une candidature n'est plus seulement acceptée ou écartée ; elle peut aussi donner lieu à un retour structuré sur les compétences à renforcer.
+Cette fonctionnalité apporte une dimension d'accompagnement à \textit{HireCue}. Au lieu de se limiter à une évaluation, la plateforme fournit des recommandations permettant au candidat d'identifier les compétences à développer et les priorités de progression.
 
-Dans le périmètre observé, cette roadmap est rattachée à une candidature et à une offre cible. Elle ne se résume donc pas à une recommandation générale de formation. Elle vise plutôt à expliciter, pour un binôme candidat-poste donné, les compétences manquantes, les priorités de progression et, lorsque la fonctionnalité est activée, un support PDF permettant de conserver ou de partager le plan d'amélioration.
+La roadmap est générée à partir d'une candidature et d'un poste cible. Elle met en évidence les compétences manquantes, les axes d'amélioration et les actions recommandées pour renforcer l'adéquation du profil au poste. Un export PDF peut également être généré afin de faciliter la consultation et le partage du plan de progression.
 
 \subsection{Chatbot RAG}
 
@@ -237,34 +223,28 @@ Dans \textit{HireCue}, cette fonctionnalité renforce l'aide à la décision san
 
 \subsection{Scraping des données externes}
 
-Le scraping des données externes occupe une place importante dans \textit{HireCue}, car il permet d'ouvrir la plateforme vers des sources utiles au recrutement, en particulier LinkedIn et d'autres canaux externes exploitables selon les workflows disponibles. Son rôle n'est pas de contourner le fonctionnement interne de la plateforme, mais d'enrichir les parcours recruteur et administrateur par des profils ou des offres qui ne sont pas encore présents dans la base.
+Le scraping des données externes permet à \textit{HireCue} d'enrichir sa base d'informations à partir de sources telles que LinkedIn. Son objectif est de faciliter le sourcing de candidats et la collecte d'offres d'emploi afin de compléter les données déjà présentes dans la plateforme.
 
-Dans le cadre du stage, l'intérêt de cette brique apparaît surtout dans deux cas. Le premier concerne le sourcing de profils candidats, lorsqu'un recruteur souhaite faire remonter des candidats potentiellement pertinents à partir d'un critère ciblé. Le second concerne la récupération d'offres externes, afin d'alimenter plus rapidement le vivier d'opportunités visibles dans \textit{HireCue}. Dans les deux cas, la donnée externe n'est jamais utilisée brute. Elle doit être vérifiée, nettoyée et adaptée au modèle interne avant de devenir exploitable.
+Cette fonctionnalité est principalement utilisée pour rechercher de nouveaux profils candidats et récupérer des offres externes. Les données collectées ne sont pas exploitées directement ; elles sont d'abord vérifiées, nettoyées et normalisées afin de garantir leur cohérence avec le modèle de données interne.
 
-Sur le plan technique, PhantomBuster intervient comme outil d'extraction. Il permet de lancer des agents capables de récupérer des profils, certaines informations de contact disponibles, ou encore des offres présentes sur LinkedIn. \textit{n8n} joue ensuite un rôle d'orchestration. Il déclenche les workflows, enchaîne les traitements, centralise les retours d'exécution et transmet au backend des structures de données plus cohérentes avec les besoins de la plateforme.
+Sur le plan technique, PhantomBuster est utilisé pour l'extraction des données, tandis que \textit{n8n} orchestre les différents workflows. Les informations récupérées sont ensuite traitées, dédupliquées et transformées avant leur intégration dans la base de données ou leur affichage dans les tableaux de bord de la plateforme.
 
-Le déroulement général du processus peut être résumé en plusieurs étapes. D'abord, le recruteur ou l'administrateur saisit des critères de recherche selon le besoin métier. Ensuite, le workflow \textit{n8n} est déclenché. Ce workflow appelle alors PhantomBuster ou, selon le cas, une API externe. Les données récupérées sont ensuite consolidées, puis soumises à une phase de nettoyage et de normalisation. Les doublons sont supprimés avant toute exploitation plus poussée. Enfin, les résultats sont mappés vers le modèle interne de \textit{HireCue}, puis soit insérés dans la base, soit affichés dans un dashboard adapté au profil utilisateur.
-
-Cette chaîne montre que la qualité du scraping ne dépend pas seulement de la capacité à extraire des données. Elle dépend surtout de la validation des contenus, de la déduplication, de la cohérence avec la base interne et de la qualité du mapping appliqué avant intégration. Autrement dit, la valeur de cette fonctionnalité ne réside pas dans le volume brut récupéré, mais dans la transformation d'une donnée externe hétérogène en une information exploitable dans les parcours métier de \textit{HireCue}.
+Ainsi, la valeur de cette fonctionnalité ne réside pas uniquement dans la collecte de données externes, mais surtout dans leur transformation en informations fiables et exploitables pour les processus de recrutement de \textit{HireCue}.
 \section{Conception technique}
 
 La conception technique retenue pendant le stage cherche à séparer clairement ce qui relève de l'interface, de la logique métier, de la persistance, des traitements intelligents et des intégrations externes. Cette séparation était nécessaire, car les nouvelles fonctionnalités ne pouvaient pas être ajoutées proprement si tout le système était concentré dans une seule couche.
 
 \subsection{Architecture backend}
 
-L'architecture backend de \textit{HireCue} repose sur une organisation en couches, structurée principalement autour des routes API, des contrôleurs, des services métier, des repositories et des modèles Sequelize. Ce découpage répond à un objectif de modularité et de maintenabilité, en séparant clairement les responsabilités entre l'exposition des endpoints, le traitement applicatif, la logique métier et l'accès aux données persistantes.
+L'architecture backend de \textit{HireCue} repose sur une organisation en couches composée des routes API, des contrôleurs, des services métier, des repositories et des modèles Sequelize. Cette structure favorise la modularité, la maintenabilité et la séparation des responsabilités.
 
-Les routes constituent les points d'entrée du système. Elles exposent les services consommés par le frontend, ainsi que certains endpoints mobilisés dans des workflows internes ou des traitements spécialisés. Les contrôleurs assurent ensuite la réception et l'orchestration initiale des requêtes : ils récupèrent les paramètres, appliquent les vérifications nécessaires, gèrent les aspects liés à l'authentification ou à l'autorisation, puis délèguent l'exécution au niveau des services. Cette approche permet de conserver des contrôleurs relativement légers, centrés sur la gestion du flux HTTP plutôt que sur l'implémentation de la logique métier.
+Les routes exposent les services consommés par le frontend, tandis que les contrôleurs gèrent les requêtes, les validations et l'authentification avant de déléguer les traitements aux services métier. Ces derniers regroupent l'essentiel de la logique applicative, notamment le calcul des scores, la génération des rapports explicables, des roadmaps de compétences, des recommandations intelligentes et des fonctionnalités de réengagement.
 
-Dans les modules IA, les appels passent généralement par des routes REST internes. Le frontend transmet un identifiant de candidature, de poste ou de candidat ; le backend reconstruit ensuite le contexte nécessaire à partir de MySQL avant d'appeler le service IA ou le worker concerné. Les données envoyées aux modèles ne sont donc pas de simples textes libres : elles sont structurées sous forme de payloads contenant les scores, les compétences, les informations du poste, les écarts détectés et, lorsque c'est utile, un historique limité. La réponse est ensuite récupérée, validée, éventuellement mise en cache, puis renvoyée au frontend dans un format exploitable.
+Pour les modules d'intelligence artificielle, le backend reconstruit le contexte métier à partir des données stockées dans MySQL avant d'interroger les services IA. Les résultats générés sont ensuite validés, éventuellement mis en cache, puis renvoyés au frontend dans un format exploitable.
 
-La logique métier est principalement portée par les services. Cette couche regroupe les traitements essentiels du système, notamment ceux liés au calcul des scores, à la génération des rapports explicables, à la construction des roadmaps de progression, aux recommandations destinées aux recruteurs, à la génération de questions personnalisées, ainsi qu'aux scénarios de réengagement de candidats. Le choix d'isoler ces traitements dans des services dédiés présente plusieurs avantages : il améliore la lisibilité du code, facilite la réutilisation de fonctionnalités communes, réduit le couplage entre modules et rend l'évolution du système plus maîtrisable.
+L'accès aux données est assuré par les repositories et les modèles Sequelize, qui encapsulent les opérations réalisées sur la base MySQL. Cette approche améliore la cohérence des accès aux données et facilite l'évolution du système.
 
-L'accès aux données est, quant à lui, pris en charge par les repositories et les modèles Sequelize, qui assurent les opérations de lecture, d'écriture, de mise à jour et de suppression dans la base de données MySQL. Cette couche permet d'encapsuler la logique d'accès aux données et de limiter la dépendance directe des services vis-à-vis du schéma relationnel. Elle favorise également une meilleure cohérence dans les requêtes et simplifie la maintenance lorsque certaines structures doivent évoluer.
-
-Cette architecture a joué un rôle particulièrement important dans la réalisation des fonctionnalités développées dans le cadre de ce projet. En effet, des modules comme le score report explicable, la roadmap personnalisée, le chatbot associé à la roadmap, les recommandations intelligentes pour recruteur, les questions personnalisées ou encore le réengagement de talents mobilisent des traitements de nature différente, parfois synchrones, parfois asynchrones, mais qui doivent rester cohérents avec l'ensemble du backend. L'organisation en services spécialisés a permis d'intégrer ces fonctionnalités avancées sans alourdir excessivement les contrôleurs ni compromettre la structure globale de l'application.
-
-En outre, cette architecture favorise l'intégration de mécanismes complémentaires tels que la mise en cache persistante, la traçabilité des traitements, la gestion de quotas pour certains usages IA, ou encore le pilotage de certains traitements différés. Le backend de \textit{HireCue} ne se limite donc pas à une simple couche d'exposition d'API ; il constitue une infrastructure applicative complète, capable de centraliser les règles métier du recrutement, de coordonner les échanges entre modules et de supporter des fonctionnalités intelligentes tout en préservant la robustesse et la maintenabilité du système.
+Grâce à cette architecture, les différentes fonctionnalités de \textit{HireCue} peuvent être intégrées de manière cohérente tout en conservant de bonnes performances, une maintenance simplifiée et une meilleure évolutivité. Elle facilite également la gestion des traitements asynchrones, de la mise en cache et du suivi des usages des services d'intelligence artificielle.
 
 \begin{figure}[H]
     \centering
@@ -274,23 +254,20 @@ En outre, cette architecture favorise l'intégration de mécanismes complémenta
 
 \subsection{Base de données}
 
-La base de données MySQL occupe une position centrale dans l'architecture de \textit{HireCue}. Elle assure non seulement la persistance des données métier classiques, mais également le stockage des résultats de calcul, des historiques d'interaction, des caches applicatifs et de certaines traces liées aux fonctionnalités intelligentes. Ainsi, la base de données ne joue pas un rôle purement transactionnel ; elle constitue également un support de continuité fonctionnelle et de traçabilité pour plusieurs modules avancés du système.
+La base de données MySQL occupe une position centrale dans l'architecture de \textit{HireCue}. Elle assure non seulement la persistance des données métier classiques, mais également le stockage des résultats de calcul, des historiques d'interaction, des caches applicatifs et de certaines traces liées aux fonctionnalités intelligentes.
+Parmi les tables les plus structurantes, la table users regroupe les informations relatives aux utilisateurs de la plateforme, notamment leurs profils et leurs rôles. La table joblist centralise les informations associées aux offres d'emploi publiées. La table candidate\_job matérialise la relation entre un candidat et une offre donnée. La table cv\_info complète cet ensemble en stockant les informations issues du CV ou associées au profil candidat.
 
-Parmi les tables les plus structurantes, la table users regroupe les informations relatives aux utilisateurs de la plateforme, notamment leurs profils, leurs rôles et certaines données d'identification. La table joblist centralise les informations associées aux offres d'emploi publiées. La table candidate\_job revêt une importance particulière, puisqu'elle matérialise la relation entre un candidat et une offre donnée. Elle sert de point d'ancrage à plusieurs traitements métier, notamment le suivi de candidature, l'état d'avancement dans le processus de recrutement, certaines données d'activité, ainsi que différents indicateurs utilisés dans les évaluations ou les traitements de relance. La table cv\_info complète cet ensemble en stockant les informations issues du CV ou associées au profil candidat.
-
-Dans le cadre des fonctionnalités développées dans ce projet, plusieurs tables spécialisées interviennent également de manière significative. La table score\_reports permet de persister les rapports explicables générés à partir des scores candidats ou recruteurs. La table candidate\_skill\_roadmaps est utilisée pour stocker les roadmaps de progression produites à partir de l'analyse des écarts de compétences. La table candidate\_roadmap\_chat\_messages conserve, quant à elle, l'historique des échanges entre le candidat et le chatbot associé à sa roadmap, ce qui permet de maintenir le contexte conversationnel d'une session à l'autre.
-
-Du côté des fonctionnalités destinées au recruteur, les tables ai\_recommendation\_jobs et ai\_recommendations\_cache soutiennent la gestion des recommandations intelligentes, notamment en assurant la persistance de certains résultats intermédiaires ou mis en cache. Par ailleurs, les tables liées aux évaluations, aux tests techniques, psychotechniques ou comportementaux, ainsi qu'aux différents scores calculés dans le système, alimentent plusieurs traitements transverses, notamment les rapports explicables, les recommandations et certaines alertes métier.
+Dans le cadre des fonctionnalités développées dans ce projet, plusieurs tables spécialisées interviennent également de manière significative. La table score\_reports permet de persister les rapports explicables générés à partir des scores candidats ou recruteurs. La table candidate\_skill\_roadmaps est utilisée pour stocker les roadmaps de progression produites à partir de l'analyse des écarts de compétences.
 
 La base de données joue également un rôle dans le pilotage des fonctionnalités génératives ou assistées par intelligence artificielle. À ce titre, la table LLMConsumptions permet de suivre la consommation associée à certains appels IA, contribuant ainsi à la traçabilité et à la régulation de leur usage. D'autres tables, liées aux notifications, aux rappels ou aux journaux d'activité, participent également au bon fonctionnement de fonctionnalités telles que le réengagement de candidats ou l'envoi d'emails de relance après une période d'inactivité.
-
-En définitive, MySQL dans \textit{HireCue} ne doit pas être considérée comme une simple base de stockage relationnelle. Elle constitue un composant structurant du système d'information, à la fois support de persistance métier, mécanisme de traçabilité, espace de cache applicatif et socle de continuité fonctionnelle pour plusieurs modules intelligents. Cette centralité de la base de données contribue directement à la cohérence du backend et à la stabilité des fonctionnalités avancées développées dans le cadre de la plateforme.
+Cette centralité de la base de données contribue directement à la cohérence du backend et à la stabilité des fonctionnalités avancées développées dans le cadre de la plateforme.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{archi_basededonnes.png}
     \caption{Architecture de la base de données de HireCue}
 \end{figure}
+
 
 \subsection{Intégration n8n}
 
@@ -309,7 +286,7 @@ Les échanges entre le backend et \textit{n8n} reposent principalement sur des w
 
 \subsection{Intégration PhantomBuster}
 
-PhantomBuster est utilisé lorsque la plateforme doit interagir avec des données externes LinkedIn. Son rôle est de lancer des agents capables d'extraire des profils, des emails professionnels lorsque ceux-ci sont disponibles, ou encore des offres d'emploi. L'outil n'est toutefois pas intégré seul. Les résultats passent ensuite par \textit{n8n}, qui assure les étapes de normalisation, de déduplication et de préparation avant stockage ou import via l'API backend.
+PhantomBuster \cite{phantombuster_docs} est utilisé lorsque la plateforme doit interagir avec des données externes LinkedIn. Son rôle est de lancer des agents capables d'extraire des profils, des emails professionnels lorsque ceux-ci sont disponibles, ou encore des offres d'emploi. L'outil n'est toutefois pas intégré seul. Les résultats passent ensuite par \textit{n8n}, qui assure les étapes de normalisation, de déduplication et de préparation avant stockage ou import via l'API backend.
 
 Cette intégration exige une certaine prudence, car les données récupérées ne sont ni homogènes ni garanties. Une partie du travail a donc consisté à traiter PhantomBuster comme une source externe utile, mais non suffisante en elle-même. La qualité finale dépend de la chaîne complète : extraction, nettoyage, vérification, mapping et insertion.
 
@@ -322,11 +299,10 @@ Cette intégration exige une certaine prudence, car les données récupérées n
 
 \subsection{Intégration UniPile}
 
-UniPile intervient dans \textit{HireCue} comme une solution d'intégration API plus adaptée à certains flux LinkedIn orientés interaction plutôt qu'extraction. Contrairement à PhantomBuster, principalement mobilisé pour le scraping, le sourcing et la récupération de données externes, UniPile se positionne sur une logique d'API permettant de structurer plus proprement les échanges avec LinkedIn lorsque le besoin porte sur des actions sortantes ou sur le suivi de conversations.
+UniPile \cite{unipile_docs} est utilisé dans \textit{HireCue} pour gérer les interactions avec LinkedIn, notamment l'envoi de messages, le suivi des conversations et la publication de contenus ou d'offres d'emploi. Les actions sont préparées par le backend puis exécutées via l'API UniPile, éventuellement à travers des workflows \textit{n8n}.
 
-Dans le périmètre du projet, cette brique est particulièrement pertinente pour l'envoi de messages LinkedIn, le suivi des réponses, la synchronisation de conversations, la publication de contenus et le posting d'offres d'emploi. L'intérêt architectural est clair : le backend \textit{HireCue} peut préparer les données métier, cadrer les informations à transmettre et déléguer ensuite l'interaction avec LinkedIn à une couche API plus structurée, éventuellement orchestrée par \textit{n8n} lorsque plusieurs étapes doivent être enchaînées.
+Cette solution complète PhantomBuster : tandis que PhantomBuster est dédié au sourcing et à l'extraction de données, UniPile prend en charge les échanges et les publications sur LinkedIn. Cette séparation permet d'utiliser chaque outil selon son domaine de spécialisation.
 
-Cette intégration ne remplace donc pas PhantomBuster. Elle le complète. PhantomBuster reste mieux adapté aux scénarios d'extraction, de sourcing et d'enrichissement de leads, tandis qu'UniPile est plus cohérent pour les flux de messagerie et de publication. Dans une soutenance, cette complémentarité peut être défendue comme un choix de spécialisation des outils selon la nature du workflow, afin d'éviter de traiter avec une même solution des besoins qui ne relèvent pas de la même logique technique.
 
 \begin{figure}[H]
     \centering
@@ -342,51 +318,44 @@ Le cache est présent pour éviter de régénérer inutilement des résultats co
 En parallèle, RabbitMQ permet de déplacer certaines tâches lourdes hors du chemin synchrone. Les recommandations IA et certains jobs de réengagement en sont de bons exemples. Le backend peut enregistrer une demande, la confier à une queue, laisser un worker produire le résultat en arrière-plan, puis laisser le frontend interroger l'état du traitement tant que le calcul n'est pas terminé. Cette approche réduit la charge perçue par l'utilisateur et donne plus de robustesse à des traitements qui pourraient sinon bloquer l'interface ou le serveur.
 \section{Implémentation des fonctionnalités}
 
-Les sections qui suivent reviennent sur les fonctionnalités réellement travaillées autour de \textit{HireCue}. L'objectif n'est pas de reproduire la documentation interne des services, mais d'expliquer comment les choix de conception ont été traduits en modules exploitables dans les parcours candidat et recruteur.
+À partir de cette section, la lecture bascule vers la réalisation. L'objectif n'est pas de reproduire la documentation interne des services, mais d'expliquer comment les choix de conception ont été traduits en modules exploitables dans les parcours candidat et recruteur.
 
 \subsection{Score explicable}
 
-Le score explicable repose sur plusieurs sources déjà présentes dans la plateforme, notamment candidate\_job, cv\_info, joblist et la configuration de final\_scoring. Les sous-scores exploités dans le projet incluent notamment Cscore, Pscore, Ptscore et Tscore. Lorsque final\_tests\_score existe, il peut être pris en compte directement. Dans le cas contraire, le service revient à une combinaison pondérée des composantes disponibles.
+Le score explicable permet de rendre les résultats d'évaluation plus compréhensibles pour les candidats et les recruteurs. Il s'appuie sur plusieurs données de la plateforme, notamment les sous-scores \texttt{Cscore}, \texttt{Pscore}, \texttt{Ptscore} et \texttt{Tscore}, afin de calculer un score global selon des règles métier prédéfinies.
 
-Le calcul n'est donc pas une simple moyenne aveugle. Il suit une logique de pondération métier et reste capable de gérer des scores manquants sans produire un résultat arbitraire. Cette robustesse était nécessaire dans un environnement où toutes les candidatures ne disposent pas du même niveau de complétude.
+Une fois le score calculé, le système génère une explication détaillant les principaux facteurs qui ont influencé le résultat. Ces informations sont enregistrées dans la table \texttt{score\_reports} afin d'éviter des recalculs inutiles et de garantir la traçabilité des analyses.
 
-Une fois le score calculé, le système produit une explication compréhensible et la conserve dans score\_reports. Le candidat y trouve surtout une lecture pédagogique de son résultat, alors que le recruteur attend une aide plus directe à la décision. Cette différence de restitution ne remet pas en cause le calcul de base ; elle adapte simplement la présentation au besoin utilisateur.
+La restitution met en évidence les points forts, les axes d'amélioration et les sous-scores associés. Elle offre ainsi un retour constructif au candidat et une aide à la décision plus claire pour le recruteur. Un export PDF du rapport peut également être généré afin de faciliter la consultation et le partage des résultats.
 
-Lorsque l'explication IA est sollicitée, le backend construit un contexte limité aux éléments nécessaires : identifiant de candidature, poste visé, score global, sous-scores disponibles, compétences observées et signaux manquants. Ce contexte est transmis au service de génération sous forme structurée afin d'obtenir une réponse exploitable par le frontend. La réponse retournée est contrôlée avant affichage, puis persistée pour éviter de régénérer le même rapport à chaque consultation.
-
-La réalisation ne s'arrête donc pas au calcul. Elle implique aussi la structuration d'une sortie lisible, capable d'afficher la décomposition du score, les sous-scores mobilisés et des conseils d'amélioration cohérents avec les données observées. L'export PDF du rapport de score renforce cette valeur en permettant de conserver une version stable du résultat pour consultation ou partage.
 
 \subsection{AI Recommendations}
 
-Les recommandations côté recruteur suivent une logique clairement \textit{rules-first}. Le système commence par comparer de manière déterministe les informations d'un poste et celles des candidats compatibles. Il met ainsi en avant des \textit{matched skills}, des \textit{missing skills}, un score d'adéquation et, lorsque c'est pertinent, certains signaux de risque.
+Le module de recommandations aide les recruteurs à identifier rapidement les candidats les plus adaptés à une offre. Il repose sur une analyse des compétences correspondantes, des compétences manquantes et du score d'adéquation entre le profil du candidat et le poste.
 
-Le point important est que le LLM ne classe pas les candidats. Le classement reste déterminé par la logique métier afin de conserver un résultat stable, traçable et explicable. L'appel IA intervient ensuite pour enrichir l'explication ou pour reformuler certaines synthèses de manière plus lisible. Cette séparation a été retenue pour éviter qu'une variation de génération modifie la décision de classement.
+Le classement des candidats est réalisé par la logique métier de la plateforme afin de garantir des résultats cohérents et explicables. L'intelligence artificielle intervient uniquement pour enrichir les résultats en générant des explications et des synthèses plus faciles à interpréter.
 
-Sur le plan technique, la requête de recommandation part généralement d'un identifiant d'offre. Le backend récupère les candidats associés ou éligibles, calcule les correspondances de compétences, prépare les écarts et construit un objet de résultat avant toute génération textuelle. Le service IA reçoit seulement le contexte nécessaire pour produire une justification lisible ; le score d'adéquation, le rang et les compétences rapprochées restent calculés par le système.
+Sur le plan technique, le backend analyse les données du poste et des candidats, calcule les indicateurs de correspondance puis transmet un contexte structuré au service IA. Les résultats peuvent être mis en cache ou traités de manière asynchrone afin d'améliorer les performances.
 
-Selon l'état de l'architecture, cette fonctionnalité s'appuie aussi sur du cache et sur une queue RabbitMQ. Le backend peut donc lancer le traitement, persister le job, laisser un worker effectuer le calcul en arrière-plan, puis permettre au frontend de récupérer le résultat lorsqu'il est prêt. Pour le recruteur, le bénéfice est concret : le tri initial devient plus rapide sans devenir opaque.
-
-Dans sa traduction fonctionnelle, le module ne se limite pas à signaler des profils proches d'une offre. Il doit aussi rendre possible un enchaînement d'actions. Une recommandation utile peut conduire à consulter le détail du score, à générer des questions personnalisées, à inviter le candidat à passer un test ou à déclencher un scénario de réengagement. Cette articulation explique pourquoi le module est placé au cœur du dashboard recruteur.
+Cette fonctionnalité ne se limite pas à recommander des profils. Elle permet également d'accéder à d'autres actions, comme la consultation du score explicable, la génération de questions personnalisées ou le lancement de scénarios de réengagement. Elle constitue ainsi un élément central du tableau de bord recruteur.
 
 \subsection{Skill Gap Roadmap}
 
-La roadmap de compétences se prête bien à une lecture CRISP-DM. La phase de \textit{Business Understanding} correspond ici au besoin d'aider le candidat à comprendre ses écarts face à un poste cible. La phase de \textit{Data Understanding} mobilise les données du candidat, le CV, le job visé et les compétences attendues. La phase de \textit{Data Preparation} consiste à normaliser ces compétences de façon à rendre la comparaison plus fiable et plus réutilisable.
+La \textit{Skill Gap Roadmap} aide le candidat à comprendre les écarts entre son profil et les compétences attendues pour un poste cible. Elle s'appuie sur les données du candidat, son CV, l'offre visée et les compétences requises.
 
-La détection des compétences manquantes reste ensuite déterministe. Le système compare ce que le candidat déclare ou démontre à ce que le poste requiert. Ce n'est qu'après cette étape que le LLM intervient, non pour inventer de l'expérience, mais pour générer un parcours de progression et des conseils pédagogiques. Cette différence est importante dans le projet, car elle permet de garder une base métier stable tout en offrant un résultat plus lisible.
+Le système compare d'abord les compétences disponibles avec celles demandées par le poste afin d'identifier les compétences maîtrisées et celles à développer. Cette étape reste déterministe pour garantir un résultat fiable et cohérent.
 
-La phase d'\textit{Evaluation} se traduit par une validation du JSON retourné, par des mécanismes de fallback et par un contrôle visant à limiter les hallucinations. Enfin, la phase de \textit{Deployment} correspond à l'affichage de la roadmap dans le frontend, à sa persistance dans candidate\_skill\_roadmaps, à sa mise en cache et au suivi du quota de génération.
+Après cette analyse, l'intelligence artificielle intervient pour générer une roadmap personnalisée. Celle-ci propose des étapes de progression, des priorités d'apprentissage et des recommandations pratiques adaptées au profil du candidat.
 
-L'appel au modèle se fait après la comparaison déterministe. Le payload transmis contient le poste cible, les compétences existantes, les compétences manquantes, le niveau estimé et les contraintes de format attendues. La réponse doit revenir sous une structure lisible par l'interface, avec des étapes, des priorités et des recommandations pratiques. Si la structure retournée ne respecte pas le format prévu, le backend peut revenir à une version plus simple fondée sur les écarts déjà détectés.
-
-La réalisation comprend également un point souvent utile dans un contexte de soutenance ou d'exploitation métier : la possibilité de consulter ou de générer un PDF associé à la roadmap. Cette sortie rend la fonctionnalité plus facilement partageable et confirme que la roadmap n'est pas seulement un écran dynamique, mais aussi un livrable exploitable dans le suivi candidat.
+Les résultats sont validés, puis enregistrés dans la table \texttt{candidate\_skill\_roadmaps}. La roadmap est ensuite affichée dans l'interface et peut être exportée au format PDF afin de faciliter son suivi et son partage.
 
 \subsection{Roadmap Chatbot RAG}
 
-Le chatbot lié à la roadmap agit comme un assistant candidat basé sur un contexte déjà connu du système : roadmap, compétences, job cible et historique des échanges. Dans \textit{HireCue}, le RAG reste volontairement léger et centré sur un contexte ancré dans les données de la plateforme. L'objectif n'est pas d'ouvrir une conversation générale, mais de fournir des réponses qui restent reliées au parcours déjà calculé.
+Le chatbot associé à la roadmap agit comme un assistant candidat contextualisé. Il s'appuie sur la roadmap générée, le poste cible, les compétences du candidat et l'historique récent des échanges. Cette approche reprend le principe du \textit{Retrieval-Augmented Generation} \cite{lewis_rag}, qui combine récupération de contexte et génération de réponse.
 
-Le service réutilise donc la roadmap comme socle d'interaction. Il peut aussi tenir compte du poste et du profil pour reformuler une étape, expliquer une recommandation ou préciser un manque de compétence. Des quotas et des mécanismes de fallback restent nécessaires, car la qualité d'une conversation contextuelle dépend autant de la génération que de la maîtrise des cas d'échec ou de surcharge.
+L'objectif du chatbot n'est pas de proposer une conversation générale, mais d'aider le candidat à comprendre sa roadmap, ses compétences manquantes et les étapes de progression recommandées. Les réponses restent donc liées aux données déjà présentes dans \textit{HireCue}.
 
-Lorsqu'un candidat pose une question, le backend récupère le message, la roadmap sauvegardée et une partie de l'historique de conversation. Ces éléments sont assemblés dans un contexte court afin d'éviter une réponse trop générale. La réponse générée est ensuite enregistrée dans candidate\_roadmap\_chat\_messages, ce qui permet de maintenir une continuité minimale entre les échanges sans charger inutilement tout l'historique.
+Lorsqu'une question est posée, le backend récupère la roadmap sauvegardée et une partie de l'historique de conversation, puis transmet ce contexte au service IA. La réponse générée est ensuite enregistrée dans \texttt{candidate\_roadmap\_chat\_messages}, ce qui permet de conserver une continuité entre les échanges tout en limitant la taille du contexte utilisé.
 
 \subsection{Questions personnalisées}
 
@@ -442,7 +411,7 @@ La suite du workflow dépend de l'acceptation de la connexion. Le système peut 
 
 \section{Module décisionnel Power BI}
 
-Le module décisionnel Power BI constitue la couche de Business Intelligence de \textit{HireCue}. Il complète les modules IA, les workflows \textit{n8n} et les automatisations par une lecture visuelle des données issues de MySQL. Son objectif n'est pas de remplacer les parcours applicatifs existants, mais de transformer les données opérationnelles de la plateforme en indicateurs lisibles pour les décideurs, les administrateurs et les responsables opérationnels.
+Cette section présente la réalisation de la couche décisionnelle intégrée au projet. Le module Power BI \cite{powerbi_docs} constitue la couche de Business Intelligence de \textit{HireCue}. Il complète les modules IA, les workflows \textit{n8n} et les automatisations par une lecture visuelle des données issues de MySQL. Son objectif n'est pas de remplacer les parcours applicatifs existants, mais de transformer les données opérationnelles de la plateforme en indicateurs lisibles pour les décideurs, les administrateurs et les responsables opérationnels.
 
 La réalisation de cette partie suit une logique proche de CRISP-DM. La compréhension métier correspond à l'identification du besoin décisionnel : suivre l'activité globale de \textit{HireCue}, mesurer les volumes de recrutement, observer l'usage de l'IA et surveiller certains indicateurs opérationnels. La compréhension des données porte ensuite sur les tables MySQL disponibles, tandis que la préparation est assurée avec Power Query. Les mesures DAX et les visualisations permettent enfin de construire les KPIs, puis d'évaluer la lisibilité et l'utilité des dashboards produits.
 
@@ -480,7 +449,7 @@ GRU & Modèle Deep Learning comparé à LSTM pour l'expérimentation prédictive
 
 \subsection{Connexion de Power BI à la base MySQL de HireCue}
 
-Power BI Desktop est connecté à la base MySQL de \textit{HireCue}. Les données exploitées proviennent donc du système réel de la plateforme et non d'un fichier isolé ou d'un export statique. Cette connexion permet de construire une couche analytique cohérente avec les parcours candidat, recruteur et administrateur, tout en évitant la saisie manuelle de données dans les dashboards.
+Power BI Desktop est connecté à la base MySQL \cite{mysql_docs} de \textit{HireCue}. Les données exploitées proviennent donc du système réel de la plateforme et non d'un fichier isolé ou d'un export statique. Cette connexion permet de construire une couche analytique cohérente avec les parcours candidat, recruteur et administrateur, tout en évitant la saisie manuelle de données dans les dashboards.
 
 Selon les données disponibles dans la base, les tables exploitées peuvent inclure notamment des tables métier comme \texttt{users}, \texttt{joblist}, \texttt{candidate\_job} et \texttt{Events}. Elles peuvent aussi comprendre, lorsque leur présence est confirmée dans le modèle, des tables de suivi ou d'analyse telles que \texttt{userLogs}, \texttt{LLMConsumptions}, \texttt{subscriptions}, \texttt{score\_reports} ou des tables équivalentes liées aux scores, aux entretiens, aux workflows et aux interactions. Cette formulation reste volontairement prudente, car le modèle analytique doit suivre les tables réellement présentes et les besoins de reporting validés.
 
@@ -497,7 +466,7 @@ La figure \ref{fig:powerbi_mysql_connection} illustre le principe de connexion e
 
 \subsection{Nettoyage et transformation avec Power Query}
 
-Après la connexion à MySQL, Power Query intervient comme phase de préparation des données avant la construction des visualisations. Cette étape correspond à la phase de préparation de CRISP-DM : elle transforme des données opérationnelles en données plus propres, plus lisibles et plus adaptées à l'analyse décisionnelle.
+Après la connexion à MySQL, Power Query \cite{powerquery_docs} intervient comme phase de préparation des données avant la construction des visualisations. Cette étape correspond à la phase de préparation de CRISP-DM : elle transforme des données opérationnelles en données plus propres, plus lisibles et plus adaptées à l'analyse décisionnelle.
 
 Les transformations réalisées peuvent comprendre le traitement des valeurs nulles, la correction des types de données, le formatage des dates, la normalisation des colonnes et le renommage de certains champs afin d'améliorer leur lisibilité dans les rapports. Les données non pertinentes pour l'analyse peuvent être filtrées, tandis que les colonnes nécessaires aux KPIs sont préparées ou vérifiées.
 
@@ -507,7 +476,7 @@ Power Query permet également de créer ou de vérifier les relations entre les 
 
 \subsection{Création des KPIs et mesures DAX}
 
-La construction des dashboards repose ensuite sur la création de KPIs à partir des données MySQL préparées avec Power Query. DAX est utilisé pour définir les mesures analytiques nécessaires aux cartes KPI, aux graphiques, aux entonnoirs et aux comparaisons dynamiques. Ces mesures permettent aux indicateurs de réagir aux filtres, aux périodes et aux dimensions sélectionnées dans Power BI.
+La construction des dashboards repose ensuite sur la création de KPIs à partir des données MySQL préparées avec Power Query. DAX \cite{dax_docs} est utilisé pour définir les mesures analytiques nécessaires aux cartes KPI, aux graphiques, aux entonnoirs et aux comparaisons dynamiques. Ces mesures permettent aux indicateurs de réagir aux filtres, aux périodes et aux dimensions sélectionnées dans Power BI.
 
 Les KPIs retenus ne reposent pas sur des chiffres ajoutés dans le rapport, mais sur les noms et familles d'indicateurs visibles dans les dashboards. Ils sont regroupés selon leur usage principal : pilotage stratégique, suivi IA / LLM, analyse du recrutement et supervision opérationnelle.
 
@@ -573,14 +542,7 @@ La figure \ref{fig:dashboard-product-operations} illustre la vue \textit{Product
 
 Une interface web a été créée afin d'afficher les dashboards Power BI directement depuis le navigateur. Les rapports sont intégrés dans l'application React / Node.js à l'aide d'une balise \texttt{iframe}. React gère l'interface utilisateur, l'organisation des vues et la navigation entre les dashboards, tandis que Node.js peut servir de support applicatif ou backend selon la structure retenue pour l'application.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{reactnode.jpg}
-    \caption{Architecture d'intégration des dashboards Power BI dans l'application React / Node.js}
-    \label{fig:powerbi_react_integration}
-\end{figure}
 
-La figure \ref{fig:powerbi_react_integration} illustre l'architecture d'intégration entre la couche web et les rapports Power BI. L'utilisation de l'\texttt{iframe} évite de reconstruire toutes les visualisations dans React : Power BI conserve son rôle de moteur de visualisation, tandis que l'application web assure l'accès et l'expérience de consultation.
 
 Cette solution permet d'afficher les rapports dans une interface unifiée et de naviguer entre \textit{Executive Overview} et \textit{Product \& Operations Analytics}, notamment à travers une sidebar dédiée. Elle simplifie le déploiement des tableaux de bord tout en conservant les capacités natives de filtrage, d'interaction et de visualisation offertes par Power BI.
 
@@ -604,68 +566,89 @@ La figure \ref{fig:ai-workforce-forecasting-overview} montre l'interface génér
     \label{fig:ai-workforce-forecasting-results}
 \end{figure}
 
-La figure \ref{fig:ai-workforce-forecasting-results} présente les résultats de prédiction associés à l'expérimentation. Le module compare deux modèles de séries temporelles, LSTM et GRU, afin d'observer leur comportement sur plusieurs indicateurs comme les jobs créés, les candidatures, le coût IA et le revenu proxy. Les courbes permettent de comparer les valeurs réelles avec les valeurs prédites.
+La figure \ref{fig:ai-workforce-forecasting-results} présente les résultats de prédiction associés à l'expérimentation. Le module compare deux modèles de séries temporelles, LSTM \cite{hochreiter_lstm} et GRU \cite{cho_gru}, afin d'observer leur comportement sur plusieurs indicateurs comme les jobs créés, les candidatures, le coût IA et le revenu proxy. Les courbes permettent de comparer les valeurs réelles avec les valeurs prédites.
 
 La comparaison des modèles repose sur des métriques d'évaluation classiques : MAE, RMSE et MAPE. La MAE mesure l'erreur moyenne absolue, la RMSE pénalise davantage les grandes erreurs et la MAPE exprime l'erreur relative en pourcentage. Le meilleur modèle est sélectionné selon les résultats observés. Cette brique ne remplace toutefois pas les KPIs décisionnels existants et ne doit pas être présentée comme un module totalement industrialisé. À ce stade, il s'agit d'une preuve de concept analytique qui nécessite davantage de données, de validation et d'évaluation avant un usage décisionnel complet.
 
 \section{Automatisation des workflows}
 
-Les workflows d'automatisation permettent à \textit{HireCue} d'aller au-delà des seuls parcours internes de candidature. Ils servent à sourcer, à importer, à nettoyer des données et, dans certains cas, à piloter des communications sans alourdir le backend principal.
+Cette section isole la partie automatisation afin de ne pas confondre les modules applicatifs avec les flux externes. Elle se concentre donc sur l'orchestration, le nettoyage, la déduplication, le suivi des statuts et la transmission des données entre \textit{HireCue}, \textit{n8n} et les services tiers.
 
 \subsection{Workflows pour le sourcing candidat}
 
-Le sourcing candidat a été pensé comme une orchestration en deux workflows. Le premier workflow est lancé lorsque le recruteur démarre une recherche. Le backend transmet alors les paramètres à \textit{n8n}, qui lance PhantomBuster et enregistre les informations utiles au suivi du run ou du conteneur. Cette première phase sert surtout à initialiser proprement la collecte sans immobiliser l'ensemble de la chaîne.
+Le sourcing candidat repose sur une orchestration progressive. Le recruteur saisit un critère de recherche, puis le backend transmet les paramètres utiles à \textit{n8n}. Le workflow lance alors PhantomBuster, conserve les informations de suivi du run et prépare la récupération des profils.
 
-Le second workflow s'exécute ensuite en arrière-plan. Il vérifie si PhantomBuster a terminé, récupère les résultats, applique les étapes de nettoyage, supprime les doublons, importe les profils exploitables dans la base et met à jour le statut du traitement. Cette séparation a été retenue parce qu'elle est plus fiable et plus maintenable qu'un workflow unique trop long. Elle simplifie aussi la gestion des erreurs et rend le suivi plus clair côté backend comme côté interface.
-
-Un point important de cette implémentation est l'entrée utilisateur. Le workflow peut être déclenché à partir d'un critère saisi par le recruteur, par exemple un intitulé comme \textit{Software Engineer}. Ce critère sert de point de départ à la recherche externe avant les étapes de nettoyage, de déduplication et de remontée vers le dashboard recruteur.
+Une phase de traitement séparée vérifie ensuite la fin de l'extraction, récupère les résultats, normalise les champs, supprime les doublons et renvoie au backend uniquement les profils exploitables. Cette séparation rend le flux plus lisible et évite qu'une collecte longue ou instable ne bloque directement l'expérience recruteur.
 
 \subsection{Scraping LinkedIn des profils}
 
-Le scénario de scraping LinkedIn repose sur PhantomBuster et sur des workflows capables de récupérer des profils correspondant à des critères de recherche définis par le recruteur. Lorsque l'agent le permet, des emails professionnels peuvent aussi être récupérés. Ces informations doivent ensuite être normalisées, car les champs externes restent hétérogènes et rarement directement compatibles avec la structure interne de \textit{HireCue}.
+Le scraping LinkedIn fournit des données utiles au sourcing, mais ces données ne sont pas directement considérées comme fiables. Les profils, titres, entreprises, localisations ou emails professionnels disponibles doivent être interprétés comme des informations externes à vérifier.
 
-Selon le workflow, les données peuvent transiter temporairement par un stockage intermédiaire, comme une feuille Google, ou être renvoyées plus directement vers le backend. Dans tous les cas, la qualité du résultat dépend de la combinaison entre extraction, filtrage et déduplication.
+Selon le scénario, les résultats peuvent transiter par un support intermédiaire ou être renvoyés vers le backend après traitement. L'enjeu principal reste la qualité du résultat final : seuls les profils suffisamment structurés et non dupliqués peuvent être affichés ou préparés pour une exploitation dans \textit{HireCue}.
 
 \subsection{Pipeline d'import des offres d'emploi LinkedIn}
 
-Le pipeline d'import des offres suit une logique similaire. Les offres extraites sont d'abord récupérées par un workflow, puis reformatées avant d'être mappées vers joblist. Le backend vérifie ensuite que les champs indispensables sont présents et que l'offre n'existe pas déjà à travers ses identifiants ou ses liens externes.
+Le pipeline d'import des offres suit la même logique de contrôle. Les offres récupérées depuis des sources externes sont reformattées, puis mappées vers la structure interne de \textit{HireCue}. Le backend vérifie ensuite la présence des champs indispensables et l'absence de doublons, notamment à partir des identifiants ou des liens externes.
 
 Ce mécanisme est important dans le projet, car il permet d'intégrer des offres dans \textit{HireCue} sans dupliquer des enregistrements déjà présents ni casser la cohérence du modèle métier. Dans une logique d'exploitation admin, ce workflow peut également être associé à des paramètres de recherche ou de sélection de source afin de piloter plus finement l'import des offres externes selon la plateforme ciblée.
 
 \subsection{Workflow d'envoi d'emails}
 
-Lorsqu'un workflow d'envoi est activé, il peut lire des leads, filtrer les emails valides, générer un contenu personnalisé et lancer l'envoi via Gmail. La mise à jour du statut d'envoi et la génération d'un résumé pour Slack ou pour un canal interne participent ensuite à la traçabilité de l'exécution.
+Les workflows d'envoi d'emails concernent principalement les scénarios d'outreach. Ils peuvent lire des leads, filtrer les emails valides, vérifier les doublons, préparer un contenu personnalisé et déclencher l'envoi via Gmail. La valeur du workflow dépend surtout de la traçabilité : chaque lead doit conserver un statut clair, par exemple préparé, envoyé, répondu, ignoré ou en échec.
 
-L'évolution ajoutée autour du CEO Email Outreach Tracking renforce cette traçabilité. Les leads extraits par PhantomBuster sont d'abord normalisés par \textit{n8n} puis stockés dans Google Sheets. Le workflow d'envoi vérifie ensuite le statut du lead, évite les doublons, envoie l'email via Gmail et appelle le backend afin d'enregistrer les événements importants. Un second workflow basé sur Gmail Trigger détecte les réponses, puis transmet ces informations au backend. Les données sont persistées dans MySQL et alimentent un dashboard administrateur présentant les KPIs de campagne, les taux de réponse, les statuts et l'activité récente.
+L'évolution autour du CEO Email Outreach Tracking renforce ce suivi. Les événements importants sont transmis au backend, persistés dans MySQL et affichés dans un dashboard administrateur. Un second workflow peut détecter les réponses via Gmail Trigger, puis mettre à jour l'historique. Cette logique reste volontairement cadrée : l'objectif n'est pas l'envoi massif, mais un pilotage par batch avec des statuts vérifiables.
 
-Cette logique doit rester strictement cadrée. Dans le contexte observé, l'intérêt n'est pas d'automatiser un envoi massif, mais de conserver un pilotage par batch et un suivi clair de ce qui a été préparé, envoyé ou écarté.
 \section{Difficultés rencontrées}
 
-L'intégration dans une plateforme déjà existante a constitué une première difficulté. Les nouveaux modules devaient s'inscrire dans des parcours frontend et backend déjà en place, sans casser la cohérence générale. L'approche retenue a donc été itérative : comprendre les structures existantes, isoler les nouvelles responsabilités dans des services dédiés, puis intégrer progressivement les retours dans les vues utilisateur.
+Au cours du développement des différentes fonctionnalités intégrées à la plateforme \textit{HireCue}, plusieurs difficultés techniques et organisationnelles ont été rencontrées. Ces contraintes ont nécessité la mise en place de solutions adaptées afin de garantir la stabilité, la performance et la cohérence globale du système.
 
-Une autre difficulté concerne la validation des sorties IA, en particulier lorsque le backend attend un format JSON exploitable. Une réponse textuelle peut paraître satisfaisante à la lecture et rester inutilisable si sa structure varie trop. La solution adoptée a combiné prompts plus contraints, validation de format, reprise éventuelle de la génération et fallback déterministe lorsque le résultat ne respecte pas les attentes minimales.
+\subsection{Intégration dans une plateforme existante}
 
-Les quotas IA et le coût des traitements ont également imposé des choix techniques. Sans cache ni persistance des sorties, certaines fonctionnalités auraient régénéré les mêmes résultats à chaque consultation. Le recours à des tables de cache, à des snapshots et à des logs de consommation a permis de limiter ces recalculs.
+L'une des principales difficultés concernait l'intégration de nouvelles fonctionnalités dans une plateforme déjà opérationnelle. Les modules développés devaient s'adapter à l'architecture frontend et backend existante sans perturber les fonctionnalités déjà en production.
 
-Les workflows \textit{n8n} et les intégrations PhantomBuster ont, eux aussi, soulevé des limites concrètes : disponibilité variable des emails, statut des conteneurs, échec de certains agents, restrictions externes et hétérogénéité des données extraites. Pour contenir ces risques, l'architecture a isolé les traitements externes dans des workflows séparés et a renforcé les étapes de normalisation, de déduplication et de contrôle d'état.
+Pour répondre à cette contrainte, une approche progressive a été adoptée consistant à analyser les composants existants, isoler les nouvelles responsabilités dans des services dédiés et intégrer les fonctionnalités de manière incrémentale.
 
-Dans ce contexte, une comparaison entre PhantomBuster et UniPile apporte un éclairage utile. Ces deux outils ne répondent pas exactement aux mêmes besoins. PhantomBuster est plus adapté au scraping LinkedIn, à l'extraction de données, au sourcing de profils et à l'enrichissement de leads. UniPile est plus pertinent pour des usages API reliés à la messagerie LinkedIn, à la publication de contenus, au suivi des conversations et à des intégrations plus structurées. Le choix de l'outil dépend donc du type de workflow recherché : extraction de données ou interaction API.
+\subsection{Validation des sorties des modèles d'IA}
 
-Pour le workflow d'import d'offres externes, PhantomBuster reste pertinent lorsqu'il s'agit de récupérer des offres LinkedIn dans une logique d'extraction. En revanche, pour d'autres plateformes, des APIs externes plus fiables peuvent constituer une meilleure base technique. Dans ce flux précis, UniPile n'apparaît pas comme un composant indispensable.
+Certaines fonctionnalités reposent sur des modèles d'intelligence artificielle produisant des réponses au format JSON. Une réponse correcte sur le plan textuel peut néanmoins être inutilisable si sa structure ne respecte pas le format attendu par le backend.
 
-Pour le workflow de scraping de CEO ou de propriétaires suivi d'un email outreach, PhantomBuster reste également plus adapté. Il facilite l'extraction et l'enrichissement de profils LinkedIn, tandis que l'envoi d'email peut rester orchestré par \textit{n8n} et Gmail. Ce choix demeure plus simple à intégrer et plus scalable dans un scénario orienté prospection externe.
+Afin d'assurer la fiabilité des traitements, plusieurs mécanismes ont été mis en place : prompts contraints, validation de schéma, régénération automatique en cas d'erreur et fallback déterministe lorsque la réponse ne respecte pas les exigences minimales.
 
-En revanche, pour un workflow centré sur l'envoi de messages LinkedIn à des CEOs, UniPile constitue une piste plus solide. Il est mieux adapté à la messagerie LinkedIn, permet un meilleur suivi des réponses et facilite la synchronisation des conversations. Il devient donc préférable lorsque l'objectif principal n'est plus l'extraction de données, mais l'interaction suivie avec les leads.
+\subsection{Gestion des coûts et des quotas IA}
 
-La même logique s'applique aux workflows de publication. Pour la publication LinkedIn au sens large, UniPile s'inscrit davantage dans une architecture API-first. Il s'intègre plus proprement avec \textit{n8n} lorsque le besoin porte sur la publication ou la synchronisation de contenus. Pour la publication d'offres LinkedIn en particulier, UniPile reste plus adapté à un flux sortant stable, alors que PhantomBuster demeure plus orienté scraping navigateur.
+L'utilisation de services d'intelligence artificielle implique des contraintes liées au temps de calcul et à la consommation de ressources.
 
-La difficulté principale n'a donc pas été de designer un unique outil comme solution universelle, mais de choisir le bon composant selon la nature du workflow. Pour les flux d'extraction, PhantomBuster reste pertinent. Pour les flux d'interaction LinkedIn, notamment l'envoi de messages à des CEO ou founders et la publication d'offres, UniPile apparaît plus approprié. Cette lecture montre que l'automatisation dépend autant de la structure du flux que de l'outil mobilisé.
+Pour limiter les appels inutiles aux modèles, un système de cache, de snapshots et de journalisation des consommations a été mis en œuvre. Cette approche permet de réutiliser les résultats déjà générés et d'améliorer les performances globales de la plateforme.
 
-Ainsi, PhantomBuster et UniPile ne sont pas concurrents dans tous les cas. Ils sont plutôt complémentaires dans l'architecture \textit{HireCue} : le premier pour collecter et enrichir des données, le second pour gérer des interactions LinkedIn plus structurées.
+\subsection{Fiabilité des workflows automatisés}
 
-La performance du backend est devenue un autre point de vigilance pour les recommandations et certains jobs de réengagement. Un traitement synchrone intégral aurait rapidement dégradé l'expérience utilisateur. L'introduction de RabbitMQ, d'un polling frontend et d'une logique de job en arrière-plan a permis de garder des interfaces réactives tout en supportant des calculs plus lourds.
+Les workflows \textit{n8n} et certaines intégrations externes ont présenté plusieurs défis, notamment la variabilité des données récupérées, les erreurs d'exécution, les limitations imposées par certaines plateformes et l'hétérogénéité des formats de données.
 
-Enfin, la cohérence frontend/backend a demandé une attention continue. Une fonctionnalité techniquement correcte côté service reste difficile à exploiter si les statuts, les formats de retour ou les cas d'erreur ne sont pas bien restitués dans l'interface. Ce travail d'alignement a été un point transversal tout au long du stage.
+Pour améliorer la robustesse de ces traitements, les workflows ont été isolés dans des processus dédiés intégrant des mécanismes de normalisation, de déduplication et de contrôle d'état.
+
+\subsection{Choix des outils d'automatisation LinkedIn}
+
+Le projet a nécessité l'utilisation de plusieurs outils spécialisés pour automatiser les interactions avec LinkedIn.
+
+\textbf{PhantomBuster} s'est révélé particulièrement adapté aux tâches de scraping, de sourcing de candidats, d'extraction de profils et d'enrichissement de données. Il a notamment été utilisé pour la récupération de profils LinkedIn, le scraping de CEO et l'import d'offres externes.
+
+À l'inverse, \textbf{UniPile} est davantage orienté communication et intégration API. Il facilite la gestion des messages LinkedIn, le suivi des conversations ainsi que la publication de contenus.
+
+Cette complémentarité a conduit à adopter une architecture hybride où chaque outil est utilisé selon ses points forts plutôt que comme une solution universelle.
+
+\subsection{Performance et traitements asynchrones}
+
+Certaines fonctionnalités, telles que les recommandations intelligentes ou les campagnes de réengagement, nécessitent des traitements relativement coûteux.
+
+Une exécution entièrement synchrone aurait dégradé l'expérience utilisateur. Pour éviter ce problème, une architecture asynchrone reposant sur RabbitMQ, des tâches en arrière-plan et un mécanisme de polling côté frontend a été mise en place.
+
+Cette approche permet de conserver une interface réactive tout en exécutant des calculs plus complexes en arrière-plan.
+
+\subsection{Cohérence entre le frontend et le backend}
+
+Enfin, le maintien de la cohérence entre les services backend et les interfaces utilisateur a constitué un défi permanent.
+
+Chaque fonctionnalité devait garantir une gestion homogène des statuts, des formats de réponse et des erreurs afin d'assurer une expérience utilisateur fluide et compréhensible. Ce travail d'alignement a accompagné l'ensemble des développements réalisés durant le stage.
 
 \section{Conclusion}
 

@@ -15,6 +15,13 @@
 \IfFileExists{colortbl.sty}{}{\providecommand{\rowcolor}[1]{}}
 
 \usepackage[hidelinks]{hyperref}
+\usepackage[french]{babel}
+
+\addto\captionsfrench{
+    \renewcommand{\contentsname}{Table des matières}
+    \renewcommand{\listfigurename}{Liste des figures}
+    \renewcommand{\listtablename}{Liste des tableaux}
+}
 \hypersetup{
     colorlinks=false,
     pdfborder={0 0 0},
@@ -52,30 +59,10 @@
 \hypersetup{pageanchor=false}
 
 \begin{titlepage}
-    \centering
-    \vspace*{1.5cm}
-
-    {\Large R\'epublique Tunisienne\par}
-    \vspace{0.3cm}
-    {\large Minist\`ere de l'Enseignement Sup\'erieur et de la Recherche Scientifique\par}
-    \vspace{0.3cm}
-    {\large Rapport de Projet de Fin d'\'Etudes\par}
-    \vspace{2cm}
 
     {\Huge\bfseries HireCue\par}
     \vspace{0.4cm}
-    {\LARGE Plateforme de recrutement intelligente bas\'ee sur l'IA\par}
-    \vspace{2cm}
-
-    \begin{tabular}{>{\bfseries}p{5cm}p{8cm}}
-        Organisme d'accueil : & Teligencia Labs \\
-        Nature du document : & Rapport PFE niveau ing\'enieur \\
-        Theme : & Intelligence artificielle appliqu\'ee au recrutement \\
-    \end{tabular}
-
-    \vfill
-    {\large Ann\'ee universitaire 2025--2026\par}
-    {\large Ann\'ee universitaire 2025--2026\par}
+    
 \end{titlepage}
 
 \thispagestyle{empty}
@@ -131,22 +118,20 @@ REST & Representational State Transfer \\
 \hline
 SaaS & Software as a Service \\
 \hline
-Scrum & Methodologie agile de gestion de projet \\
+Scrum & Méthodologie agile de gestion de projet \\
 \hline
 UML & Unified Modeling Language \\
 \hline
-Webhook & Point d'appel HTTP declenchant automatiquement un workflow \\
+Webhook & Point d'appel HTTP déclenchant automatiquement un workflow \\
 \hline
 \end{tabular}
 \end{table}
-\newpage
-Le recrutement conna\^it aujourd'hui une transformation importante sous l'effet de la num\'erisation des processus et de l'usage croissant de l'intelligence artificielle. Dans les organisations confront\'ees \`a un volume \'elev\'e de candidatures, il ne suffit plus de diffuser des offres et de centraliser des CV. L'enjeu devient aussi de mieux exploiter les donn\'ees disponibles, de r\'eduire le temps consacr\'e au tri manuel et d'am\'eliorer la lecture des profils avant la prise de d\'ecision.
 \chapter*{Introduction G\'en\'erale}
 Dans cette perspective, le projet \textit{HireCue} s'inscrit dans l'\'evolution d'une plateforme de recrutement intelligente d\'ej\`a existante. Le travail men\'e pendant le stage ne concerne pas uniquement l'automatisation de certaines t\^aches. Il r\'epond aussi \`a un besoin concret de clart\'e dans l'interpr\'etation des scores, de personnalisation du suivi candidat et d'assistance plus directe au recruteur. La question pos\'ee est donc celle de l'\'evolution d'une plateforme de recrutement vers une solution plus intelligente, plus structur\'ee et plus utile en contexte r\'eel, sans perdre en coh\'erence technique ni en fiabilit\'e.
 
-Le travail r\'ealis\'e dans le cadre de ce projet de fin d'\'etudes porte notamment sur le rapport de score explicable, les recommandations IA c\^ot\'e recruteur, la roadmap de comp\'etences, le chatbot RAG ainsi que plusieurs automatisations via \textit{n8n}. Ces \'evolutions ont \'et\'e engag\'ees pour mieux exploiter les donn\'ees d\'ej\`a pr\'esentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide \`a la d\'ecision sans remplacer l'appr\'eciation humaine.
+Le travail r\'ealis\'e dans le cadre de ce projet de fin d'\'etudes porte notamment sur le rapport de score explicable, les recommandations IA c\^ot\'e recruteur, la roadmap de comp\'etences ainsi que plusieurs automatisations via \textit{n8n}. Ces \'evolutions ont \'et\'e engag\'ees pour mieux exploiter les donn\'ees d\'ej\`a pr\'esentes dans la plateforme, rendre les parcours plus lisibles et renforcer l'aide \`a la d\'ecision sans remplacer l'appr\'eciation humaine.
 
-Le pr\'esent rapport est organis\'e en plusieurs chapitres compl\'ementaires. Le premier chapitre pose le cadre du projet, introduit l'organisme d'accueil et replace \textit{HireCue} dans son contexte m\'etier et technique. Le deuxi\`eme chapitre pr\'ecise les besoins, l'architecture globale et les outils mobilis\'es. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la r\'ealisation et les r\'esultats obtenus autour de l'\'evolution de la plateforme.
+Le pr\'esent rapport est organis\'e en plusieurs chapitres compl\'ementaires. Le premier chapitre pose le cadre du projet. Le deuxi\`eme chapitre pr\'ecise les besoins, l'architecture globale et les outils mobilis\'es. Les chapitres suivants prolongent cette lecture en approfondissant la conception, la r\'ealisation et les r\'esultats obtenus autour de l'\'evolution de la plateforme.
 
 \newpage
 \pagenumbering{arabic}
@@ -158,5 +143,83 @@ Le pr\'esent rapport est organis\'e en plusieurs chapitres compl\'ementaires. Le
 \input{Chapitre2}
 \input{Chapitre3}
 \input{Chapitre4}
+\input{chapitre5}
+\input{ConclusionGenerale}
+
+
+
+\cleardoublepage
+\renewcommand{\bibname}{Bibliographie}
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliographie}
+\begin{thebibliography}{99}
+
+\bibitem{scrumguide}
+K. Schwaber and J. Sutherland, ``The Scrum Guide,'' 2020. [Online]. Available: \url{https://scrumguides.org/scrum-guide.html}
+
+\bibitem{anderson_kanban}
+D. J. Anderson, \textit{Kanban: Successful Evolutionary Change for Your Technology Business}. Blue Hole Press, 2010.
+
+\bibitem{royce_waterfall}
+W. W. Royce, ``Managing the Development of Large Software Systems,'' in \textit{Proc. IEEE WESCON}, 1970.
+
+\bibitem{crispdm}
+P. Chapman et al., \textit{CRISP-DM 1.0: Step-by-step Data Mining Guide}. SPSS, 2000.
+
+\bibitem{sas_semma}
+SAS Institute, ``SEMMA data mining methodology.'' [Online]. Available: \url{https://support.sas.com/}
+
+\bibitem{fayyad_kdd}
+U. Fayyad, G. Piatetsky-Shapiro, and P. Smyth, ``From Data Mining to Knowledge Discovery in Databases,'' \textit{AI Magazine}, vol. 17, no. 3, pp. 37--54, 1996.
+
+\bibitem{omg_uml}
+Object Management Group, ``Unified Modeling Language specification.'' [Online]. Available: \url{https://www.omg.org/spec/UML/}
+
+\bibitem{booch_uml}
+G. Booch, J. Rumbaugh, and I. Jacobson, \textit{The Unified Modeling Language User Guide}. Addison-Wesley, 1999.
+
+\bibitem{react_docs}
+Meta, ``React documentation.'' [Online]. Available: \url{https://react.dev/}
+
+\bibitem{node_docs}
+OpenJS Foundation, ``Node.js documentation.'' [Online]. Available: \url{https://nodejs.org/en/docs}
+
+\bibitem{mysql_docs}
+Oracle, ``MySQL documentation.'' [Online]. Available: \url{https://dev.mysql.com/doc/}
+
+\bibitem{powerbi_docs}
+Microsoft, ``Power BI documentation.'' [Online]. Available: \url{https://learn.microsoft.com/power-bi/}
+
+\bibitem{powerquery_docs}
+Microsoft, ``Power Query documentation.'' [Online]. Available: \url{https://learn.microsoft.com/power-query/}
+
+\bibitem{dax_docs}
+Microsoft, ``Data Analysis Expressions (DAX) reference.'' [Online]. Available: \url{https://learn.microsoft.com/dax/}
+
+\bibitem{n8n_docs}
+n8n GmbH, ``n8n documentation.'' [Online]. Available: \url{https://docs.n8n.io/}
+
+\bibitem{phantombuster_docs}
+PhantomBuster, ``PhantomBuster help center.'' [Online]. Available: \url{https://support.phantombuster.com/}
+
+\bibitem{unipile_docs}
+UniPile, ``UniPile API documentation.'' [Online]. Available: \url{https://docs.unipile.com/}
+
+\bibitem{flask_docs}
+Pallets, ``Flask documentation.'' [Online]. Available: \url{https://flask.palletsprojects.com/}
+
+\bibitem{hochreiter_lstm}
+S. Hochreiter and J. Schmidhuber, ``Long Short-Term Memory,'' \textit{Neural Computation}, vol. 9, no. 8, pp. 1735--1780, 1997.
+
+\bibitem{cho_gru}
+K. Cho et al., ``Learning Phrase Representations using RNN Encoder--Decoder for Statistical Machine Translation,'' in \textit{Proc. EMNLP}, 2014.
+
+\bibitem{lewis_rag}
+P. Lewis et al., ``Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,'' in \textit{Advances in Neural Information Processing Systems}, 2020.
+
+\bibitem{vaswani_transformer}
+A. Vaswani et al., ``Attention Is All You Need,'' in \textit{Advances in Neural Information Processing Systems}, 2017.
+
+\end{thebibliography}
 
 \end{document}

@@ -1,25 +1,29 @@
+\babel@toc {french}{}\relax 
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {1.1}{\ignorespaces Fiche d'information de l'entreprise d'accueil}}{2}{table.1.1}%
-\contentsline {table}{\numberline {1.2}{\ignorespaces Comparaison entre TanitJobs, Keejob et HireCue}}{7}{table.1.2}%
-\contentsline {table}{\numberline {1.3}{\ignorespaces Comparaison des méthodologies de développement logiciel}}{12}{table.1.3}%
-\contentsline {table}{\numberline {1.4}{\ignorespaces Comparaison des méthodologies IA et data science}}{14}{table.1.4}%
-\contentsline {table}{\numberline {1.5}{\ignorespaces Méthodologies adoptées selon les domaines du projet}}{16}{table.1.5}%
+\contentsline {table}{\numberline {1.2}{\ignorespaces Comparaison entre TanitJobs, Keejob et HireCue}}{6}{table.1.2}%
+\contentsline {table}{\numberline {1.3}{\ignorespaces Comparaison des méthodologies de développement logiciel}}{11}{table.1.3}%
+\contentsline {table}{\numberline {1.4}{\ignorespaces Comparaison des méthodologies IA et data science}}{13}{table.1.4}%
+\contentsline {table}{\numberline {1.5}{\ignorespaces Méthodologies adoptées selon les domaines du projet}}{15}{table.1.5}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Identification des acteurs du système}}{22}{table.2.1}%
-\contentsline {table}{\numberline {2.2}{Backlog produit du projet HireCue}}{25}{table.2.2}%
-\contentsline {table}{\numberline {2.3}{Logiciels utilisés dans le projet}}{38}{table.2.3}%
-\contentsline {table}{\numberline {2.4}{Technologies utilisées dans le projet}}{39}{table.2.4}%
-\contentsline {table}{\numberline {2.5}{\ignorespaces Environnement matériel utilisé}}{42}{table.2.5}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Identification des acteurs du système}}{20}{table.2.1}%
+\contentsline {table}{\numberline {2.2}{Backlog produit du projet HireCue}}{23}{table.2.2}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Planification des sprints du projet HireCue}}{30}{table.2.3}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Chronologie logique de réalisation du projet HireCue}}{31}{table.2.4}%
+\contentsline {table}{\numberline {2.5}{Logiciels utilisés dans le projet}}{37}{table.2.5}%
+\contentsline {table}{\numberline {2.6}{Technologies utilisées dans le projet}}{39}{table.2.6}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces Environnement matériel utilisé}}{41}{table.2.7}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Technologies utilisées dans le module décisionnel Power BI}}{71}{table.3.1}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Familles de KPIs exploitées dans les dashboards Power BI}}{74}{table.3.2}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Technologies utilisées dans le module décisionnel Power BI}}{66}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Familles de KPIs exploitées dans les dashboards Power BI}}{69}{table.3.2}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Axes de validation retenus pour le projet HireCue}}{85}{table.4.1}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Scenario de test du parcours candidat}}{86}{table.4.2}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Scenario de test du parcours recruteur}}{88}{table.4.3}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Scenario de test du parcours administrateur}}{89}{table.4.4}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Validation des workflows automatisés}}{93}{table.4.5}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Validation du scénario décisionnel Power BI}}{94}{table.4.6}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Synthèse des résultats expérimentaux observés}}{118}{table.4.7}%
-\contentsline {table}{\numberline {4.8}{\ignorespaces Evaluation qualitative des performances}}{121}{table.4.8}%
-\contentsline {table}{\numberline {4.9}{\ignorespaces Evaluation des modules IA selon une lecture CRISP-DM}}{125}{table.4.9}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Axes de validation retenus pour le projet HireCue}}{79}{table.4.1}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Scénario de test du parcours candidat}}{80}{table.4.2}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Scénario de test du parcours recruteur}}{82}{table.4.3}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Scénario de test du parcours administrateur}}{83}{table.4.4}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Validation des workflows automatisés}}{87}{table.4.5}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Validation du scénario décisionnel Power BI}}{88}{table.4.6}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Synthèse des résultats expérimentaux observés}}{114}{table.4.7}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Évaluation qualitative des performances}}{119}{table.4.8}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Évaluation des modules IA selon une lecture CRISP-DM}}{123}{table.4.9}%
+\addvspace {10\p@ }
